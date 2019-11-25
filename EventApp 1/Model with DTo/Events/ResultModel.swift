@@ -8,15 +8,15 @@
 
 import Foundation
 
-public struct ResultModel {
+public struct Result {
     
     public var title: String
     public var shortTitle: String
     public var bodyText: String
     public var price: String
-    public var dates: [Date]
+    public var dates: Date
     public var place: Place
-    public var images: [Image]
+    public var image: Image
     
     
     var dto: ResultDTO {
@@ -25,9 +25,9 @@ public struct ResultModel {
         dto.shortTitle = shortTitle
         dto.bodyText = bodyText
         dto.price = price
-//        dto.dates = dates
+        dto.dates = [dates.dto]
         dto.place = place.dto
-//        dto.images = images
+        dto.images = [image.dto]
         return dto
     }
     
@@ -36,8 +36,8 @@ public struct ResultModel {
         shortTitle = dto.shortTitle ?? "Без описания"
         bodyText = dto.bodyText ?? ""
         price = dto.price ?? "0000"
-//        dates = dto.d
-        place = dto.place
+        dates = Date(dto:(dto.dates![0]))
+        place = Place(dto: dto.place!)
+        image = Image(dto: dto.images![0])
     }
-
 }

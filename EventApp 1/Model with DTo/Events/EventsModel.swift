@@ -17,7 +17,7 @@ struct EventsModel {
 }
 
 // MARK: - Result
-public struct Result {
+public struct Result1 {
     let title: String
     let bodyText, price: String
     let dates: [DateElement]

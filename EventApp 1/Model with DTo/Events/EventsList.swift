@@ -14,16 +14,11 @@ struct EventsList {
     var previous: String
     var results: [Result]
     
-    var dto: EventsListDTO {
-        var dto = EventsListDTO()
-//        dto.results =
-        return dto
-    }
     
     init(dto: EventsListDTO) {
         count = dto.count ?? 0
         next = dto.next ?? ""
         previous = dto.previous ?? ""
-        results = dto.results ?? ""
+        results = [ResultModel(dto: dto.results)]
     }
 }
