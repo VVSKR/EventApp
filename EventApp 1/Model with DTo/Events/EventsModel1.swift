@@ -9,25 +9,25 @@
 import Foundation
 
 // MARK: - Welcome
-struct EventsModel {
+struct EventsModel1 {
     let count: Int
     let next: String
     let previous: String
-    let results: [Result]
+    let results: [Result1]
 }
 
 // MARK: - Result
 public struct Result1 {
     let title: String
     let bodyText, price: String
-    let dates: [DateElement]
-    let place: Place?
-    let images: [Image]
+    let dates: [DateElement1]
+    let place: Place1?
+    let images: [Image1]
     let shortTitle: String
 }
 
 // MARK: - DateElement
-struct DateElement {
+struct DateElement1 {
     let startDate: String?
     let startTime: String?
 }

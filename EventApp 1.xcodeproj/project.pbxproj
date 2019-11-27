@@ -28,7 +28,7 @@
 		F1EFDABD2389F64700C95690 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EFDABC2389F64700C95690 /* NetworkService.swift */; };
 		F1EFDABF238A7B4D00C95690 /* AllEventsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EFDABE238A7B4D00C95690 /* AllEventsCell.swift */; };
 		F1EFDAC1238ACC0200C95690 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EFDAC0238ACC0200C95690 /* CustomLabel.swift */; };
-		F1EFDAC6238B29D400C95690 /* EventsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EFDAC5238B29D400C95690 /* EventsModel.swift */; };
+		F1EFDAC6238B29D400C95690 /* EventsModel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EFDAC5238B29D400C95690 /* EventsModel1.swift */; };
 		F1EFDACA238BF31400C95690 /* EventsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EFDAC9238BF31400C95690 /* EventsList.swift */; };
 		F1EFDACC238BF33A00C95690 /* EventsListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EFDACB238BF33A00C95690 /* EventsListDTO.swift */; };
 		F1EFDACE238BF39B00C95690 /* ResultDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EFDACD238BF39B00C95690 /* ResultDTO.swift */; };
@@ -39,6 +39,9 @@
 		F1EFDAD9238BF9D900C95690 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EFDAD8238BF9D900C95690 /* ImageModel.swift */; };
 		F1EFDADB238BFA7C00C95690 /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EFDADA238BFA7C00C95690 /* DateModel.swift */; };
 		F1EFDADD238BFB2600C95690 /* ResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EFDADC238BFB2600C95690 /* ResultModel.swift */; };
+		F1F2A98A238D17FF0006D948 /* EventsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2A989238D17FE0006D948 /* EventsModel.swift */; };
+		F1F2A98D238D23270006D948 /* LoadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2A98C238D23270006D948 /* LoadImage.swift */; };
+		F1F2A98F238EB1600006D948 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2A98E238EB1600006D948 /* ImageService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,7 +68,7 @@
 		F1EFDABC2389F64700C95690 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		F1EFDABE238A7B4D00C95690 /* AllEventsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEventsCell.swift; sourceTree = "<group>"; };
 		F1EFDAC0238ACC0200C95690 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
-		F1EFDAC5238B29D400C95690 /* EventsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsModel.swift; sourceTree = "<group>"; };
+		F1EFDAC5238B29D400C95690 /* EventsModel1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsModel1.swift; sourceTree = "<group>"; };
 		F1EFDAC9238BF31400C95690 /* EventsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsList.swift; sourceTree = "<group>"; };
 		F1EFDACB238BF33A00C95690 /* EventsListDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListDTO.swift; sourceTree = "<group>"; };
 		F1EFDACD238BF39B00C95690 /* ResultDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultDTO.swift; sourceTree = "<group>"; };
@@ -76,6 +79,9 @@
 		F1EFDAD8238BF9D900C95690 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		F1EFDADA238BFA7C00C95690 /* DateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
 		F1EFDADC238BFB2600C95690 /* ResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultModel.swift; sourceTree = "<group>"; };
+		F1F2A989238D17FE0006D948 /* EventsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsModel.swift; sourceTree = "<group>"; };
+		F1F2A98C238D23270006D948 /* LoadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadImage.swift; sourceTree = "<group>"; };
+		F1F2A98E238EB1600006D948 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,8 +120,10 @@
 				F1EFDABB2389F2B000C95690 /* RootVC */,
 				F1EFDABA2389F2A000C95690 /* TabBar */,
 				F1EFDAAE2389823400C95690 /* MainVC.swift */,
-				F1EFDAC7238BF2BE00C95690 /* Model */,
+				F1EFDAC7238BF2BE00C95690 /* Model with DTo */,
 				F1EFDABC2389F64700C95690 /* NetworkService.swift */,
+				F1F2A98E238EB1600006D948 /* ImageService.swift */,
+				F1F2A98B238D181B0006D948 /* Model */,
 				F1ECBDF2238890C700BB89A9 /* UserDefaults.swift */,
 				F1ECBDF02388901F00BB89A9 /* LoginVC.swift */,
 				F1EFDAC4238B25DB00C95690 /* Extension */,
@@ -163,16 +171,17 @@
 			children = (
 				F1ECBDEB2388837C00BB89A9 /* UIColor.swift */,
 				F1EFDAC0238ACC0200C95690 /* CustomLabel.swift */,
+				F1F2A98C238D23270006D948 /* LoadImage.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		F1EFDAC7238BF2BE00C95690 /* Model */ = {
+		F1EFDAC7238BF2BE00C95690 /* Model with DTo */ = {
 			isa = PBXGroup;
 			children = (
 				F1EFDAC8238BF2CE00C95690 /* Events */,
 			);
-			path = Model;
+			path = "Model with DTo";
 			sourceTree = "<group>";
 		};
 		F1EFDAC8238BF2CE00C95690 /* Events */ = {
@@ -184,7 +193,7 @@
 				F1EFDADA238BFA7C00C95690 /* DateModel.swift */,
 				F1EFDAD8238BF9D900C95690 /* ImageModel.swift */,
 				F1EFDAD6238BF7BB00C95690 /* PlaceModel.swift */,
-				F1EFDAC5238B29D400C95690 /* EventsModel.swift */,
+				F1EFDAC5238B29D400C95690 /* EventsModel1.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -199,6 +208,14 @@
 				F1EFDAD4238BF49D00C95690 /* PlaceDTO.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		F1F2A98B238D181B0006D948 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F1F2A989238D17FE0006D948 /* EventsModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,18 +296,21 @@
 				F1EFDAB123898C6B00C95690 /* MainTabBarController.swift in Sources */,
 				F1EFDABF238A7B4D00C95690 /* AllEventsCell.swift in Sources */,
 				F1E1CF5C23880CBC00A18845 /* ViewController.swift in Sources */,
+				F1F2A98F238EB1600006D948 /* ImageService.swift in Sources */,
 				F1EFDADD238BFB2600C95690 /* ResultModel.swift in Sources */,
 				F1EFDACE238BF39B00C95690 /* ResultDTO.swift in Sources */,
 				F1EFDADB238BFA7C00C95690 /* DateModel.swift in Sources */,
 				F1EFDABD2389F64700C95690 /* NetworkService.swift in Sources */,
 				F1EFDACC238BF33A00C95690 /* EventsListDTO.swift in Sources */,
+				F1F2A98D238D23270006D948 /* LoadImage.swift in Sources */,
 				F1ECBDEA238823F800BB89A9 /* Page.swift in Sources */,
-				F1EFDAC6238B29D400C95690 /* EventsModel.swift in Sources */,
+				F1EFDAC6238B29D400C95690 /* EventsModel1.swift in Sources */,
 				F1EFDAB523898DC800C95690 /* FavoriteEventsVC.swift in Sources */,
 				F1EFDAD1238BF46800C95690 /* DateDTO.swift in Sources */,
 				F1EFDAAF2389823400C95690 /* MainVC.swift in Sources */,
 				F1EFDAD7238BF7BB00C95690 /* PlaceModel.swift in Sources */,
 				F1EFDAB923898E0E00C95690 /* SearchVC.swift in Sources */,
+				F1F2A98A238D17FF0006D948 /* EventsModel.swift in Sources */,
 				F1EFDACA238BF31400C95690 /* EventsList.swift in Sources */,
 				F1E1CF7123880CF800A18845 /* WelcomeCell.swift in Sources */,
 				F1ECBDF12388901F00BB89A9 /* LoginVC.swift in Sources */,

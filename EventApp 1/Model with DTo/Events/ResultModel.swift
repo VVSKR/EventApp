@@ -14,9 +14,10 @@ public struct Result {
     public var shortTitle: String
     public var bodyText: String
     public var price: String
-    public var dates: Date
-    public var place: Place
-    public var image: Image
+    
+//    public var dates: Date
+//    public var place: Place
+//    public var image: Image
     
     
     var dto: ResultDTO {
@@ -25,9 +26,9 @@ public struct Result {
         dto.shortTitle = shortTitle
         dto.bodyText = bodyText
         dto.price = price
-        dto.dates = [dates.dto]
-        dto.place = place.dto
-        dto.images = [image.dto]
+//        dto.dates = [dates.dto]
+//        dto.place = place.dto
+//        dto.images = [image.dto]
         return dto
     }
     
@@ -36,8 +37,8 @@ public struct Result {
         shortTitle = dto.shortTitle ?? "Без описания"
         bodyText = dto.bodyText ?? ""
         price = dto.price ?? "0000"
-        dates = Date(dto:(dto.dates![0]))
-        place = Place(dto: dto.place!)
-        image = Image(dto: dto.images![0])
+//        dates = Date(dto:(dto.dates![0]))
+//        place = Place(dto: dto.place!)
+//        image = Image(dto: dto.images![0])
     }
 }

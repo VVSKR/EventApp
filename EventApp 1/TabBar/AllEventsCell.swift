@@ -13,12 +13,13 @@ class AllEventsCell: UITableViewCell {
     static let reuseId = "allEventsCell"
     
     public let eventView = UIView()
-    private let backgroundImage = UIImageView()
-    
+    let backgroundImage = UIImageView()
+    var mainImage = String()
     private let headerLabel = UILabel.tableViewLabel(with: .boldSystemFont(ofSize: 20))
     private let bodyLabel = UILabel.tableViewLabel(with: .systemFont(ofSize: 18))
-    private let addressLabel = UILabel.tableViewLabel(with: .systemFont(ofSize: 18))
+    private let dateLabel = UILabel.tableViewLabel(with: .systemFont(ofSize: 18))
     private let categoryLabel = UILabel.tableViewLabel(with: .systemFont(ofSize: 16))
+    
     
     private let cornerRadius: CGFloat = 20
     private var stackView: UIStackView!
@@ -39,6 +40,20 @@ class AllEventsCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func set(value: ResultModel) {
+        let url = URL(string: value.images[0].thumbnails.the640X384!)!
+        ImageService.getImage(withURL: url) { [weak self] (image) in
+            self?.backgroundImage.image = image
+        }
+//        backgroundImage.load(url: url)
+//        let image = backgroundImage.image
+        headerLabel.text = value.title
+        bodyLabel.text = value.body_text
+        dateLabel.text = value.dates[0].start_date
+//        categoryLabel.text = value.
+        
     }
     
     
@@ -67,7 +82,6 @@ class AllEventsCell: UITableViewCell {
         
         backgroundImage.layer.cornerRadius = cornerRadius
         backgroundImage.clipsToBounds = true
-        backgroundImage.image = UIImage(named: "three")
         backgroundImage.contentMode = .scaleAspectFill
         backgroundImage.alpha = 0.6
         setImageViewConstraints()
@@ -77,14 +91,14 @@ class AllEventsCell: UITableViewCell {
         
         headerLabel.text = "Header "
         bodyLabel.text = "BodyLabel "
-        addressLabel.text = "addss Labeladdss Labeladdss Labeladdss Labeladdss Labeladdss Labeladdss Label"
+        dateLabel.text = "addss Labeladdss Labeladdss Labeladdss Labeladdss Labeladdss Labeladdss Label"
     }
     
     
     
     private func setStackView() {
         setLabel()
-        stackView = UIStackView(arrangedSubviews: [headerLabel, bodyLabel, addressLabel])
+        stackView = UIStackView(arrangedSubviews: [headerLabel, bodyLabel, dateLabel])
         
         stackView.axis = .vertical
         stackView.spacing = 5
@@ -104,8 +118,8 @@ class AllEventsCell: UITableViewCell {
         NSLayoutConstraint.activate([
             eventView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
             eventView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-            eventView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-            eventView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            eventView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            eventView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
         ])
     }
     
@@ -142,5 +156,13 @@ class AllEventsCell: UITableViewCell {
 //            stackView.heightAnchor.constraint(equalTo: backgroundImage.heightAnchor, multiplier: 1/2)
         ])
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        backgroundImage.image = UIImage(named: "three")
+        
+    }
+
 }
 

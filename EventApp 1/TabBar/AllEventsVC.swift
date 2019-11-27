@@ -14,6 +14,7 @@ class AllEventsVC: UIViewController {
     
     let networkService: NetworkService
     
+    var events: EventsModel!
     
     // MARK: Init
     
@@ -38,7 +39,28 @@ class AllEventsVC: UIViewController {
         
         view.backgroundColor = .yellow
         configureTableView()
+        
+        networkService.getBoards { (result) in
+            switch result {
+            case .success(let value):
+                DispatchQueue.main.async {
+                    self.events = value
+                    print(self.events.results.count)
+                    self.tableView.reloadData()
+                }
+               
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+    }
+
     
     
     // MARK: SetupTableView
@@ -79,12 +101,19 @@ class AllEventsVC: UIViewController {
 extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        if events == nil {
+            return 0
+        }
+        return events.results.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AllEventsCell.reuseId, for: indexPath) as! AllEventsCell
-        
+        let event = events.results[indexPath.row]
+        cell.set(value: event)
+        cell.mainImage = event.images[0].thumbnails.the144X96!
+//        let imageUrl = URL(string: events.results[indexPath.row].images[0].image)!
+//        cell.backgroundImage.load(url: imageUrl)
         
         
         return cell
@@ -113,23 +142,5 @@ extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
 
     }
     
-    
+        
 }
-
-//override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-//    UIView.animate(withDuration: 0.5) {
-//        if let cell = collectionView.cellForItem(at: indexPath) as? CustomCell {
-//            cell.imageView.transform = .init(scaleX: 0.95, y: 0.95)
-//            cell.contentView.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
-//        }
-//    }
-//}
-//
-//override func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-//    UIView.animate(withDuration: 0.5) {
-//        if let cell = collectionView.cellForItem(at: indexPath) as? CustomCell {
-//            cell.imageView.transform = .identity
-//            cell.contentView.backgroundColor = .clear
-//        }
-//    }
-//}

@@ -13,8 +13,10 @@ public struct ResultDTO: Codable {
     public var title: String?
     public var bodyText: String?
     public var price: String?
-    public var dates: [DateDTO]?
-    public var place: PlaceDTO?
-    public var images: [ImageDTO]?
     public var shortTitle: String?
+    
+//    public var dates: [DateDTO]?
+//    public var place: PlaceDTO?
+//    public var images: [ImageDTO]?
+    
 }

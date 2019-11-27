@@ -15,10 +15,10 @@ struct EventsList {
     var results: [Result]
     
     
-    init(dto: EventsListDTO) {
-        count = dto.count ?? 0
-        next = dto.next ?? ""
-        previous = dto.previous ?? ""
-        results = [ResultModel(dto: dto.results)]
-    }
+//    init(dto: EventsListDTO) {
+//        count = dto.count ?? 0
+//        next = dto.next ?? ""
+//        previous = dto.previous ?? ""
+////        results = [Result(dto: dto.results!)]
+//    }
 }

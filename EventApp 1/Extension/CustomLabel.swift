@@ -15,7 +15,7 @@ extension UILabel {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.backgroundColor = .red
-        label.numberOfLines = 2
+        label.numberOfLines = 3
         label.textColor = .white
         label.font = font
         label.sizeToFit()

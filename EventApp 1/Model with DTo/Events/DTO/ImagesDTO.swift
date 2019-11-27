@@ -11,5 +11,4 @@ import Foundation
 public struct ImageDTO: Codable {
     
     public var image: String?
-    
 }
