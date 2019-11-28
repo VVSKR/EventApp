@@ -41,16 +41,17 @@ class NetworkService {
     
     
     private func mainSession<T: Decodable> (request: URLRequest, completion: ((Result<T>) -> Void)?) {
-          
-           session.dataTask(with: request) { (data, responce, error) in
-               guard let jsonData = data, error == nil else { completion?(.failure(error!)); return }
-               let decoder = JSONDecoder()
-               do {
-                   let decodedData = try decoder.decode(T.self, from: jsonData)
-                   completion?(.success(decodedData))
-               } catch {
-                   completion?(.failure(error))
-               }
-           }.resume()
-       }
+        
+        session.dataTask(with: request) { (data, responce, error) in
+            guard let jsonData = data, error == nil else { completion?(.failure(error!)); return }
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            do {
+                let decodedData = try decoder.decode(T.self, from: jsonData)
+                completion?(.success(decodedData))
+            } catch {
+                completion?(.failure(error))
+            }
+        }.resume()
+    }
 }

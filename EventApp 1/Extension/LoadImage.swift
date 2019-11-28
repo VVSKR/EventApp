@@ -10,18 +10,14 @@ import UIKit
 
 extension UIImageView {
     
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    ImageService.shared.cashe.setObject(image, forKey: url.absoluteString as NSString)
-                    DispatchQueue.main.async {
-                        self?.image = image
-                    }
-                }
+    func loadImage(url: URL) {
+        ImageService.getImage(withURL: url) { (result) in
+            switch result {
+            case .success(let image):
+                self.image = image.alpha(0.55)
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }
 }
-
-

@@ -11,21 +11,19 @@ import UIKit
 class AllEventsCell: UITableViewCell {
     
     static let reuseId = "allEventsCell"
+    private let cornerRadius: CGFloat = 20
     
     public let eventView = UIView()
-    let backgroundImage = UIImageView()
-    var mainImage = String()
-    private let headerLabel = UILabel.tableViewLabel(with: .boldSystemFont(ofSize: 20))
-    private let bodyLabel = UILabel.tableViewLabel(with: .systemFont(ofSize: 18))
-    private let dateLabel = UILabel.tableViewLabel(with: .systemFont(ofSize: 18))
-    private let categoryLabel = UILabel.tableViewLabel(with: .systemFont(ofSize: 16))
-    
-    
-    private let cornerRadius: CGFloat = 20
+    private let backgroundImage = UIImageView()
     private var stackView: UIStackView!
     
+    private let headerLabel = UILabel.tableViewLabel(with: .boldSystemFont(ofSize: 22), tintColor: .white)
+    private let bodyLabel = UILabel.tableViewLabel(with: .systemFont(ofSize: 14), tintColor: .gray)
+    private let dateLabel = UILabel.tableViewLabel(with: .systemFont(ofSize: 16), tintColor: .white)
+    private let categoryLabel = UILabel.tableViewLabel(with: .systemFont(ofSize: 16), tintColor: .white)
     
-    //MARK: Init
+    
+    //MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,26 +40,26 @@ class AllEventsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(value: ResultModel) {
+    // MARK: - Set
+    
+    public func set(value: ResultModel) {
+        
         let url = URL(string: value.images[0].thumbnails.the640X384!)!
-        ImageService.getImage(withURL: url) { [weak self] (image) in
-            self?.backgroundImage.image = image
-        }
-//        backgroundImage.load(url: url)
-//        let image = backgroundImage.image
+        backgroundImage.loadImage(url: url)
+     
         headerLabel.text = value.title
-        bodyLabel.text = value.body_text
-        dateLabel.text = value.dates[0].start_date
-//        categoryLabel.text = value.
+        bodyLabel.text = value.bodyText
+        dateLabel.text = value.dates[0].startDate
+
         
     }
     
     
-    // MARK: Configure View
+    // MARK: - Configure View
     
     private func setEventView() {
         self.addSubview(eventView)
-        eventView.backgroundColor = .white
+        eventView.backgroundColor = .black
         
         setEventViewConstraints()
         addShadow()
@@ -83,33 +81,25 @@ class AllEventsCell: UITableViewCell {
         backgroundImage.layer.cornerRadius = cornerRadius
         backgroundImage.clipsToBounds = true
         backgroundImage.contentMode = .scaleAspectFill
-        backgroundImage.alpha = 0.6
+      
         setImageViewConstraints()
     }
     
-    private func setLabel() {
-        
-        headerLabel.text = "Header "
-        bodyLabel.text = "BodyLabel "
-        dateLabel.text = "addss Labeladdss Labeladdss Labeladdss Labeladdss Labeladdss Labeladdss Label"
-    }
     
     
     
     private func setStackView() {
-        setLabel()
         stackView = UIStackView(arrangedSubviews: [headerLabel, bodyLabel, dateLabel])
-        
         stackView.axis = .vertical
         stackView.spacing = 5
-        stackView.alignment = .leading
-        stackView.distribution = .fill
+//        stackView.alignment = .leading
+//        stackView.distribution = .fill
         eventView.addSubview(stackView)
         setStackViewConstraints()
     }
     
     
-    // MARK: Set Constraints
+    // MARK: - Set Constraints
     
     
     private func setEventViewConstraints() {
@@ -138,10 +128,10 @@ class AllEventsCell: UITableViewCell {
     private func setStackViewConstraints() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.bottomAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: -5),
+            stackView.bottomAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: -10),
             stackView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 10),
-            stackView.widthAnchor.constraint(equalTo: backgroundImage.widthAnchor, multiplier: 3/4),
-            stackView.heightAnchor.constraint(equalTo: backgroundImage.heightAnchor, multiplier: 1/2)
+            stackView.widthAnchor.constraint(equalTo: backgroundImage.widthAnchor, multiplier: 5/6),
+//            stackView.heightAnchor.constraint(equalTo: backgroundImage.heightAnchor, multiplier: 7/12)
         ])
     }
     
@@ -149,11 +139,10 @@ class AllEventsCell: UITableViewCell {
         eventView.addSubview(categoryLabel)
         categoryLabel.text = "Category"
         categoryLabel.backgroundColor = .red
+        
         NSLayoutConstraint.activate([
             categoryLabel.topAnchor.constraint(equalTo: backgroundImage.topAnchor, constant: 15),
             categoryLabel.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 15)
-//            stackView.widthAnchor.constraint(equalTo: backgroundImage.widthAnchor, multiplier: 3/4),
-//            stackView.heightAnchor.constraint(equalTo: backgroundImage.heightAnchor, multiplier: 1/2)
         ])
     }
     

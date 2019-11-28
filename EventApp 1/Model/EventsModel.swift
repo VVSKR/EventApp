@@ -18,17 +18,17 @@ struct EventsModel: Decodable {
 // MARK: - Result
 struct ResultModel: Decodable {
     var title: String
-    var body_text, price: String
+    var bodyText, price: String
     var dates: [DateModel]
     var place: PlaceModel?
     var images: [ImageModel]
-    var short_title: String
+    var shortTitle: String
 }
 
 // MARK: - DateElement
 struct DateModel: Decodable {
-    var start_date: String?
-    var start_time: String?
+    var startDate: String?
+    var startTime: String?
 }
 
 // MARK: - Image
@@ -56,8 +56,6 @@ struct Thumbnails: Decodable {
             assertionFailure("Error")
         }
     }
-    
-    
 }
 
 // MARK: - Place

@@ -42,6 +42,8 @@
 		F1F2A98A238D17FF0006D948 /* EventsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2A989238D17FE0006D948 /* EventsModel.swift */; };
 		F1F2A98D238D23270006D948 /* LoadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2A98C238D23270006D948 /* LoadImage.swift */; };
 		F1F2A98F238EB1600006D948 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2A98E238EB1600006D948 /* ImageService.swift */; };
+		F1F2A995238EDB7F0006D948 /* DetailEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2A994238EDB7F0006D948 /* DetailEvent.swift */; };
+		F1F2A997238EEF050006D948 /* ImageAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2A996238EEF050006D948 /* ImageAlpha.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +84,8 @@
 		F1F2A989238D17FE0006D948 /* EventsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsModel.swift; sourceTree = "<group>"; };
 		F1F2A98C238D23270006D948 /* LoadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadImage.swift; sourceTree = "<group>"; };
 		F1F2A98E238EB1600006D948 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		F1F2A994238EDB7F0006D948 /* DetailEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEvent.swift; sourceTree = "<group>"; };
+		F1F2A996238EEF050006D948 /* ImageAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAlpha.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,8 +125,7 @@
 				F1EFDABA2389F2A000C95690 /* TabBar */,
 				F1EFDAAE2389823400C95690 /* MainVC.swift */,
 				F1EFDAC7238BF2BE00C95690 /* Model with DTo */,
-				F1EFDABC2389F64700C95690 /* NetworkService.swift */,
-				F1F2A98E238EB1600006D948 /* ImageService.swift */,
+				F1F2A990238ED7970006D948 /* Service */,
 				F1F2A98B238D181B0006D948 /* Model */,
 				F1ECBDF2238890C700BB89A9 /* UserDefaults.swift */,
 				F1ECBDF02388901F00BB89A9 /* LoginVC.swift */,
@@ -149,8 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				F1EFDAB023898C6B00C95690 /* MainTabBarController.swift */,
-				F1EFDAB223898D4B00C95690 /* AllEventsVC.swift */,
-				F1EFDABE238A7B4D00C95690 /* AllEventsCell.swift */,
+				F1F2A993238EDB460006D948 /* Events */,
 				F1EFDAB423898DC800C95690 /* FavoriteEventsVC.swift */,
 				F1EFDAB623898DD500C95690 /* ProfileVC.swift */,
 				F1EFDAB823898E0E00C95690 /* SearchVC.swift */,
@@ -172,6 +174,7 @@
 				F1ECBDEB2388837C00BB89A9 /* UIColor.swift */,
 				F1EFDAC0238ACC0200C95690 /* CustomLabel.swift */,
 				F1F2A98C238D23270006D948 /* LoadImage.swift */,
+				F1F2A996238EEF050006D948 /* ImageAlpha.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -216,6 +219,25 @@
 				F1F2A989238D17FE0006D948 /* EventsModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		F1F2A990238ED7970006D948 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				F1EFDABC2389F64700C95690 /* NetworkService.swift */,
+				F1F2A98E238EB1600006D948 /* ImageService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		F1F2A993238EDB460006D948 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				F1EFDAB223898D4B00C95690 /* AllEventsVC.swift */,
+				F1EFDABE238A7B4D00C95690 /* AllEventsCell.swift */,
+				F1F2A994238EDB7F0006D948 /* DetailEvent.swift */,
+			);
+			path = Events;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1F2A995238EDB7F0006D948 /* DetailEvent.swift in Sources */,
 				F1EFDAB723898DD500C95690 /* ProfileVC.swift in Sources */,
 				F1E1CF6223880CBC00A18845 /* EventApp_1.xcdatamodeld in Sources */,
 				F1EFDAD3238BF48F00C95690 /* ImagesDTO.swift in Sources */,
@@ -310,6 +333,7 @@
 				F1EFDAAF2389823400C95690 /* MainVC.swift in Sources */,
 				F1EFDAD7238BF7BB00C95690 /* PlaceModel.swift in Sources */,
 				F1EFDAB923898E0E00C95690 /* SearchVC.swift in Sources */,
+				F1F2A997238EEF050006D948 /* ImageAlpha.swift in Sources */,
 				F1F2A98A238D17FF0006D948 /* EventsModel.swift in Sources */,
 				F1EFDACA238BF31400C95690 /* EventsList.swift in Sources */,
 				F1E1CF7123880CF800A18845 /* WelcomeCell.swift in Sources */,

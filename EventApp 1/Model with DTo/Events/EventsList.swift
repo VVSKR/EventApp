@@ -12,7 +12,7 @@ struct EventsList {
     var count: Int
     var next: String
     var previous: String
-    var results: [Result]
+    var results: [Result123]
     
     
 //    init(dto: EventsListDTO) {

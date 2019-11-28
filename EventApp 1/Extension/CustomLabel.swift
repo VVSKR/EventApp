@@ -10,11 +10,11 @@ import UIKit
 
 extension UILabel {
     
-    public static func tableViewLabel(with font: UIFont) -> UILabel {
+    public static func tableViewLabel(with font: UIFont, tintColor: UIColor) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.backgroundColor = .red
+        label.tintColor = tintColor
         label.numberOfLines = 3
         label.textColor = .white
         label.font = font

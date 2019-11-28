@@ -111,9 +111,7 @@ extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: AllEventsCell.reuseId, for: indexPath) as! AllEventsCell
         let event = events.results[indexPath.row]
         cell.set(value: event)
-        cell.mainImage = event.images[0].thumbnails.the144X96!
-//        let imageUrl = URL(string: events.results[indexPath.row].images[0].image)!
-//        cell.backgroundImage.load(url: imageUrl)
+        cell.accessoryType = .detailDisclosureButton
         
         
         return cell

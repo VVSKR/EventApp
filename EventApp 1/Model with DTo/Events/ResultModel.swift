@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Result {
+public struct Result123 {
     
     public var title: String
     public var shortTitle: String
