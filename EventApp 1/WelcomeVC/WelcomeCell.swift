@@ -12,12 +12,12 @@ class WelcomeCell: UICollectionViewCell {
     
     static public let reuseId = "welcomeCell"
     
-    public var page: Page? {
-        didSet {
-            headerLabel.text = page?.headerText
-            bodyLabel.text = page?.bodyText
-        }
-    }
+//    public var page: Page? {
+//        didSet {
+//            headerLabel.text = page?.headerText
+//            bodyLabel.text = page?.bodyText
+//        }
+//    }
     
     private var headerLabel = UILabel()
     private var bodyLabel = UILabel()
@@ -46,6 +46,11 @@ class WelcomeCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func set(page: Page) {
+        headerLabel.text = page.headerText
+        bodyLabel.text = page.bodyText
     }
     
     

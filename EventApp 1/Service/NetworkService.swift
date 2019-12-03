@@ -8,15 +8,19 @@
 
 import UIKit
 
+protocol NetworkServiceProtocol {
+    func getData(at path: String, params: [AnyHashable: Any], completion: (Result<Data?, Error>))
+}
+
 class NetworkService {
     
     let session: URLSession
     
     private var queue = DispatchQueue(label: "loadEvents", qos: .default, attributes: .concurrent)
     
-    
-    init() {
-        session = URLSession(configuration: .default)
+    init() { // session: URLSession
+//        session = URLSession(configuration: .default)
+        self.session = URLSession(configuration: .default)
     }
     
     enum Result<Value> {
@@ -26,12 +30,12 @@ class NetworkService {
     
     let url = URL(string: "https://kudago.com/public-api/v1.4/events/?fields=title,short_title,body_text,price,images,dates,place&expand=location,dates,participants,images,place&order_by=%20-rank&text_format=text&location=msk&actual_since=1574575200&categories")!
     
-    public func getBoards(completion: ((Result<EventsModel>) -> Void)?) {
-        mainSession(request: getBoardsUrl(), completion: completion)
+    public func getEvents(completion: ((Result<EventsModel>) -> Void)?) {
+        mainSession(request: getEventsUrl(), completion: completion)
     }
 
     
-    private func getBoardsUrl() -> URLRequest {
+    private func getEventsUrl() -> URLRequest {
 //        let url = URL(string: "https://api.trello.com/1/members/me/boards?key=\(apiKey)" + "&token=\(UserDefaults.standard.returnToken())")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

@@ -10,9 +10,9 @@ import Foundation
 
 // MARK: - Welcome
 struct EventsModel: Decodable {
-    var count: Int
-    var next: String
-    var results: [ResultModel]
+    var count: Int?
+    var next: String?
+    var results: [ResultModel]?
 }
 
 // MARK: - Result

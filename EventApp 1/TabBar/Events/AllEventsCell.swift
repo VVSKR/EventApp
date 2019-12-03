@@ -11,10 +11,18 @@ import UIKit
 class AllEventsCell: UITableViewCell {
     
     static let reuseId = "allEventsCell"
-    private let cornerRadius: CGFloat = 20
     
-    public let eventView = UIView()
-    private let backgroundImage = UIImageView()
+    // MARK: - Constants
+    
+    struct Constants {
+         static fileprivate let cornerRadius: CGFloat = 20
+    }
+
+   
+     // MARK: - Properties
+    
+    public let backgroundImage = UIImageView()
+    private let eventView = UIView()
     private var stackView: UIStackView!
     
     private let headerLabel = UILabel.tableViewLabel(with: .boldSystemFont(ofSize: 22), tintColor: .white)
@@ -29,7 +37,6 @@ class AllEventsCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setEventView()
-        
         setImageView()
         setStackView()
         setCategoryLabelConstaints()
@@ -45,22 +52,22 @@ class AllEventsCell: UITableViewCell {
     public func set(value: ResultModel) {
         
         let url = URL(string: value.images[0].thumbnails.the640X384!)!
-        backgroundImage.loadImage(url: url)
-     
+        backgroundImage.loadImage(url: url, alpha: 0.55)
         headerLabel.text = value.title
         bodyLabel.text = value.bodyText
         dateLabel.text = value.dates[0].startDate
 
         
     }
-    
+}
     
     // MARK: - Configure View
     
+private extension AllEventsCell {
+        
     private func setEventView() {
         self.addSubview(eventView)
         eventView.backgroundColor = .black
-        
         setEventViewConstraints()
         addShadow()
         
@@ -68,7 +75,7 @@ class AllEventsCell: UITableViewCell {
     
     
     private func addShadow() {
-        eventView.layer.cornerRadius = cornerRadius
+        eventView.layer.cornerRadius = Constants.cornerRadius
         eventView.layer.shadowColor = UIColor.black.cgColor
         eventView.layer.shadowOpacity = 0.4
         eventView.layer.shadowRadius = 10
@@ -78,7 +85,7 @@ class AllEventsCell: UITableViewCell {
     private func setImageView() {
         eventView.addSubview(backgroundImage)
         
-        backgroundImage.layer.cornerRadius = cornerRadius
+        backgroundImage.layer.cornerRadius = Constants.cornerRadius
         backgroundImage.clipsToBounds = true
         backgroundImage.contentMode = .scaleAspectFill
       
@@ -145,13 +152,5 @@ class AllEventsCell: UITableViewCell {
             categoryLabel.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 15)
         ])
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        backgroundImage.image = UIImage(named: "three")
-        
-    }
-
 }
 

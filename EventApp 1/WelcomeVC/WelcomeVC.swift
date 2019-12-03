@@ -147,8 +147,9 @@ extension WelcomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WelcomeCell.reuseId, for: indexPath) as! WelcomeCell
-        //        cell.label.text = "grgrgrgrgrgrgrgr"
-        cell.page = pages[indexPath.item]
+      
+        cell.set(page: pages[indexPath.item])
+
         return cell
     }
     

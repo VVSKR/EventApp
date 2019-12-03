@@ -14,7 +14,7 @@ class AllEventsVC: UIViewController {
     
     let networkService: NetworkService
     
-    var events: EventsModel!
+    var events: EventsModel = EventsModel()
     
     // MARK: Init
     
@@ -40,12 +40,12 @@ class AllEventsVC: UIViewController {
         view.backgroundColor = .yellow
         configureTableView()
         
-        networkService.getBoards { (result) in
+        networkService.getEvents { (result) in
             switch result {
             case .success(let value):
                 DispatchQueue.main.async {
                     self.events = value
-                    print(self.events.results.count)
+                    print(self.events.results?.count)
                     self.tableView.reloadData()
                 }
                
@@ -70,7 +70,7 @@ class AllEventsVC: UIViewController {
         setTableViewDelegates()
         
         tableView.register(AllEventsCell.self, forCellReuseIdentifier: AllEventsCell.reuseId)
-        tableView.rowHeight = 300
+        tableView.rowHeight = 250
     }
     
     private func setupTableView() {
@@ -98,34 +98,38 @@ class AllEventsVC: UIViewController {
     
 }
 
+// MARK: - Delegate, DataSourse
+
 extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if events == nil {
-            return 0
-        }
-        return events.results.count
+        return events.results?.count ?? 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AllEventsCell.reuseId, for: indexPath) as! AllEventsCell
-        let event = events.results[indexPath.row]
+        cell.backgroundImage.image = UIImage(named: "three")
+        guard let event = events.results?[indexPath.row] else { return cell }
         cell.set(value: event)
-        cell.accessoryType = .detailDisclosureButton
-        
+//        cell.accessoryType = .detailDisclosureButton
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let event = events.results?[indexPath.row] else { return }
+        let detailEvent = DetailEventVC()
+        detailEvent.event = event
+        navigationController?.pushViewController(detailEvent, animated: true)
     }
     
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         UIView.animate(withDuration: 0.25) {
             if let cell = tableView.cellForRow(at: indexPath) as? AllEventsCell {
-                cell.eventView.transform = .init(scaleX: 0.95, y: 0.95)
-//                cell.contentView.backgroundColor = .lightGray
+//                cell.eventView.transform = .init(scaleX: 0.95, y: 0.95)
             }
         }
     }
@@ -133,8 +137,7 @@ extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
                 UIView.animate(withDuration: 0.25) {
             if let cell = tableView.cellForRow(at: indexPath) as? AllEventsCell {
-                cell.eventView.transform = .identity
-//                cell.contentView.backgroundColor = .white
+//                cell.eventView.transform = .identity
             }
         }
 

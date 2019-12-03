@@ -9,6 +9,8 @@
 import UIKit
 
 final class MainTabBarController: UITabBarController {
+    
+    let session = URLSession()
 
     let networkService = NetworkService()
 
