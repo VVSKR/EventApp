@@ -21,6 +21,7 @@ class DetailEventVC: UIViewController {
     private var detailView: UIView!
     private var headerContainerView: UIView!
     private var headerImageView: UIImageView!
+    private var placeHolderImageView: SkeletonView!
     
     
     private var headerLabel: UILabel!
@@ -44,6 +45,10 @@ class DetailEventVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 //        UIApplication.shared.statusBarStyle = .default
+        self.navigationController?.navigationBar.barStyle = .default
+        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        self.navigationController?.navigationBar.shadowImage = nil
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
     }
     
     // MARK: - ViewDidLoad
@@ -60,18 +65,21 @@ class DetailEventVC: UIViewController {
         navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
-        
-       
         setupView()
         setupConstraints()
+        
+        
         set(value: event)
         
     }
     
     func set(value: ResultModel) {
+        placeHolderImageView.startAnimating()
         guard let url = URL(string: value.images[0].image) else { return }
-        headerImageView.loadImage(url: url, alpha: 1) {
-            
+        
+        headerImageView.loadImage(url: url, alpha: 1) { [weak self] in
+            self?.placeHolderImageView.stopAnimating()
+            self?.placeHolderImageView.isHidden = true
         }
         title = value.title
         headerLabel.text = value.title
@@ -100,6 +108,7 @@ private extension DetailEventVC {
         scrollView.addSubview(detailView)
         headerContainerView.addSubview(headerImageView)
         detailView.addSubview(mainStackView)
+        createPlaceHolderImage()
     }
     
     
@@ -125,6 +134,12 @@ private extension DetailEventVC {
         headerImageView.translatesAutoresizingMaskIntoConstraints = false
         headerImageView.contentMode = .scaleAspectFill
         headerImageView.clipsToBounds = true
+    }
+    
+    func createPlaceHolderImage() {
+        placeHolderImageView = SkeletonView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 2))
+        placeHolderImageView.translatesAutoresizingMaskIntoConstraints = false
+        headerImageView.addSubview(placeHolderImageView)
     }
     
     

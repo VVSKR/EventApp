@@ -20,6 +20,7 @@ class AllEventsCell: UITableViewCell {
 
    
      // MARK: - Properties
+    
     private let backgroundImage = UIImageView()
     private let placeHolderImageView = SkeletonView()
     private let eventView = UIView()
@@ -50,9 +51,9 @@ class AllEventsCell: UITableViewCell {
     
     public func set(value: ResultModel) {
         let url = URL(string: value.images[0].thumbnails.the640X384!)!
-        backgroundImage.loadImage(url: url, alpha: 0.55) { () in
-            self.placeHolderImageView.stopAnimating()
-            self.placeHolderImageView.isHidden = true
+        backgroundImage.loadImage(url: url, alpha: 0.55) { [weak self] in
+            self?.placeHolderImageView.stopAnimating()
+            self?.placeHolderImageView.isHidden = true
         }
        
         headerLabel.text = value.title
@@ -107,7 +108,7 @@ private extension AllEventsCell {
         placeHolderImageView.frame = CGRect(x: 0, y: 0, width: 400, height: 250)
         placeHolderImageView.layer.cornerRadius = Constants.cornerRadius
         placeHolderImageView.clipsToBounds = true
-        placeHolderImageView.backgroundColor = .gray
+        placeHolderImageView.backgroundColor = .lightGray
     }
     
     
