@@ -10,14 +10,17 @@ import UIKit
 
 extension UIImageView {
     
-    func loadImage(url: URL, alpha: CGFloat) {
+    func loadImage(url: URL, alpha: CGFloat, complection: @escaping () -> ()) {
         ImageService.getImage(withURL: url) { (result) in
             switch result {
             case .success(let image):
                 self.image = image.alpha(alpha)
+                complection()
             case .failure(let error):
                 print(error.localizedDescription)
             }
+            
         }
+        
     }
 }

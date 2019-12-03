@@ -45,7 +45,7 @@ class AllEventsVC: UIViewController {
             case .success(let value):
                 DispatchQueue.main.async {
                     self.events = value
-                    print(self.events.results?.count)
+                    print(self.events.results?.count as Any)
                     self.tableView.reloadData()
                 }
             case .failure(let error):
@@ -102,16 +102,15 @@ class AllEventsVC: UIViewController {
 extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.results?.count ?? 4
+        return events.results?.count ?? 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AllEventsCell.reuseId, for: indexPath) as! AllEventsCell
-        cell.backgroundImage.image = UIImage(named: "three")
+        
+        cell.setPlaceHolder()
         guard let event = events.results?[indexPath.row] else { return cell }
         cell.set(value: event)
-        //        cell.accessoryType = .detailDisclosureButton
-        
         return cell
     }
     
@@ -125,22 +124,22 @@ extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
         navigationController?.pushViewController(detailEvent, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        UIView.animate(withDuration: 0.25) {
-            if let cell = tableView.cellForRow(at: indexPath) as? AllEventsCell {
-                //                cell.eventView.transform = .init(scaleX: 0.95, y: 0.95)
-            }
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        UIView.animate(withDuration: 0.25) {
-            if let cell = tableView.cellForRow(at: indexPath) as? AllEventsCell {
-                //                cell.eventView.transform = .identity
-            }
-        }
-        
-    }
+//    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+//        UIView.animate(withDuration: 0.25) {
+//            if let cell = tableView.cellForRow(at: indexPath) as? AllEventsCell {
+//                //                cell.eventView.transform = .init(scaleX: 0.95, y: 0.95)
+//            }
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+//        UIView.animate(withDuration: 0.25) {
+//            if let cell = tableView.cellForRow(at: indexPath) as? AllEventsCell {
+//                //                cell.eventView.transform = .identity
+//            }
+//        }
+//
+//    }
     
     
 }

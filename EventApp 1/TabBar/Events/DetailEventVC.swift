@@ -22,6 +22,7 @@ class DetailEventVC: UIViewController {
     private var headerContainerView: UIView!
     private var headerImageView: UIImageView!
     
+    
     private var headerLabel: UILabel!
     private var bodyLabel: UILabel!
     private var dateLabel: UILabel!
@@ -33,19 +34,25 @@ class DetailEventVC: UIViewController {
     
     // MARK: - ViewDidLoad
     
-    
+   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .lightContent
+        
+//        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UIApplication.shared.statusBarStyle = .default
+//        UIApplication.shared.statusBarStyle = .default
     }
+    
+    // MARK: - ViewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        self.navigationController?.navigationBar.barStyle = .black
         view.backgroundColor = .white
         navigationController?.navigationBar.barStyle = .blackOpaque
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -54,28 +61,18 @@ class DetailEventVC: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         
-        createDetailView()
-        
-        createScrollView()
-        createHeaderContainerView()
-        createHeaderImageView()
-        createLabels()
-        addStackView()
-        
-        view.addSubview(scrollView)
-        scrollView.addSubview(headerContainerView)
-        scrollView.addSubview(detailView)
-        headerContainerView.addSubview(headerImageView)
-        detailView.addSubview(mainStackView)
-        
-        arrangeConstraints()
+       
+        setupView()
+        setupConstraints()
         set(value: event)
         
     }
     
     func set(value: ResultModel) {
         guard let url = URL(string: value.images[0].image) else { return }
-        headerImageView.loadImage(url: url, alpha: 1)
+        headerImageView.loadImage(url: url, alpha: 1) {
+            
+        }
         title = value.title
         headerLabel.text = value.title
         bodyLabel.text = value.bodyText
@@ -90,6 +87,22 @@ class DetailEventVC: UIViewController {
 
 private extension DetailEventVC {
     
+    func setupView() {
+        createDetailView()
+        createScrollView()
+        createHeaderContainerView()
+        createHeaderImageView()
+        createLabels()
+        addStackView()
+        
+        view.addSubview(scrollView)
+        scrollView.addSubview(headerContainerView)
+        scrollView.addSubview(detailView)
+        headerContainerView.addSubview(headerImageView)
+        detailView.addSubview(mainStackView)
+    }
+    
+    
     func createScrollView()  {
         scrollView = UIScrollView()
         scrollView.delegate = self
@@ -98,6 +111,7 @@ private extension DetailEventVC {
         scrollView.contentInsetAdjustmentBehavior = .automatic
     }
     
+    
     func createHeaderContainerView(){
         headerContainerView = UIView()
         headerContainerView.clipsToBounds = true
@@ -105,17 +119,14 @@ private extension DetailEventVC {
         headerContainerView.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    
     func createHeaderImageView() {
         headerImageView = UIImageView()
         headerImageView.translatesAutoresizingMaskIntoConstraints = false
         headerImageView.contentMode = .scaleAspectFill
         headerImageView.clipsToBounds = true
-        if let image = UIImage(named: "three") {
-            headerImageView.image = image
-        }
-        headerImageView.clipsToBounds = true
-        
     }
+    
     
     func createDetailView()  {
         detailView = UIView()
@@ -132,10 +143,8 @@ private extension DetailEventVC {
         dateLabel = UILabel.setupLabel(with: .monospacedDigitSystemFont(ofSize: 16, weight: UIFont.Weight(rawValue: 2)), tintColor: .black, line: 0)
         priceLabel = UILabel.setupLabel(with: .systemFont(ofSize: 18), tintColor: .black, line: 0)
         addressLabel = UILabel.setupLabel(with: .systemFont(ofSize: 18), tintColor: .black, line: 0)
-        
-        
-        
     }
+    
     
     func addStackView() {
         
@@ -143,13 +152,12 @@ private extension DetailEventVC {
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.axis = .vertical
         mainStackView.spacing = 20
-        
     }
     
     
     // MARK: - setupConstraints
     
-    func arrangeConstraints() {
+    func setupConstraints() {
         
         NSLayoutConstraint.activate([
             
@@ -188,9 +196,6 @@ private extension DetailEventVC {
             mainStackView.bottomAnchor.constraint(equalTo: detailView.bottomAnchor, constant: -25)
             
         ])
-        
-        
-        
     }
 }
 
@@ -206,14 +211,11 @@ extension DetailEventVC: UIScrollViewDelegate {
             UIView.animate(withDuration: 0.2) {
                 self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
                 self.navigationController?.navigationBar.shadowImage = nil
-                
-                
             }
             
             
         } else { // появляется
             UIView.animate(withDuration: 0.2) {
-                
                 self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
                 self.navigationController?.navigationBar.shadowImage = UIImage()
                 

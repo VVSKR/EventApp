@@ -20,8 +20,8 @@ class AllEventsCell: UITableViewCell {
 
    
      // MARK: - Properties
-    
-    public let backgroundImage = UIImageView()
+    private let backgroundImage = UIImageView()
+    private let placeHolderImageView = SkeletonView()
     private let eventView = UIView()
     private var stackView: UIStackView!
     
@@ -35,12 +35,11 @@ class AllEventsCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setEventView()
         setImageView()
         setStackView()
         setCategoryLabelConstaints()
-        
+       
     }
     
     required init?(coder: NSCoder) {
@@ -50,14 +49,19 @@ class AllEventsCell: UITableViewCell {
     // MARK: - Set
     
     public func set(value: ResultModel) {
-        
         let url = URL(string: value.images[0].thumbnails.the640X384!)!
-        backgroundImage.loadImage(url: url, alpha: 0.55)
+        backgroundImage.loadImage(url: url, alpha: 0.55) { () in
+            self.placeHolderImageView.stopAnimating()
+            self.placeHolderImageView.isHidden = true
+        }
+       
         headerLabel.text = value.title
         bodyLabel.text = value.bodyText
         dateLabel.text = value.dates[0].startDate
-
-        
+    }
+    
+    public func setPlaceHolder() {
+        placeHolderImageView.startAnimating()
     }
 }
     
@@ -79,7 +83,7 @@ private extension AllEventsCell {
         eventView.layer.shadowColor = UIColor.black.cgColor
         eventView.layer.shadowOpacity = 0.4
         eventView.layer.shadowRadius = 10
-        eventView.layer.shadowOffset = CGSize(width: -1, height: 1)
+        eventView.layer.shadowOffset = CGSize(width: 1, height: 2)
     }
     
     private func setImageView() {
@@ -88,8 +92,22 @@ private extension AllEventsCell {
         backgroundImage.layer.cornerRadius = Constants.cornerRadius
         backgroundImage.clipsToBounds = true
         backgroundImage.contentMode = .scaleAspectFill
+        
+       
+//        skeletonView.setMaskingViews([placeHolderImageView])
+        
       
         setImageViewConstraints()
+        setPlaceHolderImage()
+    }
+    
+    
+    private func setPlaceHolderImage() {
+        backgroundImage.addSubview(placeHolderImageView)
+        placeHolderImageView.frame = CGRect(x: 0, y: 0, width: 400, height: 250)
+        placeHolderImageView.layer.cornerRadius = Constants.cornerRadius
+        placeHolderImageView.clipsToBounds = true
+        placeHolderImageView.backgroundColor = .gray
     }
     
     
@@ -134,11 +152,11 @@ private extension AllEventsCell {
     
     private func setStackViewConstraints() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             stackView.bottomAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: -10),
             stackView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 10),
-            stackView.widthAnchor.constraint(equalTo: backgroundImage.widthAnchor, multiplier: 5/6),
-//            stackView.heightAnchor.constraint(equalTo: backgroundImage.heightAnchor, multiplier: 7/12)
+            stackView.widthAnchor.constraint(equalTo: backgroundImage.widthAnchor, multiplier: 5/6)
         ])
     }
     
