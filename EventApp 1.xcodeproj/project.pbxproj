@@ -17,6 +17,7 @@
 		F13B63E42395AE21002B7EE8 /* EventEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63E32395AE21002B7EE8 /* EventEndPoint.swift */; };
 		F13B63E62395AE85002B7EE8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63E52395AE85002B7EE8 /* NetworkManager.swift */; };
 		F13B63E82395B281002B7EE8 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63E72395B281002B7EE8 /* APIError.swift */; };
+		F13B63EA2396B721002B7EE8 /* BottomLineTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63E92396B721002B7EE8 /* BottomLineTF.swift */; };
 		F1E1CF5A23880CBC00A18845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E1CF5923880CBC00A18845 /* AppDelegate.swift */; };
 		F1E1CF5C23880CBC00A18845 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E1CF5B23880CBC00A18845 /* ViewController.swift */; };
 		F1E1CF6223880CBC00A18845 /* EventApp_1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1E1CF6023880CBC00A18845 /* EventApp_1.xcdatamodeld */; };
@@ -67,6 +68,7 @@
 		F13B63E32395AE21002B7EE8 /* EventEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEndPoint.swift; sourceTree = "<group>"; };
 		F13B63E52395AE85002B7EE8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F13B63E72395B281002B7EE8 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		F13B63E92396B721002B7EE8 /* BottomLineTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLineTF.swift; sourceTree = "<group>"; };
 		F1E1CF5623880CBC00A18845 /* EventApp 1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EventApp 1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E1CF5923880CBC00A18845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1E1CF5B23880CBC00A18845 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				F1EFDAC0238ACC0200C95690 /* CustomLabel.swift */,
 				F1F2A98C238D23270006D948 /* LoadImage.swift */,
 				F1F2A996238EEF050006D948 /* ImageAlpha.swift */,
+				F13B63E92396B721002B7EE8 /* BottomLineTF.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				F13B63D62395891E002B7EE8 /* EndPointType.swift in Sources */,
 				F1EFDAAF2389823400C95690 /* MainVC.swift in Sources */,
 				F13B63E42395AE21002B7EE8 /* EventEndPoint.swift in Sources */,
+				F13B63EA2396B721002B7EE8 /* BottomLineTF.swift in Sources */,
 				F1EFDAD7238BF7BB00C95690 /* PlaceModel.swift in Sources */,
 				F1EFDAB923898E0E00C95690 /* SearchVC.swift in Sources */,
 				F13B63E02395905F002B7EE8 /* JSONParameterEncoder.swift in Sources */,

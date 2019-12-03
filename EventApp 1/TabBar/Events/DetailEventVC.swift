@@ -33,9 +33,25 @@ class DetailEventVC: UIViewController {
     
     // MARK: - ViewDidLoad
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationController?.navigationBar.barStyle = .blackOpaque
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         
         createDetailView()
@@ -58,13 +74,14 @@ class DetailEventVC: UIViewController {
     }
     
     func set(value: ResultModel) {
-        let url = URL(string: value.images[0].image)!
+        guard let url = URL(string: value.images[0].image) else { return }
         headerImageView.loadImage(url: url, alpha: 1)
+        title = value.title
         headerLabel.text = value.title
         bodyLabel.text = value.bodyText
         dateLabel.text = "Событие пройдет - \(String(describing: value.dates[0].startDate)) в \(String(describing: value.dates[0].startTime))"
         priceLabel.text = "Цена - \(value.price)"
-        addressLabel.text = "Адресс - \(String(describing: value.place?.address))"
+        addressLabel.text = "Адрес - \(String(describing: value.place.address))"
     }
 }
 
@@ -104,26 +121,18 @@ private extension DetailEventVC {
         detailView = UIView()
         detailView.translatesAutoresizingMaskIntoConstraints = false
         detailView.backgroundColor = .white
-        //        let titleFont = UIFont.preferredFont(forTextStyle: .title1)
-        //        if let boldDescriptor = titleFont.fontDescriptor.withSymbolicTraits(.traitBold) {
-        //            label.font = UIFont(descriptor: boldDescriptor, size: 0)
-        //        } else {
-        //            label.font = titleFont
-        //        }
-        //        label.textAlignment = .center
-        //        label.adjustsFontForContentSizeCategory = true
-        //        label.numberOfLines = 0
         
     }
     
     func createLabels() {
-        headerLabel = UILabel.customLabel(with: .largeTitle, tintColor: .white)
+        headerLabel = UILabel.setupLabel(with: .boldSystemFont(ofSize: 24), tintColor: .black, line: 0)
         headerLabel.textAlignment = .center
-        bodyLabel = UILabel.customLabel(with: .body, tintColor: .white)
-        dateLabel = UILabel.customLabel(with: .title1, tintColor: .white)
-        priceLabel = UILabel.customLabel(with: .title2, tintColor: .white)
-        addressLabel = UILabel.customLabel(with: .title3, tintColor: .white)
-    
+        
+        bodyLabel = UILabel.setupLabel(with: .systemFont(ofSize: 16), tintColor: .darkGray, line: 0)
+        dateLabel = UILabel.setupLabel(with: .monospacedDigitSystemFont(ofSize: 16, weight: UIFont.Weight(rawValue: 2)), tintColor: .black, line: 0)
+        priceLabel = UILabel.setupLabel(with: .systemFont(ofSize: 18), tintColor: .black, line: 0)
+        addressLabel = UILabel.setupLabel(with: .systemFont(ofSize: 18), tintColor: .black, line: 0)
+        
         
         
     }
@@ -133,7 +142,7 @@ private extension DetailEventVC {
         mainStackView = UIStackView(arrangedSubviews: [headerLabel, bodyLabel, dateLabel, priceLabel, addressLabel])
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.axis = .vertical
-        mainStackView.spacing = 10
+        mainStackView.spacing = 20
         
     }
     
@@ -144,7 +153,7 @@ private extension DetailEventVC {
         
         NSLayoutConstraint.activate([
             
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -155,7 +164,6 @@ private extension DetailEventVC {
             headerContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
             headerContainerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 1.0),
             headerContainerView.heightAnchor.constraint(equalToConstant: 210),
-//            headerContainerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/4),
             headerContainerView.bottomAnchor.constraint(equalTo: detailView.topAnchor, constant: 0)
             
         ])
@@ -168,18 +176,17 @@ private extension DetailEventVC {
         ])
         
         NSLayoutConstraint.activate([
-//            detailView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: view.bounds.size.height / 4),
             detailView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 210),
             detailView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 1.0),
             detailView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0)
         ])
         
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: detailView.topAnchor, constant: 20),
-            mainStackView.leadingAnchor.constraint(equalTo: detailView.leadingAnchor, constant: 15),
-            mainStackView.trailingAnchor.constraint(equalTo: detailView.trailingAnchor, constant: -15),
-            mainStackView.bottomAnchor.constraint(equalTo: detailView.bottomAnchor, constant: -20)
-        
+            mainStackView.topAnchor.constraint(equalTo: detailView.topAnchor, constant: 25),
+            mainStackView.leadingAnchor.constraint(equalTo: detailView.leadingAnchor, constant: 25),
+            mainStackView.trailingAnchor.constraint(equalTo: detailView.trailingAnchor, constant: -25),
+            mainStackView.bottomAnchor.constraint(equalTo: detailView.bottomAnchor, constant: -25)
+            
         ])
         
         
@@ -187,28 +194,30 @@ private extension DetailEventVC {
     }
 }
 
+// MARK: - ScrollView Delegate
+
 extension DetailEventVC: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        //        //            headerHeightConstraint.constant = max(headerContainerView.bounds.height, headerContainerView.bounds.height - scrollView.contentOffset.y )
-        //        print(headerHeightConstraint.constant)
-        //        if scrollView.contentOffset.y < 0.0 {
-        //
-        //            //            headerHeightConstraint?.constant = -scrollView.contentOffset.y + 100
-        //            //                Constants.headerHeight - scrollView.contentOffset.y
-        //            //            headerContainerView.layoutIfNeeded()
-        //            print(headerHeightConstraint.constant)
-        //        }
-        //        else {
-        //            let parallaxFactor: CGFloat = 0.25
-        //            let offsetY = scrollView.contentOffset.y * parallaxFactor
-        //            let minOffsetY: CGFloat = 30
-        //            let availableOffset = min(offsetY, minOffsetY)
-        //            let contentRectOffsetY = availableOffset / Constants.headerHeight
-        //            headerTopConstraint?.constant = view.frame.origin.y
-        //            headerHeightConstraint?.constant = Constants.headerHeight - scrollView.contentOffset.y
-        //            headerImageView.layer.contentsRect = CGRect(x: 0, y: -contentRectOffsetY, width: 0, height: 0)
-        //        }
+        let offset = scrollView.contentOffset.y / 210
+        
+        if offset > 0.6 { // исчкезает
+            UIView.animate(withDuration: 0.2) {
+                self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+                self.navigationController?.navigationBar.shadowImage = nil
+                
+                
+            }
+            
+            
+        } else { // появляется
+            UIView.animate(withDuration: 0.2) {
+                
+                self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+                self.navigationController?.navigationBar.shadowImage = UIImage()
+                
+            }
+        }
     }
 }

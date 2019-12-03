@@ -25,10 +25,10 @@ class AllEventsCell: UITableViewCell {
     private let eventView = UIView()
     private var stackView: UIStackView!
     
-    private let headerLabel = UILabel.tableViewLabel(with: .boldSystemFont(ofSize: 22), tintColor: .white)
-    private let bodyLabel = UILabel.tableViewLabel(with: .systemFont(ofSize: 14), tintColor: .gray)
-    private let dateLabel = UILabel.tableViewLabel(with: .systemFont(ofSize: 16), tintColor: .white)
-    private let categoryLabel = UILabel.tableViewLabel(with: .systemFont(ofSize: 16), tintColor: .white)
+    private let headerLabel = UILabel.setupLabel(with: .boldSystemFont(ofSize: 20), tintColor: .white, line: 3)
+    private let bodyLabel = UILabel.setupLabel(with: .systemFont(ofSize: 14), tintColor: .white, line: 2)
+    private let dateLabel = UILabel.setupLabel(with: .systemFont(ofSize: 16), tintColor: .white, line: 2)
+    private let categoryLabel = UILabel.setupLabel(with: .systemFont(ofSize: 16), tintColor: .white, line: 1)
     
     
     //MARK: - Init

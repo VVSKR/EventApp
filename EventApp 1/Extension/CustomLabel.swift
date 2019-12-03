@@ -10,36 +10,15 @@ import UIKit
 
 extension UILabel {
     
-    public static func tableViewLabel(with font: UIFont, tintColor: UIColor) -> UILabel {
+    public static func setupLabel(with font: UIFont, tintColor: UIColor, line number: Int) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.tintColor = tintColor
-        label.numberOfLines = 3
-        label.textColor = .white
+//        label.tintColor = tintColor
+        label.numberOfLines = number
+        label.textColor = tintColor
         
         label.font = font
-        label.sizeToFit()
-        return label
-    }
-    
-    
-    public static func customLabel(with font: UIFont.TextStyle, tintColor: UIColor) -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        let titleFont = UIFont.preferredFont(forTextStyle: font)
-        
-//        if let boldDescriptor = titleFont.fontDescriptor.withSymbolicTraits(.traitCondensed) {
-//            label.font = UIFont(descriptor: boldDescriptor, size: 0)
-//        } else {
-//            label.font = titleFont
-//        }
-        label.font = titleFont
-        label.textAlignment = .left
-        label.tintColor = tintColor
-        label.numberOfLines = 0
-        
         return label
     }
 }

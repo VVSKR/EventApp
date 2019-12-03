@@ -39,7 +39,8 @@ class AllEventsVC: UIViewController {
         
         view.backgroundColor = .yellow
         configureTableView()
-        networkManager.getEvents(categories: .all) { (result) in
+        
+        networkManager.getEvents(categories: .theater) { (result) in
             switch result {
             case .success(let value):
                 DispatchQueue.main.async {
@@ -49,19 +50,7 @@ class AllEventsVC: UIViewController {
                 }
             case .failure(let error):
                 print(error.localizedDescription)
-        }
-//        networkService.getEvents { (result) in
-//            switch result {
-//            case .success(let value):
-//                DispatchQueue.main.async {
-//                    self.events = value
-//                    print(self.events.results?.count)
-//                    self.tableView.reloadData()
-//                }
-//
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
+            }
         }
     }
     
@@ -70,7 +59,7 @@ class AllEventsVC: UIViewController {
         
         
     }
-
+    
     
     
     // MARK: SetupTableView
@@ -121,7 +110,7 @@ extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
         cell.backgroundImage.image = UIImage(named: "three")
         guard let event = events.results?[indexPath.row] else { return cell }
         cell.set(value: event)
-//        cell.accessoryType = .detailDisclosureButton
+        //        cell.accessoryType = .detailDisclosureButton
         
         return cell
     }
@@ -139,19 +128,19 @@ extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         UIView.animate(withDuration: 0.25) {
             if let cell = tableView.cellForRow(at: indexPath) as? AllEventsCell {
-//                cell.eventView.transform = .init(scaleX: 0.95, y: 0.95)
+                //                cell.eventView.transform = .init(scaleX: 0.95, y: 0.95)
             }
         }
     }
     
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-                UIView.animate(withDuration: 0.25) {
+        UIView.animate(withDuration: 0.25) {
             if let cell = tableView.cellForRow(at: indexPath) as? AllEventsCell {
-//                cell.eventView.transform = .identity
+                //                cell.eventView.transform = .identity
             }
         }
-
+        
     }
     
-        
+    
 }

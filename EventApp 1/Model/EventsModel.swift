@@ -20,15 +20,15 @@ struct ResultModel: Decodable {
     var title: String
     var bodyText, price: String
     var dates: [DateModel]
-    var place: PlaceModel?
+    var place: PlaceModel
     var images: [ImageModel]
     var shortTitle: String
 }
 
 // MARK: - DateElement
 struct DateModel: Decodable {
-    var startDate: String?
-    var startTime: String?
+    var startDate: String
+    var startTime: String
 }
 
 // MARK: - Image

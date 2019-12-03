@@ -21,12 +21,10 @@ import Foundation
 
 struct NetworkManager {
     
-    static let environment : NetworkEnvironment = .fireBase
-    let router = Router<KudaGoApi>()
+    let router = Router<NetworkEnvironment>()
     
     func getEvents(categories: Categories, completion: @escaping (Result<EventsModel, Error>) -> ()) {
-        router.request(.events(categories: categories)) { data, response, error in
-            
+        router.request(.kudaGoAPI(.events(categories: categories))) { data, response, error in
             guard error == nil else { completion(.failure(error!)); return }
             guard let responseData = data else {
                 completion(.failure(APIError.requestFailed ))
@@ -43,5 +41,8 @@ struct NetworkManager {
             }
         }
     }
+    
+    
+    // new func
 }
 

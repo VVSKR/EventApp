@@ -9,7 +9,7 @@
 import Foundation
 
 indirect enum NetworkEnvironment {
-    case events(KudaGoApi)
+    case kudaGoAPI(KudaGoApi)
     case fireBase
     
 }
@@ -25,18 +25,18 @@ public enum KudaGoApi {
 
 public enum Categories: String {
     case all = ""
-    case concert = "concert,"
-    case festival = "festival,"
-    case theater = "theater,"
+    case concert = "concert"
+    case festival = "festival"
+    case theater = "theater"
     case standUp = "stand-up"
 }
 
 
-extension KudaGoApi: EndPointType {
+extension NetworkEnvironment: EndPointType {
     
     var environmentBaseURL : String {
-        switch NetworkManager.environment {
-        case .events: return "https://kudago.com/public-api/v1.4/"
+        switch self {
+        case .kudaGoAPI: return "https://kudago.com/public-api/v1.4/"
         case .fireBase: return "firebase"
         }
     }
@@ -48,46 +48,61 @@ extension KudaGoApi: EndPointType {
     
     var path: String {
         switch self {
-        case .recommended(let id):
-            return "\(id)/recommendations"
-        case .popular:
-            return "popular"
-        case .newMovies:
-            return "now_playing"
-        case .video(let id):
-            return "\(id)/videos"
-        case .events:
-            return "events"
+            
+        case .kudaGoAPI(let events):
+            switch events {
+            case .recommended(let id):
+                return "\(id)/recommendations"
+            case .popular:
+                return "popular"
+            case .newMovies:
+                return "now_playing"
+            case .video(let id):
+                return "\(id)/videos"
+            case .events:
+                return "events"
+            }
+            
+        case .fireBase: return "firebase"
         }
+    }
+    
+    
+    var task: HTTPTask {
+        switch self {
+            
+        case .kudaGoAPI(let events):
+            switch events {
+                
+            case .newMovies(let page):
+                return .requestParameters(bodyParameters: nil,
+                                          bodyEncoding: .urlEncoding,
+                                          urlParameters: ["page": page,
+                                                          "api_key": "k"])
+            case .events(let categories):
+                return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding,
+                                          urlParameters: ["categories": categories.rawValue,
+                                                          "fields": "title,short_title,body_text,price,images,dates,place,categories",
+                                                          "expand": "location,dates,participants,images,place",
+                                                          "order_by": "-rank",
+                                                          "text_format": "text",
+                                                          "location": "msk",
+                                                          "actual_since": "1575075200"])
+            default:
+                return .request
+            }
+            
+        case .fireBase: return HTTPTask.request // эт хуйня какая-то, надо исправить
+            
+        }
+        
     }
     
     var httpMethod: HTTPMethod {
         return .get
     }
     
-    var task: HTTPTask {
-        switch self {
-        case .newMovies(let page):
-            return .requestParameters(bodyParameters: nil,
-                                      bodyEncoding: .urlEncoding,
-                                      urlParameters: ["page": page,
-                                                      "api_key": "k"])
-        case .events(let categories):
-            return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding,
-                                      urlParameters: ["categories": categories.rawValue,
-                                                      "fields": "title,short_title,body_text,price,images,dates,place,categories",
-                                                      "expand": "location,dates,participants,images,place",
-                                                      "order_by": "-rank",
-                                                      "text_format": "text",
-                                                      "location": "msk",
-                                                      "actual_since": "1575075200"])
-        default:
-            return .request
-        }
-    }
-    
     var headers: HTTPHeaders? {
         return nil
     }
 }
-
