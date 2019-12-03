@@ -20,20 +20,23 @@ import Foundation
 
 
 struct NetworkManager {
-    static let environment : NetworkEnvironment = .events
-    let router = Router<MovieApi>()
     
-    func getEvents(categories: Categories, completion: @escaping (Result<[ResultModel], Error>) -> ()) {
+    static let environment : NetworkEnvironment = .fireBase
+    let router = Router<KudaGoApi>()
+    
+    func getEvents(categories: Categories, completion: @escaping (Result<EventsModel, Error>) -> ()) {
         router.request(.events(categories: categories)) { data, response, error in
             
-            guard error != nil else { completion(.failure(error!)); return }
+            guard error == nil else { completion(.failure(error!)); return }
             guard let responseData = data else {
                 completion(.failure(APIError.requestFailed ))
                 return
             }
             do {
-                let apiResponse = try JSONDecoder().decode(EventsModel.self, from: responseData)
-                completion(.success(apiResponse.results!))
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let apiResponse = try decoder.decode(EventsModel.self, from: responseData)
+                completion(.success(apiResponse))
             } catch {
                 print(error)
                 completion(.failure(APIError.jsonParsingFailure))

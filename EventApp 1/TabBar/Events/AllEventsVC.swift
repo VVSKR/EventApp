@@ -12,14 +12,14 @@ class AllEventsVC: UIViewController {
     
     let tableView = UITableView()
     
-    let networkService: NetworkService
+    let networkManager: NetworkManager
     
     var events: EventsModel = EventsModel()
     
     // MARK: Init
     
-    init(networkService: NetworkService) {
-        self.networkService = networkService
+    init(networkManager: NetworkManager) {
+        self.networkManager = networkManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,8 +39,7 @@ class AllEventsVC: UIViewController {
         
         view.backgroundColor = .yellow
         configureTableView()
-        
-        networkService.getEvents { (result) in
+        networkManager.getEvents(categories: .all) { (result) in
             switch result {
             case .success(let value):
                 DispatchQueue.main.async {
@@ -48,10 +47,21 @@ class AllEventsVC: UIViewController {
                     print(self.events.results?.count)
                     self.tableView.reloadData()
                 }
-               
             case .failure(let error):
                 print(error.localizedDescription)
-            }
+        }
+//        networkService.getEvents { (result) in
+//            switch result {
+//            case .success(let value):
+//                DispatchQueue.main.async {
+//                    self.events = value
+//                    print(self.events.results?.count)
+//                    self.tableView.reloadData()
+//                }
+//
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
         }
     }
     

@@ -8,6 +8,21 @@
 
 import Foundation
 
+indirect enum NetworkEnvironment {
+    case events(KudaGoApi)
+    case fireBase
+    
+}
+
+public enum KudaGoApi {
+    case recommended(id:Int)
+    case popular(page:Int)
+    case newMovies(page:Int)
+    case video(id:Int)
+    case events(categories: Categories)
+}
+
+
 public enum Categories: String {
     case all = ""
     case concert = "concert,"
@@ -17,24 +32,12 @@ public enum Categories: String {
 }
 
 
-enum NetworkEnvironment {
-    case events
-    
-}
-
-public enum MovieApi {
-    case recommended(id:Int)
-    case popular(page:Int)
-    case newMovies(page:Int)
-    case video(id:Int)
-    case events(categories: Categories)
-}
-
-extension MovieApi: EndPointType {
+extension KudaGoApi: EndPointType {
     
     var environmentBaseURL : String {
         switch NetworkManager.environment {
         case .events: return "https://kudago.com/public-api/v1.4/"
+        case .fireBase: return "firebase"
         }
     }
     

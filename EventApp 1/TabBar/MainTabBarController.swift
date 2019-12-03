@@ -12,7 +12,7 @@ final class MainTabBarController: UITabBarController {
     
     let session = URLSession()
 
-    let networkService = NetworkService()
+    let networkManager = NetworkManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,7 @@ final class MainTabBarController: UITabBarController {
         tabBar.tintColor = .black
         tabBar.barTintColor = .white
         
-        let allEventsVC = AllEventsVC(networkService: networkService)
+        let allEventsVC = AllEventsVC(networkManager: networkManager)
         allEventsVC.title = "Задачи"
         allEventsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .mostRecent, tag: 0)
         
