@@ -9,40 +9,96 @@
 import UIKit
 
 class LoginVC: UIViewController {
-
     
-    private var button = UIButton(type: .system)
+    
+    // MARK: - UI
+    private var loginTF = UITextField.logIn(with: "Login")
+    private var passwordTF = UITextField.logIn(with: " Password")
+    private var buttonLogin = UIButton(type: .system)
+    private var mainStackView = UIStackView()
+    
+    
+    var networkManager = NetworkManager()
+    
+    // MARK: - ViewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .brown
+        view.backgroundColor = .white
         
-        button.frame.size = CGSize(width: 200, height: 40)
-        button.center = view.center
-        button.center.y += 300
-        button.layer.cornerRadius = 20
-        button.backgroundColor = .purple
-        button.alpha = 1
-        button.setTitle("Login", for: .normal)
-        button.addTarget(self, action: #selector(login), for: .touchUpInside)
-        view.addSubview(button)
+        setupStackView()
+        setupButton()
         
+        setupConstraint()
+    }
+    
+    
+    @objc
+    func login() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.buttonLogin.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        }, completion: { _ in
+            UIView.animate(withDuration: 1, animations: {
+                
+                print(self.view.frame.width)
+                self.buttonLogin.frame.size = CGSize(width: self.view.frame.width * 10, height: self.view.frame.height * 10)
+//                self.buttonLogin.center = self.view.center
+            }, completion: { _ in
+                 AppDelegate.shared.rootViewController.showMainScreen() })
+        })
+       
     }
     
     @objc
-       func login() {
+    func login2() {
+        networkManager.postSingUp(email: loginTF.text!, password: passwordTF.text!) { (_) in
+            print("----!!!!!!!!!!----")
+        }
         AppDelegate.shared.rootViewController.showMainScreen()
     }
+}
+
+
+
+private extension LoginVC {
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setupStackView() {
+        mainStackView = UIStackView(arrangedSubviews: [loginTF, passwordTF])
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        mainStackView.axis = .vertical
+        mainStackView.spacing = 60
+        mainStackView.distribution = .fillEqually
+        view.addSubview(mainStackView)
+        
     }
-    */
-
+    
+    func setupButton() {
+        view.addSubview(buttonLogin)
+        buttonLogin.translatesAutoresizingMaskIntoConstraints = false
+        buttonLogin.frame = .zero
+        buttonLogin.layer.cornerRadius = 27
+        buttonLogin.setTitle("Login", for: .normal)
+        buttonLogin.addTarget(self, action: #selector(login2), for: .touchUpInside)
+        buttonLogin.backgroundColor = UIColor.systemGray
+        buttonLogin.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        buttonLogin.tintColor = .white
+    }
+    
+    
+    func setupConstraint() {
+        
+        NSLayoutConstraint.activate([
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            mainStackView.heightAnchor.constraint(equalToConstant: 140)
+        ])
+        
+        NSLayoutConstraint.activate([
+            buttonLogin.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80),
+            buttonLogin.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -80),
+            buttonLogin.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -120),
+            buttonLogin.heightAnchor.constraint(equalToConstant: 55)
+        ])
+    }
 }

@@ -14,7 +14,6 @@ extension UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-//        label.tintColor = tintColor
         label.numberOfLines = number
         label.textColor = tintColor
         

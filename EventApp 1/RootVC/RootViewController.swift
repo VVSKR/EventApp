@@ -36,22 +36,14 @@ class RootViewController: UIViewController {
     }
     
     func switchToLoginScreen() {
-        
         let newVC = UINavigationController(rootViewController: LoginVC())
-//        addChild(newVC)
-//        newVC.view.frame = view.bounds
-//        view.addSubview(newVC.view)
-//        newVC.didMove(toParent: self)
+
         animateFadeTransition(to: newVC)
     }
     
     public func showMainScreen() {
         let newVC = MainTabBarController()
-        addChild(newVC)
-        newVC.view.frame = view.bounds
-        view.addSubview(newVC.view)
-        newVC.didMove(toParent: self)
-        animateDismissTransition(to: newVC)
+        animateFadeTransition(to: newVC)
     }
     
     private func animateFadeTransition(to newVC: UIViewController, completion: (() -> Void)? = nil) {

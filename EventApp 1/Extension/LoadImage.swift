@@ -19,8 +19,6 @@ extension UIImageView {
             case .failure(let error):
                 print(error.localizedDescription)
             }
-            
         }
-        
     }
 }

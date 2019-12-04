@@ -43,6 +43,14 @@ struct NetworkManager {
     }
     
     
+    func postSingUp(email: String, password: String, complection: @escaping (Result<UserModel, Error>) -> ()) {
+        router.request(.fireBaseAuth(.signUp(email: email, password: password))) { (data, responce, error) in
+            
+        }
+        
+    }
+    
+    
     // new func
 }
 

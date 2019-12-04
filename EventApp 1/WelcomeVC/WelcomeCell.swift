@@ -12,13 +12,6 @@ class WelcomeCell: UICollectionViewCell {
     
     static public let reuseId = "welcomeCell"
     
-//    public var page: Page? {
-//        didSet {
-//            headerLabel.text = page?.headerText
-//            bodyLabel.text = page?.bodyText
-//        }
-//    }
-    
     private var headerLabel = UILabel()
     private var bodyLabel = UILabel()
     
@@ -70,8 +63,4 @@ class WelcomeCell: UICollectionViewCell {
             bodyLabel.widthAnchor.constraint(equalToConstant: 300)
         ])
     }
-    
-    
-    
-    
 }

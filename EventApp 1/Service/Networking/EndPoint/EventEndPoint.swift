@@ -10,7 +10,7 @@ import Foundation
 
 indirect enum NetworkEnvironment {
     case kudaGoAPI(KudaGoApi)
-    case fireBase
+    case fireBaseAuth(Auth)
     
 }
 
@@ -20,6 +20,11 @@ public enum KudaGoApi {
     case newMovies(page:Int)
     case video(id:Int)
     case events(categories: Categories)
+}
+
+public enum Auth {
+    case signUp(email: String, password: String)
+    case signIn(email: String, password: String)
 }
 
 
@@ -34,10 +39,59 @@ public enum Categories: String {
 
 extension NetworkEnvironment: EndPointType {
     
+    var httpMethod: HTTPMethod {
+        switch self {
+        case .fireBaseAuth:
+            return .post
+        case .kudaGoAPI:
+            return .get
+        }
+    }
+    
+    var task: HTTPTask {
+        
+        switch self {
+            
+        case .kudaGoAPI(let events):
+            switch events {
+                
+            case .newMovies(let page):
+                return .requestParameters(bodyParameters: nil,
+                                          bodyEncoding: .urlEncoding,
+                                          urlParameters: ["page": page, "api_key": "k"])
+            case .events(let categories):
+                return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding,
+                                          urlParameters: ["categories": categories.rawValue,
+                                                          "fields": "title,short_title,body_text,price,images,dates,place,categories",
+                                                          "expand": "location,dates,participants,images,place",
+                                                          "order_by": "-rank",
+                                                          "text_format": "text",
+                                                          "location": "msk",
+                                                          "actual_since": "1575075200"])
+            default:
+                return .request
+            }
+            
+        case .fireBaseAuth(let auth):
+            switch auth {
+            case .signIn(let email, let password):
+                return .requestParametersAndHeaders(bodyParameters: ["email": email, "password": password], bodyEncoding: .urlAndJsonEncoding, urlParameters: ["key": "AIzaSyBapSaUwsJ77F0-JqjfcfN7r7RrTx10uMU"], additionHeaders: ["Content-Type":"application/json"])
+            case .signUp(let email, let password):
+                return .requestParametersAndHeaders(bodyParameters: ["email": email, "password": password], bodyEncoding: .urlAndJsonEncoding, urlParameters: ["key": "AIzaSyBapSaUwsJ77F0-JqjfcfN7r7RrTx10uMU"], additionHeaders: ["Content-Type":"application/json"])
+                
+            }
+        }
+    }
+    
+    var headers: HTTPHeaders? {
+        return nil
+    }
+    
     var environmentBaseURL : String {
         switch self {
         case .kudaGoAPI: return "https://kudago.com/public-api/v1.4/"
-        case .fireBase: return "firebase"
+        case .fireBaseAuth: return "https://identitytoolkit.googleapis.com/v1/"
+            
         }
     }
     
@@ -63,46 +117,13 @@ extension NetworkEnvironment: EndPointType {
                 return "events"
             }
             
-        case .fireBase: return "firebase"
-        }
-    }
-    
-    
-    var task: HTTPTask {
-        switch self {
-            
-        case .kudaGoAPI(let events):
-            switch events {
-                
-            case .newMovies(let page):
-                return .requestParameters(bodyParameters: nil,
-                                          bodyEncoding: .urlEncoding,
-                                          urlParameters: ["page": page,
-                                                          "api_key": "k"])
-            case .events(let categories):
-                return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding,
-                                          urlParameters: ["categories": categories.rawValue,
-                                                          "fields": "title,short_title,body_text,price,images,dates,place,categories",
-                                                          "expand": "location,dates,participants,images,place",
-                                                          "order_by": "-rank",
-                                                          "text_format": "text",
-                                                          "location": "msk",
-                                                          "actual_since": "1575075200"])
-            default:
-                return .request
+        case .fireBaseAuth(let auth):
+            switch auth {
+            case .signIn:
+                return "accounts:signInWithPassword"
+            case .signUp:
+                return "accounts:signUp"
             }
-            
-        case .fireBase: return HTTPTask.request // эт хуйня какая-то, надо исправить
-            
         }
-        
-    }
-    
-    var httpMethod: HTTPMethod {
-        return .get
-    }
-    
-    var headers: HTTPHeaders? {
-        return nil
     }
 }

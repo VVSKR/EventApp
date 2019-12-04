@@ -16,6 +16,7 @@ class DetailEventVC: UIViewController {
     }
     
     // MARK: - Properties
+    private var navTitle: String?
     
     private var scrollView: UIScrollView!
     private var detailView: UIView!
@@ -55,7 +56,7 @@ class DetailEventVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupView()
         
         self.navigationController?.navigationBar.barStyle = .black
         view.backgroundColor = .white
@@ -63,9 +64,9 @@ class DetailEventVC: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
         
-        setupView()
+        
         setupConstraints()
         
         
@@ -76,12 +77,11 @@ class DetailEventVC: UIViewController {
     func set(value: ResultModel) {
         placeHolderImageView.startAnimating()
         guard let url = URL(string: value.images[0].image) else { return }
-        
+        title = value.title
         headerImageView.loadImage(url: url, alpha: 1) { [weak self] in
             self?.placeHolderImageView.stopAnimating()
             self?.placeHolderImageView.isHidden = true
         }
-        title = value.title
         headerLabel.text = value.title
         bodyLabel.text = value.bodyText
         dateLabel.text = "Событие пройдет - \(String(describing: value.dates[0].startDate)) в \(String(describing: value.dates[0].startTime))"
@@ -182,11 +182,13 @@ private extension DetailEventVC {
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
+       
+        let headerViewTopConstraint = headerContainerView.topAnchor.constraint(equalTo: view.topAnchor)
+        headerViewTopConstraint.priority = UILayoutPriority(900)
         
         NSLayoutConstraint.activate([
-            headerContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            headerViewTopConstraint,
             headerContainerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 1.0),
-            headerContainerView.heightAnchor.constraint(equalToConstant: 210),
             headerContainerView.bottomAnchor.constraint(equalTo: detailView.topAnchor, constant: 0)
             
         ])
@@ -222,10 +224,12 @@ extension DetailEventVC: UIScrollViewDelegate {
         
         let offset = scrollView.contentOffset.y / 210
         
-        if offset > 0.6 { // исчкезает
+        if offset > 0.9 { // исчкезает
             UIView.animate(withDuration: 0.2) {
                 self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
                 self.navigationController?.navigationBar.shadowImage = nil
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+                
             }
             
             
@@ -233,6 +237,7 @@ extension DetailEventVC: UIScrollViewDelegate {
             UIView.animate(withDuration: 0.2) {
                 self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
                 self.navigationController?.navigationBar.shadowImage = UIImage()
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
                 
             }
         }

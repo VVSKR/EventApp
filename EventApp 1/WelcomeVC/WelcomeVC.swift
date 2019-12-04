@@ -114,7 +114,7 @@ class WelcomeVC: UIViewController {
         collectionView.backgroundColor = .red
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isPagingEnabled = true
-        //        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         
         collectionView.delegate = self

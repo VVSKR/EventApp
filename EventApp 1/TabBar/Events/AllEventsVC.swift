@@ -37,8 +37,9 @@ class AllEventsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .yellow
+        view.backgroundColor = .white
         configureTableView()
+        setupTabBar()
         
         networkManager.getEvents(categories: .theater) { (result) in
             switch result {
@@ -59,10 +60,16 @@ class AllEventsVC: UIViewController {
         
         
     }
+}
+
+// MARK: SetupTableView
     
+private extension AllEventsVC {
     
-    
-    // MARK: SetupTableView
+    func setupTabBar() {
+        let rightBarItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(rightButtonPressed))
+        navigationItem.rightBarButtonItem = rightBarItem
+    }
     
     private func configureTableView() {
         setupTableView()
@@ -80,16 +87,21 @@ class AllEventsVC: UIViewController {
         tableView.estimatedRowHeight = 10
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
     }
     
     private func setTableViewDelegates() {
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    @objc
+    func rightButtonPressed() {
+        
     }
     
     

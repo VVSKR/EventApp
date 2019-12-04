@@ -19,6 +19,8 @@
 		F13B63E82395B281002B7EE8 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63E72395B281002B7EE8 /* APIError.swift */; };
 		F13B63EA2396B721002B7EE8 /* BottomLineTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63E92396B721002B7EE8 /* BottomLineTF.swift */; };
 		F1C3CFC62397066E00012D62 /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C3CFC52397066E00012D62 /* SkeletonView.swift */; };
+		F1C3CFCA2397C89100012D62 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C3CFC92397C89100012D62 /* CustomTextField.swift */; };
+		F1C3CFCC239814C100012D62 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C3CFCB239814C000012D62 /* UserModel.swift */; };
 		F1E1CF5A23880CBC00A18845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E1CF5923880CBC00A18845 /* AppDelegate.swift */; };
 		F1E1CF5C23880CBC00A18845 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E1CF5B23880CBC00A18845 /* ViewController.swift */; };
 		F1E1CF6223880CBC00A18845 /* EventApp_1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1E1CF6023880CBC00A18845 /* EventApp_1.xcdatamodeld */; };
@@ -71,6 +73,8 @@
 		F13B63E72395B281002B7EE8 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		F13B63E92396B721002B7EE8 /* BottomLineTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLineTF.swift; sourceTree = "<group>"; };
 		F1C3CFC52397066E00012D62 /* SkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
+		F1C3CFC92397C89100012D62 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		F1C3CFCB239814C000012D62 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		F1E1CF5623880CBC00A18845 /* EventApp 1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EventApp 1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E1CF5923880CBC00A18845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1E1CF5B23880CBC00A18845 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				F1C3CFC52397066E00012D62 /* SkeletonView.swift */,
+				F13B63E92396B721002B7EE8 /* BottomLineTF.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -203,13 +208,13 @@
 				F1E1CF5923880CBC00A18845 /* AppDelegate.swift */,
 				F1E1CF5B23880CBC00A18845 /* ViewController.swift */,
 				F1ECBDEF2388858800BB89A9 /* WelcomeVC */,
+				F1ECBDF02388901F00BB89A9 /* LoginVC.swift */,
 				F1EFDABA2389F2A000C95690 /* TabBar */,
 				F1EFDAAE2389823400C95690 /* MainVC.swift */,
 				F1EFDAC7238BF2BE00C95690 /* Model with DTo */,
 				F1F2A990238ED7970006D948 /* Service */,
 				F1F2A98B238D181B0006D948 /* Model */,
 				F1ECBDF2238890C700BB89A9 /* UserDefaults.swift */,
-				F1ECBDF02388901F00BB89A9 /* LoginVC.swift */,
 				F1C3CFC42397065800012D62 /* Components */,
 				F1EFDAC4238B25DB00C95690 /* Extension */,
 				F1E1CF6323880CBD00A18845 /* Assets.xcassets */,
@@ -257,7 +262,7 @@
 				F1EFDAC0238ACC0200C95690 /* CustomLabel.swift */,
 				F1F2A98C238D23270006D948 /* LoadImage.swift */,
 				F1F2A996238EEF050006D948 /* ImageAlpha.swift */,
-				F13B63E92396B721002B7EE8 /* BottomLineTF.swift */,
+				F1C3CFC92397C89100012D62 /* CustomTextField.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -300,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				F1F2A989238D17FE0006D948 /* EventsModel.swift */,
+				F1C3CFCB239814C000012D62 /* UserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -395,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1F2A995238EDB7F0006D948 /* DetailEventVC.swift in Sources */,
+				F1C3CFCC239814C100012D62 /* UserModel.swift in Sources */,
 				F1EFDAB723898DD500C95690 /* ProfileVC.swift in Sources */,
 				F1E1CF6223880CBC00A18845 /* EventApp_1.xcdatamodeld in Sources */,
 				F1EFDAD3238BF48F00C95690 /* ImagesDTO.swift in Sources */,
@@ -414,6 +421,7 @@
 				F1EFDADB238BFA7C00C95690 /* DateModel.swift in Sources */,
 				F1EFDABD2389F64700C95690 /* NetworkService.swift in Sources */,
 				F1EFDACC238BF33A00C95690 /* EventsListDTO.swift in Sources */,
+				F1C3CFCA2397C89100012D62 /* CustomTextField.swift in Sources */,
 				F1F2A98D238D23270006D948 /* LoadImage.swift in Sources */,
 				F1ECBDEA238823F800BB89A9 /* Page.swift in Sources */,
 				F1EFDAC6238B29D400C95690 /* EventsModel1.swift in Sources */,

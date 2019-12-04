@@ -21,7 +21,7 @@ final class MainTabBarController: UITabBarController {
         tabBar.barTintColor = .white
         
         let allEventsVC = AllEventsVC(networkManager: networkManager)
-        allEventsVC.title = "Задачи"
+        allEventsVC.title = "Мероприятия"
         allEventsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .mostRecent, tag: 0)
         
         let favoriteEventsVC = FavoriteEventsVC()
