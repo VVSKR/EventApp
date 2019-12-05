@@ -17,4 +17,20 @@ extension UserDefaults {
     func returnNoFirstTime() -> Bool {
         return bool(forKey: "isFirstTime")
     }
+    
+    
+    // MARK: - UserID
+    
+    func setUserId(id: String) {
+        set(id, forKey: "UserId")
+        synchronize()
+    }
+    
+    func returnUserId() -> String {
+        return string(forKey: "UserId") ?? ""
+    }
+    
+    func deleteUserId() {
+        setUserId(id: "")
+    }
 }

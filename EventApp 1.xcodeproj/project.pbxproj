@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F1324175239975490080D81B /* KudaGoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1324174239975490080D81B /* KudaGoApi.swift */; };
+		F1324177239975560080D81B /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1324176239975560080D81B /* FirebaseAuth.swift */; };
+		F1324179239975680080D81B /* FirebaseDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1324178239975680080D81B /* FirebaseDataBase.swift */; };
 		F13B63D62395891E002B7EE8 /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63D52395891E002B7EE8 /* EndPointType.swift */; };
 		F13B63D823958A83002B7EE8 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63D723958A82002B7EE8 /* HTTPMethod.swift */; };
 		F13B63DA23958B01002B7EE8 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63D923958B01002B7EE8 /* HTTPTask.swift */; };
@@ -61,6 +64,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F1324174239975490080D81B /* KudaGoApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KudaGoApi.swift; sourceTree = "<group>"; };
+		F1324176239975560080D81B /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
+		F1324178239975680080D81B /* FirebaseDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDataBase.swift; sourceTree = "<group>"; };
 		F13B63D52395891E002B7EE8 /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
 		F13B63D723958A82002B7EE8 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		F13B63D923958B01002B7EE8 /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
@@ -142,6 +148,9 @@
 			isa = PBXGroup;
 			children = (
 				F13B63E32395AE21002B7EE8 /* EventEndPoint.swift */,
+				F1324174239975490080D81B /* KudaGoApi.swift */,
+				F1324176239975560080D81B /* FirebaseAuth.swift */,
+				F1324178239975680080D81B /* FirebaseDataBase.swift */,
 			);
 			path = EndPoint;
 			sourceTree = "<group>";
@@ -206,6 +215,7 @@
 			children = (
 				F1EFDABB2389F2B000C95690 /* RootVC */,
 				F1E1CF5923880CBC00A18845 /* AppDelegate.swift */,
+				F1ECBDF2238890C700BB89A9 /* UserDefaults.swift */,
 				F1E1CF5B23880CBC00A18845 /* ViewController.swift */,
 				F1ECBDEF2388858800BB89A9 /* WelcomeVC */,
 				F1ECBDF02388901F00BB89A9 /* LoginVC.swift */,
@@ -214,7 +224,6 @@
 				F1EFDAC7238BF2BE00C95690 /* Model with DTo */,
 				F1F2A990238ED7970006D948 /* Service */,
 				F1F2A98B238D181B0006D948 /* Model */,
-				F1ECBDF2238890C700BB89A9 /* UserDefaults.swift */,
 				F1C3CFC42397065800012D62 /* Components */,
 				F1EFDAC4238B25DB00C95690 /* Extension */,
 				F1E1CF6323880CBD00A18845 /* Assets.xcassets */,
@@ -403,6 +412,7 @@
 				F1F2A995238EDB7F0006D948 /* DetailEventVC.swift in Sources */,
 				F1C3CFCC239814C100012D62 /* UserModel.swift in Sources */,
 				F1EFDAB723898DD500C95690 /* ProfileVC.swift in Sources */,
+				F1324175239975490080D81B /* KudaGoApi.swift in Sources */,
 				F1E1CF6223880CBC00A18845 /* EventApp_1.xcdatamodeld in Sources */,
 				F1EFDAD3238BF48F00C95690 /* ImagesDTO.swift in Sources */,
 				F13B63E62395AE85002B7EE8 /* NetworkManager.swift in Sources */,
@@ -430,6 +440,7 @@
 				F1C3CFC62397066E00012D62 /* SkeletonView.swift in Sources */,
 				F13B63D62395891E002B7EE8 /* EndPointType.swift in Sources */,
 				F1EFDAAF2389823400C95690 /* MainVC.swift in Sources */,
+				F1324179239975680080D81B /* FirebaseDataBase.swift in Sources */,
 				F13B63E42395AE21002B7EE8 /* EventEndPoint.swift in Sources */,
 				F13B63EA2396B721002B7EE8 /* BottomLineTF.swift in Sources */,
 				F1EFDAD7238BF7BB00C95690 /* PlaceModel.swift in Sources */,
@@ -441,6 +452,7 @@
 				F1E1CF7123880CF800A18845 /* WelcomeCell.swift in Sources */,
 				F1ECBDF12388901F00BB89A9 /* LoginVC.swift in Sources */,
 				F1ECBDF3238890C700BB89A9 /* UserDefaults.swift in Sources */,
+				F1324177239975560080D81B /* FirebaseAuth.swift in Sources */,
 				F1E1CF5A23880CBC00A18845 /* AppDelegate.swift in Sources */,
 				F13B63DC23958D88002B7EE8 /* ParameterEncoding.swift in Sources */,
 				F1EFDAB323898D4B00C95690 /* AllEventsVC.swift in Sources */,
