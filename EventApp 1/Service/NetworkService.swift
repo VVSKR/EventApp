@@ -30,7 +30,7 @@ class NetworkService {
     
     let url = URL(string: "https://kudago.com/public-api/v1.4/events/?fields=title,short_title,body_text,price,images,dates,place&expand=location,dates,participants,images,place&order_by=%20-rank&text_format=text&location=msk&actual_since=1574575200&categories")!
     
-    public func getEvents(completion: ((Result<EventsModel>) -> Void)?) {
+    public func getEvents(completion: ((Result<ResultEventsModel>) -> Void)?) {
         mainSession(request: getEventsUrl(), completion: completion)
     }
 

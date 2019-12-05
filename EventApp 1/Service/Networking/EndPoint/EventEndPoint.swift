@@ -47,7 +47,12 @@ extension NetworkEnvironment: EndPointType {
                 
             case .events(let categories):
                 return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding,
-                                          urlParameters: ["categories": categories.rawValue,])
+                                          urlParameters: ["categories": categories.rawValue,"fields": "title,short_title,body_text,price,images,dates,place,categories",
+                                          "expand": "location,dates,participants,images,place",
+                                          "order_by": "-rank",
+                                          "text_format": "text",
+                                          "location": "msk",
+                                          "actual_since": "1575075200"])
             }
         // FireBaseAuth
         case .fireBaseAuth(let auth):
@@ -62,8 +67,8 @@ extension NetworkEnvironment: EndPointType {
             switch request {
             case .getUserData:
                 return .request
-            case .putNewData:
-                return .request
+            case .putNewData(let data):
+                return .requestParameters(bodyParameters: ["Hi": data], bodyEncoding: .jsonEncoding, urlParameters: nil)
                 
             }
         }
@@ -81,7 +86,7 @@ extension NetworkEnvironment: EndPointType {
         switch self {
         case .kudaGoAPI: return "https://kudago.com/public-api/v1.4/"
         case .fireBaseAuth: return "https://identitytoolkit.googleapis.com/v1/"
-        case .firebaseDataBase: return "https://eventsbd-7d841.firebaseio.com/\(UserDefaults.standard.returnUserId())"
+        case .firebaseDataBase: return "https://eventsbd-7d841.firebaseio.com/" //   \(UserDefaults.standard.returnUserId())/
         }
     }
     
@@ -122,11 +127,11 @@ extension NetworkEnvironment: EndPointType {
     
     
     //    private var defaultParamForKudaGoApi: [String: String] {
-    //        return ["fields": "title,short_title,body_text,price,images,dates,place,categories",
-    //                "expand": "location,dates,participants,images,place",
-    //                "order_by": "-rank",
-    //                "text_format": "text",
-    //                "location": "msk",
-    //                "actual_since": "1575075200"]
+//            return ["fields": "title,short_title,body_text,price,images,dates,place,categories",
+//                    "expand": "location,dates,participants,images,place",
+//                    "order_by": "-rank",
+//                    "text_format": "text",
+//                    "location": "msk",
+//                    "actual_since": "1575075200"]
     //    }
 }

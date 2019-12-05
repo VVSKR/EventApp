@@ -23,7 +23,7 @@ struct NetworkManager {
     
     let router = Router<NetworkEnvironment>()
     
-    func getEvents(categories: Categories, completion: @escaping (Result<EventsModel, Error>) -> ()) {
+    func getEvents(categories: Categories, completion: @escaping (Result<ResultEventsModel, Error>) -> ()) {
         router.request(.kudaGoAPI(.events(categories: categories))) { data, response, error in
             guard error == nil else { completion(.failure(error!)); return }
             guard let responseData = data else {
@@ -33,7 +33,7 @@ struct NetworkManager {
             do {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let apiResponse = try decoder.decode(EventsModel.self, from: responseData)
+                let apiResponse = try decoder.decode(ResultEventsModel.self, from: responseData)
                 completion(.success(apiResponse))
             } catch {
                 print(error)
@@ -43,12 +43,39 @@ struct NetworkManager {
     }
     
     
-    func postSingUp(email: String, password: String, complection: @escaping (Result<UserModel, Error>) -> ()) {
+    func postSingUp(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ()) {
         router.request(.fireBaseAuth(.signUp(email: email, password: password))) { (data, responce, error) in
             
+            guard error == nil, let responseData = data else { completion(.failure(APIError.requestFailed)); return }
+            
+            do {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let apiResponse = try decoder.decode(UserModel.self, from: responseData)
+                completion(.success(apiResponse))
+            } catch {
+                 completion(.failure(APIError.jsonParsingFailure))
+            }
         }
-        
     }
+    
+    
+    func firebaseGetData(completion: @escaping (Result<ResultEventsModel, Error>) -> ()) {
+        router.request(.firebaseDataBase(.getUserData)) { (data, responce, error) in
+            guard let data = data else { print("No data from FIREBASE"); return }
+            print(data)
+        
+        }
+    }
+    
+    func firebasePutData(event: EventModel, completion: @escaping (Result<ResultEventsModel, Error>) -> ()) {
+        router.request(.firebaseDataBase(.putNewData(data: event))) { (data, responce, error) in
+            guard let data = data else { print("No data from FIREBASE"); return }
+            print(data)
+        
+        }
+    }
+    
     
     
     // new func

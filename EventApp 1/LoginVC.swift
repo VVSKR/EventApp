@@ -44,17 +44,24 @@ class LoginVC: UIViewController {
                 self.buttonLogin.frame.size = CGSize(width: self.view.frame.width * 10, height: self.view.frame.height * 10)
 //                self.buttonLogin.center = self.view.center
             }, completion: { _ in
-                 AppDelegate.shared.rootViewController.showMainScreen() })
+//                self.networkManager.firebaseGetData { (result) in }
+                UserDefaults.standard.setUserId(id: "6666")
+                self.networkManager.firebasePutData(event: EventModel(title: "title", bodyText: "bodyy", price: "priceee", dates: [DateModel(startDate: "start", startTime: "time")], place: PlaceModel(title: "title palce", address: "address", subway: "subway"), images: [ImageModel(image: "image")], shortTitle: "shortTitle")) { (result) in
+//
+                }
+//                 AppDelegate.shared.rootViewController.showMainScreen()
+                
+            })
         })
        
     }
     
     @objc
     func login2() {
-        networkManager.postSingUp(email: loginTF.text!, password: passwordTF.text!) { (_) in
-            print("----!!!!!!!!!!----")
+        networkManager.postSingUp(email: loginTF.text!, password: passwordTF.text!) { _ in
+            
         }
-        AppDelegate.shared.rootViewController.showMainScreen()
+//        AppDelegate.shared.rootViewController.showMainScreen()
     }
 }
 
@@ -78,7 +85,7 @@ private extension LoginVC {
         buttonLogin.frame = .zero
         buttonLogin.layer.cornerRadius = 27
         buttonLogin.setTitle("Login", for: .normal)
-        buttonLogin.addTarget(self, action: #selector(login2), for: .touchUpInside)
+        buttonLogin.addTarget(self, action: #selector(login), for: .touchUpInside)
         buttonLogin.backgroundColor = UIColor.systemGray
         buttonLogin.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         buttonLogin.tintColor = .white

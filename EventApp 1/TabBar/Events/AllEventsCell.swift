@@ -49,8 +49,8 @@ class AllEventsCell: UITableViewCell {
     
     // MARK: - Set
     
-    public func set(value: ResultModel) {
-        let url = URL(string: value.images[0].thumbnails.the640X384!)!
+    public func set(value: EventModel) {
+        let url = URL(string: (value.images[0].thumbnails?.the640X384!)!)!
         backgroundImage.loadImage(url: url, alpha: 0.55) { [weak self] in
             self?.placeHolderImageView.stopAnimating()
             self?.placeHolderImageView.isHidden = true

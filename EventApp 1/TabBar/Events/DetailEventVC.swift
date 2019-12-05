@@ -10,7 +10,7 @@ import UIKit
 
 class DetailEventVC: UIViewController {
     // MARK: - Constants
-    var event: ResultModel!
+    var event: EventModel!
     struct Constants {
         static fileprivate let headerHeight: CGFloat = 210
     }
@@ -74,7 +74,7 @@ class DetailEventVC: UIViewController {
         
     }
     
-    func set(value: ResultModel) {
+    func set(value: EventModel) {
         placeHolderImageView.startAnimating()
         guard let url = URL(string: value.images[0].image) else { return }
         title = value.title

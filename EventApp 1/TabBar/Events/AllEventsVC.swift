@@ -14,7 +14,7 @@ class AllEventsVC: UIViewController {
     
     let networkManager: NetworkManager
     
-    var events: EventsModel = EventsModel()
+    var events: ResultEventsModel = ResultEventsModel()
     
     // MARK: Init
     

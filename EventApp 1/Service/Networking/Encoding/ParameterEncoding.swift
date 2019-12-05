@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias Parameters = [String:Any]
+public typealias Parameters = [String: Any]
 
 public protocol ParameterEncoder {
      func encode(urlRequest: inout URLRequest, with parameters: Parameters) throws
@@ -19,6 +19,7 @@ public enum ParameterEncoding {
     case urlEncoding
     case jsonEncoding
     case urlAndJsonEncoding
+    case dataEncoding
     
     public func encode(urlRequest: inout URLRequest,
                        bodyParameters: Parameters?,
@@ -38,6 +39,10 @@ public enum ParameterEncoding {
                     let urlParameters = urlParameters else { return }
                 try URLParameterEncoder().encode(urlRequest: &urlRequest, with: urlParameters)
                 try JSONParameterEncoder().encode(urlRequest: &urlRequest, with: bodyParameters)
+            case .dataEncoding:
+                guard let bodyParameters = bodyParameters else { return }
+
+//                try JSONEncoder().encodeJSONObject(bodyParameters, options: .fragmentsAllowed)
                 
             }
         } catch { throw error }
@@ -48,4 +53,11 @@ public enum NetworkError : String, Error {
     case parametersNil = "Parameters were nil."
     case encodingFailed = "Parameter encoding failed."
     case missingURL = "URL is nil."
+}
+
+extension JSONEncoder {
+    func encodeJSONObject<T: Encodable>(_ value: T, options opt: JSONSerialization.ReadingOptions = []) throws -> Any {
+        let data = try encode(value)
+        return try JSONSerialization.jsonObject(with: data, options: opt)
+    }
 }
