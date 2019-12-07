@@ -1,5 +1,5 @@
 //
-//  SkeletonView.swift
+//  LoadingAnimationView.swift
 //  EventApp 1
 //
 //  Created by Vova SKR on 04/12/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SkeletonView: UIView {
+class LoadingAnimationView: UIView {
     
     var startLocations : [NSNumber] = [-1.0,-0.5, 0.0]
     var endLocations : [NSNumber] = [1.0,1.5, 2.0]

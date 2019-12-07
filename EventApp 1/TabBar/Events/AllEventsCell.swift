@@ -22,7 +22,7 @@ class AllEventsCell: UITableViewCell {
      // MARK: - Properties
     
     private let backgroundImage = UIImageView()
-    private let placeHolderImageView = SkeletonView()
+    private let placeHolderImageView = LoadingAnimationView()
     private let eventView = UIView()
     private var stackView: UIStackView!
     

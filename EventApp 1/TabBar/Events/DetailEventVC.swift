@@ -8,6 +8,13 @@
 
 import UIKit
 
+enum SaveHelper {
+    case delete
+    case save
+    case noAction
+}
+
+
 class DetailEventVC: UIViewController {
     // MARK: - Constants
     var event: EventModel!
@@ -16,13 +23,18 @@ class DetailEventVC: UIViewController {
     }
     
     // MARK: - Properties
-    private var navTitle: String?
+    private var networkManager = NetworkManager()
     
+    private var isSaved: Bool!
+    private var saveHelper: SaveHelper = .noAction
+    
+    private var navTitle: String?
     private var scrollView: UIScrollView!
     private var detailView: UIView!
     private var headerContainerView: UIView!
     private var headerImageView: UIImageView!
-    private var placeHolderImageView: SkeletonView!
+    private var placeHolderImageView: LoadingAnimationView!
+    private var rightNavBarButton: UIButton!
     
     
     private var headerLabel: UILabel!
@@ -34,46 +46,49 @@ class DetailEventVC: UIViewController {
     private var mainStackView: UIStackView!
     
     
-    // MARK: - ViewDidLoad
     
-   
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        UIApplication.shared.statusBarStyle = .lightContent
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-//        UIApplication.shared.statusBarStyle = .default
-        self.navigationController?.navigationBar.barStyle = .default
-        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-        self.navigationController?.navigationBar.shadowImage = nil
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-    }
-    
-    // MARK: - ViewDidLoad
+    // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isSavedEvent()
         setupView()
-        
-        self.navigationController?.navigationBar.barStyle = .black
+        print(isSaved)
+        navigationController?.navigationBar.barStyle = .black
         view.backgroundColor = .white
         navigationController?.navigationBar.barStyle = .blackOpaque
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
-        
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
         
         setupConstraints()
+        guard let event = event else { return }
         
         
         set(value: event)
-        
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        
+        saveOrDeleteInFavoriteEvents()
+    }
+    
+    func isSavedEvent() {
+        guard let event = event else { return }
+        guard let savedEvent = UserSavedEvents.shared.savedEvents.first(where: { $0.id == event.id }) else { isSaved = false; return }
+        self.event = savedEvent
+        isSaved = true
+    }
+    
+    
+    // MARK: - Set Data
     func set(value: EventModel) {
         placeHolderImageView.startAnimating()
         guard let url = URL(string: value.images[0].image) else { return }
@@ -84,16 +99,58 @@ class DetailEventVC: UIViewController {
         }
         headerLabel.text = value.title
         bodyLabel.text = value.bodyText
-        dateLabel.text = "Событие пройдет - \(String(describing: value.dates[0].startDate)) в \(String(describing: value.dates[0].startTime))"
+        dateLabel.text = "Событие состоится - \(String(describing: value.dates[0].startDate)) в \(String(describing: value.dates[0].startTime))"
         priceLabel.text = "Цена - \(value.price)"
         addressLabel.text = "Адрес - \(String(describing: value.place.address))"
+        
+    }
+    
+    
+    @objc
+    func rightButtonPressed() {
+        let nameImage = isSaved ? "heart" : "heartRed"
+        saveHelper = isSaved ? .delete : .save
+        navigationItem.rightBarButtonItem?.image = UIImage(named: nameImage)?.withRenderingMode(.alwaysOriginal)
+        isSaved = !isSaved
+    }
+    
+    
+    func saveOrDeleteInFavoriteEvents() {
+        switch saveHelper {
+        case .noAction: break
+        case .save:
+            guard event.date == nil else { return }
+            saveEvent()
+        case .delete:
+            guard event.date != nil else { return }
+            deleteEvent()
+        }
+    }
+    
+    func saveEvent() {
+        let date = Int(Date().string())!
+        event.date = date
+        networkManager.firebasePutData(event: event,currentDate: date) { (_) in }
+        UserSavedEvents.shared.savedEvents.append(event)
+    }
+    
+    func deleteEvent() {
+        // написать удаление по дате
     }
 }
 
 
-// MARK: - CreateViews
+
+// MARK: - Setup UI
 
 private extension DetailEventVC {
+    
+    func addBarItem() {
+        let nameImage = isSaved ? "heartRed" : "heart"
+        let image = UIImage(named: nameImage)?.withRenderingMode(.alwaysOriginal)
+        let rightButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(rightButtonPressed))
+        navigationItem.rightBarButtonItem = rightButtonItem
+    }
     
     func setupView() {
         createDetailView()
@@ -102,6 +159,8 @@ private extension DetailEventVC {
         createHeaderImageView()
         createLabels()
         addStackView()
+        addBarItem()
+        
         
         view.addSubview(scrollView)
         scrollView.addSubview(headerContainerView)
@@ -137,7 +196,7 @@ private extension DetailEventVC {
     }
     
     func createPlaceHolderImage() {
-        placeHolderImageView = SkeletonView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 2))
+        placeHolderImageView = LoadingAnimationView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 2))
         placeHolderImageView.translatesAutoresizingMaskIntoConstraints = false
         headerImageView.addSubview(placeHolderImageView)
     }
@@ -170,7 +229,7 @@ private extension DetailEventVC {
     }
     
     
-    // MARK: - setupConstraints
+    // MARK: - Setup Constraints
     
     func setupConstraints() {
         
@@ -182,7 +241,6 @@ private extension DetailEventVC {
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-       
         let headerViewTopConstraint = headerContainerView.topAnchor.constraint(equalTo: view.topAnchor)
         headerViewTopConstraint.priority = UILayoutPriority(900)
         
@@ -225,7 +283,7 @@ extension DetailEventVC: UIScrollViewDelegate {
         let offset = scrollView.contentOffset.y / 210
         
         if offset > 0.9 { // исчкезает
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.4) {
                 self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
                 self.navigationController?.navigationBar.shadowImage = nil
                 self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -234,7 +292,7 @@ extension DetailEventVC: UIScrollViewDelegate {
             
             
         } else { // появляется
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.4) {
                 self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
                 self.navigationController?.navigationBar.shadowImage = UIImage()
                 self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]

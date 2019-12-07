@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Date {
+public struct Date11 {
     
     public var startDate: String
     public var startTime: String

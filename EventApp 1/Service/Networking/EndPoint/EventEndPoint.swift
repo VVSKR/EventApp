@@ -47,7 +47,7 @@ extension NetworkEnvironment: EndPointType {
                 
             case .events(let categories):
                 return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding,
-                                          urlParameters: ["categories": categories.rawValue,"fields": "title,short_title,body_text,price,images,dates,place,categories",
+                                          urlParameters: ["categories": categories.rawValue,"fields": "title,short_title,body_text,price,images,dates,place,categories,id",
                                           "expand": "location,dates,participants,images,place",
                                           "order_by": "-rank",
                                           "text_format": "text",
@@ -67,8 +67,9 @@ extension NetworkEnvironment: EndPointType {
             switch request {
             case .getUserData:
                 return .request
-            case .putNewData(let data):
-                return .requestParameters(bodyParameters: ["Hi": data], bodyEncoding: .jsonEncoding, urlParameters: nil)
+            case .putNewData(let value):
+                let data = value.data.dictionary
+                return .requestParameters(bodyParameters: data, bodyEncoding: .jsonEncoding, urlParameters: nil)
                 
             }
         }
@@ -117,9 +118,9 @@ extension NetworkEnvironment: EndPointType {
         case .firebaseDataBase(let request):
             switch request {
             case .getUserData:
-                return ".json"
-            case .putNewData:
-                return ".json"
+                return "\(UserDefaults.standard.returnUserId())/.json"
+            case .putNewData(let value):
+                return "\(UserDefaults.standard.returnUserId())/\(value.currentDate)/.json"
                 
             }
         }

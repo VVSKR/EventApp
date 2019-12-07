@@ -17,7 +17,7 @@ extension UITextField {
         textField.backgroundColor = .white
 
         textField.tintColor = .black
-        textField.font = UIFont.systemFont(ofSize: 20)
+        textField.font = UIFont.systemFont(ofSize: 18)
         textField.placeholder = " " + placeholder
         
         textField.borderStyle = .none

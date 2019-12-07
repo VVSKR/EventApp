@@ -23,6 +23,7 @@ struct NetworkManager {
     
     let router = Router<NetworkEnvironment>()
     
+    // MARK: - KudaGO API
     func getEvents(categories: Categories, completion: @escaping (Result<ResultEventsModel, Error>) -> ()) {
         router.request(.kudaGoAPI(.events(categories: categories))) { data, response, error in
             guard error == nil else { completion(.failure(error!)); return }
@@ -42,12 +43,34 @@ struct NetworkManager {
         }
     }
     
-    
+    // MARK: - Firebase Auth
     func postSingUp(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ()) {
         router.request(.fireBaseAuth(.signUp(email: email, password: password))) { (data, responce, error) in
             
-            guard error == nil, let responseData = data else { completion(.failure(APIError.requestFailed)); return }
+            guard error == nil, let responseData = data else { completion(.failure(APIError.noData)); return }
+            guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else {
+                completion(.failure(APIError.requestFailed))
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let apiResponse = try decoder.decode(UserModel.self, from: responseData)
+                completion(.success(apiResponse))
+            } catch {
+                 completion(.failure(APIError.jsonParsingFailure))
+            }
+        }
+    }
+    
+    func postSingIn(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ()) {
+        router.request(.fireBaseAuth(.signIn(email: email, password: password))) { (data, responce, error) in
             
+            guard error == nil, let responseData = data else { completion(.failure(APIError.noData)); return }
+            guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else {
+                completion(.failure(APIError.requestFailed))
+                return
+            }
             do {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -60,18 +83,32 @@ struct NetworkManager {
     }
     
     
-    func firebaseGetData(completion: @escaping (Result<ResultEventsModel, Error>) -> ()) {
+    // MARK: - Firebase DB
+    func firebaseGetData(completion: @escaping (Result<[EventModel], Error>) -> ()) {
         router.request(.firebaseDataBase(.getUserData)) { (data, responce, error) in
-            guard let data = data else { print("No data from FIREBASE"); return }
-            print(data)
-        
+            guard error == nil else { completion(.failure(APIError.noData)); return }
+            guard let responseData = data else {
+                completion(.failure(APIError.requestFailed ))
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let apiResponse = try decoder.decode([String: EventModel].self, from: responseData)
+                let data = Array(apiResponse.values)
+                completion(.success(data))
+            } catch {
+                print(error)
+                completion(.failure(APIError.jsonParsingFailure))
+            }
         }
     }
     
-    func firebasePutData(event: EventModel, completion: @escaping (Result<ResultEventsModel, Error>) -> ()) {
-        router.request(.firebaseDataBase(.putNewData(data: event))) { (data, responce, error) in
+    func firebasePutData(event: EventModel,currentDate: Int, completion: @escaping (Result<String, Error>) -> ()) {
+        router.request(.firebaseDataBase(.putNewData(data: event, currentDate: currentDate))) { (data, responce, error) in
             guard let data = data else { print("No data from FIREBASE"); return }
             print(data)
+            completion(.success("Yess"))
         
         }
     }

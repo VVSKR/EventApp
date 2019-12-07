@@ -23,13 +23,13 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
         let session = URLSession.shared
         do {
             let request = try self.buildRequest(from: route)
-            print(request.httpBody)
+//            print(request.httpBody)
             print("======")
-            print(request)
+//            print(request)
             print("---")
             task = session.dataTask(with: request, completionHandler: { data, response, error in
-                print(data)
-                print(response)
+//                print(data)
+//                print(response)
                 completion(data, response, error)
             })
         } catch {

@@ -13,13 +13,13 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    var networkService: NetworkService?
+//    var networkService: NetworkService?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let networkService = NetworkService()
-        self.networkService = networkService
+//        let networkService = NetworkService()
+//        self.networkService = networkService
         let rootViewController = RootViewController()
         
         window?.rootViewController = rootViewController

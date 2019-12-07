@@ -9,15 +9,17 @@
 import Foundation
 
 // MARK: - Welcome
-public struct ResultEventsModel: Decodable {
+public struct ResultEventsModel: Codable {
     var count: Int?
     var next: String?
     var results: [EventModel]?
 }
 
 // MARK: - Result
-public struct EventModel: Decodable {
+public struct EventModel: Codable {
+    var id: Int?
     var title: String
+    var date: Int?
     var bodyText, price: String
     var dates: [DateModel]
     var place: PlaceModel
@@ -26,18 +28,18 @@ public struct EventModel: Decodable {
 }
 
 // MARK: - DateElement
-public struct DateModel: Decodable {
+public struct DateModel: Codable {
     var startDate: String
     var startTime: String
 }
 
 // MARK: - Image
-public struct ImageModel: Decodable {
+public struct ImageModel: Codable {
     var image: String
     var thumbnails: Thumbnails?
 }
 
-public struct Thumbnails: Decodable {
+public struct Thumbnails: Codable {
     var the640X384: String?
     var the144X96: String?
     
@@ -59,7 +61,7 @@ public struct Thumbnails: Decodable {
 }
 
 // MARK: - Place
-public struct PlaceModel: Decodable {
+public struct PlaceModel: Codable {
    
     let title: String
     let address: String

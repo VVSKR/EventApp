@@ -53,6 +53,15 @@ class AllEventsVC: UIViewController {
                 print(error.localizedDescription)
             }
         }
+        
+        networkManager.firebaseGetData() { (result) in
+            switch result {
+            case .success(let value):
+                UserSavedEvents.shared.savedEvents = value
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -10,5 +10,5 @@ import Foundation
 
 public enum Request {
     case getUserData
-    case putNewData(data: EventModel)
+    case putNewData(data: EventModel, currentDate: Int)
 }
