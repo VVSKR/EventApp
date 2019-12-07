@@ -14,10 +14,9 @@ enum SaveHelper {
     case noAction
 }
 
-
 class DetailEventVC: UIViewController {
     // MARK: - Constants
-    var event: EventModel!
+    
     struct Constants {
         static fileprivate let headerHeight: CGFloat = 210
     }
@@ -25,8 +24,10 @@ class DetailEventVC: UIViewController {
     // MARK: - Properties
     private var networkManager = NetworkManager()
     
+    var event: EventModel!
     private var isSaved: Bool!
     private var saveHelper: SaveHelper = .noAction
+    private var index: Int?
     
     private var navTitle: String?
     private var scrollView: UIScrollView!
@@ -35,7 +36,6 @@ class DetailEventVC: UIViewController {
     private var headerImageView: UIImageView!
     private var placeHolderImageView: LoadingAnimationView!
     private var rightNavBarButton: UIButton!
-    
     
     private var headerLabel: UILabel!
     private var bodyLabel: UILabel!
@@ -51,39 +51,28 @@ class DetailEventVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        navBarCustomSetting()
         isSavedEvent()
         setupView()
-        print(isSaved)
-        navigationController?.navigationBar.barStyle = .black
-        view.backgroundColor = .white
-        navigationController?.navigationBar.barStyle = .blackOpaque
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
         
         setupConstraints()
         guard let event = event else { return }
-        
         
         set(value: event)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        navigationController?.navigationBar.barStyle = .default
-        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-        navigationController?.navigationBar.shadowImage = nil
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        
+        navBarDefaultSetting()
         saveOrDeleteInFavoriteEvents()
     }
     
     func isSavedEvent() {
         guard let event = event else { return }
-        guard let savedEvent = UserSavedEvents.shared.savedEvents.first(where: { $0.id == event.id }) else { isSaved = false; return }
-        self.event = savedEvent
+        guard let i = UserSavedEvents.shared.savedEvents.firstIndex(where: { $0.id == event.id }) else { isSaved = false; return }
+        index = i
+        self.event = UserSavedEvents.shared.savedEvents[i]
         isSaved = true
     }
     
@@ -105,7 +94,7 @@ class DetailEventVC: UIViewController {
         
     }
     
-    
+    // MARK: - Right Button Pressed
     @objc
     func rightButtonPressed() {
         let nameImage = isSaved ? "heart" : "heartRed"
@@ -115,33 +104,37 @@ class DetailEventVC: UIViewController {
     }
     
     
-    func saveOrDeleteInFavoriteEvents() {
+    // MARK: - Save, Detele event
+    private func saveOrDeleteInFavoriteEvents() {
         switch saveHelper {
         case .noAction: break
         case .save:
             guard event.date == nil else { return }
             saveEvent()
         case .delete:
-            guard event.date != nil else { return }
-            deleteEvent()
+            guard let date = event.date else { return }
+            deleteEvent(at: date)
         }
     }
     
-    func saveEvent() {
+    private func saveEvent() {
         let date = Int(Date().string())!
         event.date = date
         networkManager.firebasePutData(event: event,currentDate: date) { (_) in }
         UserSavedEvents.shared.savedEvents.append(event)
     }
     
-    func deleteEvent() {
-        // написать удаление по дате
+    private func deleteEvent(at index: Int) {
+        networkManager.firebaseDeleteData(at: index) { (_) in }
+        UserSavedEvents.shared.savedEvents.remove(at: self.index!)
     }
+    
+   
 }
 
 
 
-// MARK: - Setup UI
+    // MARK: - Setup UI
 
 private extension DetailEventVC {
     
@@ -151,8 +144,27 @@ private extension DetailEventVC {
         let rightButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(rightButtonPressed))
         navigationItem.rightBarButtonItem = rightButtonItem
     }
+
+    // MARK: - Nav Bar Setting
+       
+       func navBarDefaultSetting() {
+           navigationController?.navigationBar.barStyle = .default
+           navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+           navigationController?.navigationBar.shadowImage = nil
+           navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+       }
+       
+       func navBarCustomSetting() {
+           navigationController?.navigationBar.barStyle = .black
+           navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+           navigationController?.navigationBar.shadowImage = UIImage()
+           navigationController?.navigationBar.tintColor = .white
+           navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
+           
+       }
     
     func setupView() {
+        
         createDetailView()
         createScrollView()
         createHeaderContainerView()
@@ -171,7 +183,7 @@ private extension DetailEventVC {
     }
     
     
-    func createScrollView()  {
+    func createScrollView() {
         scrollView = UIScrollView()
         scrollView.delegate = self
         scrollView.alwaysBounceVertical = true
@@ -180,7 +192,7 @@ private extension DetailEventVC {
     }
     
     
-    func createHeaderContainerView(){
+    func createHeaderContainerView() {
         headerContainerView = UIView()
         headerContainerView.clipsToBounds = true
         headerContainerView.backgroundColor = .green
@@ -202,7 +214,7 @@ private extension DetailEventVC {
     }
     
     
-    func createDetailView()  {
+    func createDetailView() {
         detailView = UIView()
         detailView.translatesAutoresizingMaskIntoConstraints = false
         detailView.backgroundColor = .white
@@ -234,7 +246,6 @@ private extension DetailEventVC {
     func setupConstraints() {
         
         NSLayoutConstraint.activate([
-            
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -261,7 +272,7 @@ private extension DetailEventVC {
         NSLayoutConstraint.activate([
             detailView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 210),
             detailView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 1.0),
-            detailView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 0)
+            detailView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([

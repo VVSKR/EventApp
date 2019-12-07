@@ -50,24 +50,24 @@ class LoginVC: UIViewController {
     
     @objc
     func login2() {
-        AppDelegate.shared.rootViewController.showMainScreen()
-//        networkManager.postSingIn(email: loginTF.text!, password: passwordTF.text!) { result in
-//            switch result {
-//            case .success(let user):
-//                DispatchQueue.main.async {
-//                    guard let userId = user.localId else { return }
-//                    UserDefaults.standard.setUserId(id: userId)
-//                    print(userId)
-//                    AppDelegate.shared.rootViewController.showMainScreen()
-//                }
-//                
-//            case .failure(let error):
-//                DispatchQueue.main.async {
-//                    self.buttonLogin.shake()
-//                    print(error.localizedDescription)
-//                }
-//            }
-//        }
+//        AppDelegate.shared.rootViewController.showMainScreen()
+        networkManager.postSingIn(email: loginTF.text!, password: passwordTF.text!) { result in
+            switch result {
+            case .success(let user):
+                DispatchQueue.main.async {
+                    guard let userId = user.localId else { return }
+                    UserDefaults.standard.setUserId(id: userId)
+                    print(userId)
+                    AppDelegate.shared.rootViewController.showMainScreen()
+                }
+                
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.buttonLogin.shake()
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
     
     

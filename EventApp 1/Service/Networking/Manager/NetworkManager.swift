@@ -21,10 +21,10 @@ import Foundation
 
 struct NetworkManager {
     
-    let router = Router<NetworkEnvironment>()
+    private let router = Router<NetworkEnvironment>()
     
     // MARK: - KudaGO API
-    func getEvents(categories: Categories, completion: @escaping (Result<ResultEventsModel, Error>) -> ()) {
+    public func getEvents(categories: Categories, completion: @escaping (Result<ResultEventsModel, Error>) -> ()) {
         router.request(.kudaGoAPI(.events(categories: categories))) { data, response, error in
             guard error == nil else { completion(.failure(error!)); return }
             guard let responseData = data else {
@@ -44,7 +44,7 @@ struct NetworkManager {
     }
     
     // MARK: - Firebase Auth
-    func postSingUp(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ()) {
+    public func postSingUp(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ()) {
         router.request(.fireBaseAuth(.signUp(email: email, password: password))) { (data, responce, error) in
             
             guard error == nil, let responseData = data else { completion(.failure(APIError.noData)); return }
@@ -58,12 +58,12 @@ struct NetworkManager {
                 let apiResponse = try decoder.decode(UserModel.self, from: responseData)
                 completion(.success(apiResponse))
             } catch {
-                 completion(.failure(APIError.jsonParsingFailure))
+                completion(.failure(APIError.jsonParsingFailure))
             }
         }
     }
     
-    func postSingIn(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ()) {
+    public func postSingIn(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ()) {
         router.request(.fireBaseAuth(.signIn(email: email, password: password))) { (data, responce, error) in
             
             guard error == nil, let responseData = data else { completion(.failure(APIError.noData)); return }
@@ -77,14 +77,14 @@ struct NetworkManager {
                 let apiResponse = try decoder.decode(UserModel.self, from: responseData)
                 completion(.success(apiResponse))
             } catch {
-                 completion(.failure(APIError.jsonParsingFailure))
+                completion(.failure(APIError.jsonParsingFailure))
             }
         }
     }
     
     
     // MARK: - Firebase DB
-    func firebaseGetData(completion: @escaping (Result<[EventModel], Error>) -> ()) {
+    public func firebaseGetData(completion: @escaping (Result<[EventModel], Error>) -> ()) {
         router.request(.firebaseDataBase(.getUserData)) { (data, responce, error) in
             guard error == nil else { completion(.failure(APIError.noData)); return }
             guard let responseData = data else {
@@ -104,17 +104,28 @@ struct NetworkManager {
         }
     }
     
-    func firebasePutData(event: EventModel,currentDate: Int, completion: @escaping (Result<String, Error>) -> ()) {
+    
+    public func firebasePutData(event: EventModel,currentDate: Int, completion: @escaping (Result<String, Error>) -> ()) {
         router.request(.firebaseDataBase(.putNewData(data: event, currentDate: currentDate))) { (data, responce, error) in
             guard let data = data else { print("No data from FIREBASE"); return }
             print(data)
             completion(.success("Yess"))
-        
+            
         }
     }
     
     
-    
+    public func firebaseDeleteData(at index: Int,
+                                   completion: @escaping (Result<String, Error>) -> ())  {
+        router.request(.firebaseDataBase(.deleteData(index: index))) { (_, responce, _) in
+            let httpResponce = responce as! HTTPURLResponse
+            guard httpResponce.statusCode == 200 else {
+                completion(.failure(APIError.requestFailed)); return
+            }
+            completion(.success("Event removed"))
+        }
+        
+    }
     // new func
 }
 

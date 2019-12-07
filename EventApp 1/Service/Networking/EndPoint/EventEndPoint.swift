@@ -32,6 +32,8 @@ extension NetworkEnvironment: EndPointType {
                 return .get
             case .putNewData:
                 return .put
+            case .deleteData:
+                return .delete
             }
         }
     }
@@ -70,7 +72,8 @@ extension NetworkEnvironment: EndPointType {
             case .putNewData(let value):
                 let data = value.data.dictionary
                 return .requestParameters(bodyParameters: data, bodyEncoding: .jsonEncoding, urlParameters: nil)
-                
+            case .deleteData:
+                return .request
             }
         }
     }
@@ -121,7 +124,8 @@ extension NetworkEnvironment: EndPointType {
                 return "\(UserDefaults.standard.returnUserId())/.json"
             case .putNewData(let value):
                 return "\(UserDefaults.standard.returnUserId())/\(value.currentDate)/.json"
-                
+            case .deleteData(let index):
+                return "\(UserDefaults.standard.returnUserId())/\(index)/.json"
             }
         }
     }
