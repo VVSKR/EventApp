@@ -25,6 +25,7 @@ final class MainTabBarController: UITabBarController {
         allEventsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .mostRecent, tag: 0)
         
         let favoriteEventsVC = FavoriteEventsVC()
+        favoriteEventsVC.title = "Избранное"
         favoriteEventsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
         
         let searchVC  = SearchVC()

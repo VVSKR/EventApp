@@ -12,6 +12,8 @@ class FavoriteEventsVC: UIViewController {
     
     var tableView = UITableView()
     var event: [EventModel] = []
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
@@ -33,7 +35,7 @@ class FavoriteEventsVC: UIViewController {
         setTableViewDelegates()
         
         tableView.register(FavoriteEventsCell.self, forCellReuseIdentifier: FavoriteEventsCell.reuseId)
-        tableView.rowHeight = 170
+        tableView.rowHeight = 110
     }
     
     private func setupTableView() {

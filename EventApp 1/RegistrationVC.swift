@@ -12,11 +12,12 @@ class RegistrationVC: UIViewController {
     
     
     // MARK: - UI
-    private var loginTF = UITextField.logIn(with: "Почта")
-    private var passwordTF = UITextField.logIn(with: "Пароль (не менее 6 символов)")
-    private var repeatPasswordTF = UITextField.logIn(with: "Повторите пароль")
-    private var buttonLogin = UIButton(type: .system)
-    private var mainStackView = UIStackView()
+    private lazy var imageView = UIImageView()
+    private lazy var loginTF = UITextField.logIn(with: "Почта")
+    private lazy var passwordTF = UITextField.logIn(with: "Пароль (не менее 6 символов)")
+    private lazy var repeatPasswordTF = UITextField.logIn(with: "Повторите пароль")
+    private lazy var registrationButton = UIButton(type: .system)
+    private lazy var mainStackView = UIStackView()
     
     
     var networkManager = NetworkManager()
@@ -25,16 +26,19 @@ class RegistrationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .white
+        title = "Регистрация"
         
         setupStackView()
         setupButton()
+        setupImageVIew()
         setupConstraint()
     }
     
     
     @objc
-    func login() {
+    func registrationButtonTap() {
         networkManager.postSingUp(email: loginTF.text!, password: passwordTF.text!) { result in
             switch result {
             case .success(let user):
@@ -46,7 +50,7 @@ class RegistrationVC: UIViewController {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.buttonLogin.shake()
+                    self.registrationButton.shake()
                     print(error.localizedDescription)
                 }
             }
@@ -61,14 +65,14 @@ class RegistrationVC: UIViewController {
             && passwordTF.text! == repeatPasswordTF.text! {
             
             UIView.animate(withDuration: 0.5) {
-                self.buttonLogin.backgroundColor = .mainRed
-                self.buttonLogin.isEnabled = true
+                self.registrationButton.backgroundColor = .mainRed
+                self.registrationButton.isEnabled = true
             }
             return
         }
         UIView.animate(withDuration: 0.5) {
-            self.buttonLogin.backgroundColor = .gray
-            self.buttonLogin.isEnabled = false
+            self.registrationButton.backgroundColor = .gray
+            self.registrationButton.isEnabled = false
         }
     }
     
@@ -90,20 +94,28 @@ private extension RegistrationVC {
         mainStackView.spacing = 60
         mainStackView.distribution = .fillEqually
         view.addSubview(mainStackView)
-        
+    }
+    
+    func setupImageVIew() {
+        view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = UIImage(named: "three")
+        imageView.backgroundColor = .green
     }
     
     func setupButton() {
-        view.addSubview(buttonLogin)
-        buttonLogin.translatesAutoresizingMaskIntoConstraints = false
-        buttonLogin.isEnabled = false
-        buttonLogin.frame = .zero
-        buttonLogin.layer.cornerRadius = 27
-        buttonLogin.setTitle("Зарегестрироваться", for: .normal)
-        buttonLogin.addTarget(self, action: #selector(login), for: .touchUpInside)
-        buttonLogin.backgroundColor = .gray
-        buttonLogin.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-        buttonLogin.tintColor = .white
+        view.addSubview(registrationButton)
+        registrationButton.translatesAutoresizingMaskIntoConstraints = false
+        registrationButton.isEnabled = false
+        registrationButton.frame = .zero
+        registrationButton.layer.cornerRadius = 27
+        registrationButton.setTitle("Зарегестрироваться", for: .normal)
+        registrationButton.addTarget(self, action: #selector(registrationButtonTap), for: .touchUpInside)
+        registrationButton.backgroundColor = .gray
+        registrationButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        registrationButton.tintColor = .white
     }
     
     
@@ -112,16 +124,25 @@ private extension RegistrationVC {
         NSLayoutConstraint.activate([
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
             mainStackView.heightAnchor.constraint(equalToConstant: 210)
         ])
         
         NSLayoutConstraint.activate([
-            buttonLogin.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70),
-            buttonLogin.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -70),
-            buttonLogin.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
-            buttonLogin.heightAnchor.constraint(equalToConstant: 55)
+            registrationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70),
+            registrationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -70),
+            registrationButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
+            registrationButton.heightAnchor.constraint(equalToConstant: 55)
         ])
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            imageView.bottomAnchor.constraint(equalTo: mainStackView.topAnchor, constant: -40),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
+        ])
+        
+        
     }
 }
 

@@ -50,15 +50,14 @@ class AllEventsCell: UITableViewCell {
     // MARK: - Set value
     
     public func set(value: EventModel) {
-        let url = URL(string: (value.images[0].thumbnails?.the640X384!)!)!
+        headerLabel.text = value.title
+        bodyLabel.text = value.bodyText
+        dateLabel.text = value.dates[0].startDate
+        guard let url = URL(string: (value.images[0].thumbnails?.the640X384)!) else { return }
         backgroundImage.loadImage(url: url, alpha: 0.55) { [weak self] in
             self?.placeHolderImageView.stopAnimating()
             self?.placeHolderImageView.isHidden = true
         }
-        
-        headerLabel.text = value.title
-        bodyLabel.text = value.bodyText
-        dateLabel.text = value.dates[0].startDate
     }
     
     public func setPlaceHolder() {

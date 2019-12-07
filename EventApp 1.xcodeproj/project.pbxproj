@@ -264,8 +264,8 @@
 				F1EFDAB023898C6B00C95690 /* MainTabBarController.swift */,
 				F1F2A993238EDB460006D948 /* Events */,
 				F118BCBA239C3BD900089843 /* FavoriteEvents */,
-				F1EFDAB623898DD500C95690 /* ProfileVC.swift */,
 				F1EFDAB823898E0E00C95690 /* SearchVC.swift */,
+				F1EFDAB623898DD500C95690 /* ProfileVC.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";

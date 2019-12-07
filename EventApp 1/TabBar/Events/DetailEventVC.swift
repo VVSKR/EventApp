@@ -98,7 +98,7 @@ class DetailEventVC: UIViewController {
         bodyLabel.text = value.bodyText
         dateLabel.text = "Событие состоится - \(String(describing: value.dates[0].startDate)) в \(String(describing: value.dates[0].startTime))"
         priceLabel.text = "Цена - \(value.price)"
-        addressLabel.text = "Адрес - \(String(describing: value.place?.address))"
+        addressLabel.text = "Адрес - \(String(describing: value.place!.address))"
         
     }
     

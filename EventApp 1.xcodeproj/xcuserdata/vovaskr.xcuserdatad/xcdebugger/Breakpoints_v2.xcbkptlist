@@ -496,8 +496,8 @@
             filePath = "EventApp 1/LoginVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "setupStackView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -640,9 +640,9 @@
             filePath = "EventApp 1/LoginVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "login2()"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "loginButtonPTap()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
