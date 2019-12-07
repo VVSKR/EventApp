@@ -11,7 +11,8 @@ import UIKit
 class AllEventsVC: UIViewController {
     
     let tableView = UITableView()
-    
+    var fetchingMore = false
+    var pageNumber = 1
     let networkManager: NetworkManager
     
     var events: ResultEventsModel = ResultEventsModel()
@@ -41,7 +42,7 @@ class AllEventsVC: UIViewController {
         configureTableView()
         setupTabBar()
         
-        networkManager.getEvents(categories: .theater) { (result) in
+        networkManager.getEvents(categories: .theater, page: pageNumber) { (result) in
             switch result {
             case .success(let value):
                 DispatchQueue.main.async {
@@ -62,12 +63,6 @@ class AllEventsVC: UIViewController {
                 print(error.localizedDescription)
             }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
     }
 }
 
@@ -123,7 +118,7 @@ private extension AllEventsVC {
 extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.results?.count ?? 5
+        return events.results?.count ?? 7
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -144,23 +139,36 @@ extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
         detailEvent.event = event
         navigationController?.pushViewController(detailEvent, animated: true)
     }
+}
+
+
+// MARK: - ScrollView
+extension AllEventsVC {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        if offsetY > contentHeight - scrollView.frame.height * 2 && contentHeight > 2000 {
+            if !fetchingMore {
+//                beginBatchFetch()
+            }
+        }
+    }
     
-//    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-//        UIView.animate(withDuration: 0.25) {
-//            if let cell = tableView.cellForRow(at: indexPath) as? AllEventsCell {
-//                //                cell.eventView.transform = .init(scaleX: 0.95, y: 0.95)
-//            }
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-//        UIView.animate(withDuration: 0.25) {
-//            if let cell = tableView.cellForRow(at: indexPath) as? AllEventsCell {
-//                //                cell.eventView.transform = .identity
-//            }
-//        }
-//
-//    }
-    
-    
+    func beginBatchFetch() {
+        fetchingMore = true
+        pageNumber += 1
+        networkManager.getEvents(categories: .theater, page: pageNumber) { (result) in
+            switch result {
+            case .success(let value):
+                DispatchQueue.main.async {
+                    self.events.results? += value.results!
+                    print(self.events.results?.count as Any)
+                    self.tableView.reloadData()
+                    self.fetchingMore = false
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }

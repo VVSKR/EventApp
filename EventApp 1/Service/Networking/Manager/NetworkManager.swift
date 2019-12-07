@@ -24,8 +24,8 @@ struct NetworkManager {
     private let router = Router<NetworkEnvironment>()
     
     // MARK: - KudaGO API
-    public func getEvents(categories: Categories, completion: @escaping (Result<ResultEventsModel, Error>) -> ()) {
-        router.request(.kudaGoAPI(.events(categories: categories))) { data, response, error in
+    public func getEvents(categories: Categories, page: Int, completion: @escaping (Result<ResultEventsModel, Error>) -> ()) {
+        router.request(.kudaGoAPI(.events(categories: categories, page: page))) { data, response, error in
             guard error == nil else { completion(.failure(error!)); return }
             guard let responseData = data else {
                 completion(.failure(APIError.requestFailed ))

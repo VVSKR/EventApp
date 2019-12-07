@@ -47,9 +47,9 @@ extension NetworkEnvironment: EndPointType {
         case .kudaGoAPI(let events):
             switch events {
                 
-            case .events(let categories):
+            case .events(let categories, let page):
                 return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding,
-                                          urlParameters: ["categories": categories.rawValue,"fields": "title,short_title,body_text,price,images,dates,place,categories,id",
+                                          urlParameters: ["categories": categories.rawValue,"page": page, "fields": "title,short_title,body_text,price,images,dates,place,categories,id",
                                           "expand": "location,dates,participants,images,place",
                                           "order_by": "-rank",
                                           "text_format": "text",

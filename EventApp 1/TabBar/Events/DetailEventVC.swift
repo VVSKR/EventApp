@@ -62,8 +62,15 @@ class DetailEventVC: UIViewController {
         set(value: event)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
+    }
+
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
         navBarDefaultSetting()
         saveOrDeleteInFavoriteEvents()
     }
@@ -90,7 +97,7 @@ class DetailEventVC: UIViewController {
         bodyLabel.text = value.bodyText
         dateLabel.text = "Событие состоится - \(String(describing: value.dates[0].startDate)) в \(String(describing: value.dates[0].startTime))"
         priceLabel.text = "Цена - \(value.price)"
-        addressLabel.text = "Адрес - \(String(describing: value.place.address))"
+        addressLabel.text = "Адрес - \(String(describing: value.place?.address))"
         
     }
     

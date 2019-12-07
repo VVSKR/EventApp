@@ -22,7 +22,7 @@ public struct EventModel: Codable {
     var date: Int?
     var bodyText, price: String
     var dates: [DateModel]
-    var place: PlaceModel
+    var place: PlaceModel?
     var images: [ImageModel]
     var shortTitle: String
 }

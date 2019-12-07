@@ -9,7 +9,7 @@
 import Foundation
 
 public enum KudaGoApi {
-    case events(categories: Categories)
+    case events(categories: Categories, page: Int)
 }
 
 public enum Categories: String {
