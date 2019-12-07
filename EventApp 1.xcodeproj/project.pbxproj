@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F118BCB9239C3BCE00089843 /* FavotiteEventsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F118BCB8239C3BCE00089843 /* FavotiteEventsCell.swift */; };
 		F130CF75239A575500D647E4 /* DataEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F130CF74239A575500D647E4 /* DataEncoding.swift */; };
 		F1324175239975490080D81B /* KudaGoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1324174239975490080D81B /* KudaGoApi.swift */; };
 		F1324177239975560080D81B /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1324176239975560080D81B /* FirebaseAuth.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F118BCB8239C3BCE00089843 /* FavotiteEventsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavotiteEventsCell.swift; sourceTree = "<group>"; };
 		F130CF74239A575500D647E4 /* DataEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEncoding.swift; sourceTree = "<group>"; };
 		F1324174239975490080D81B /* KudaGoApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KudaGoApi.swift; sourceTree = "<group>"; };
 		F1324176239975560080D81B /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
@@ -113,6 +115,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F118BCBA239C3BD900089843 /* FavoriteEvents */ = {
+			isa = PBXGroup;
+			children = (
+				F1EFDAB423898DC800C95690 /* FavoriteEventsVC.swift */,
+				F118BCB8239C3BCE00089843 /* FavotiteEventsCell.swift */,
+			);
+			path = FavoriteEvents;
+			sourceTree = "<group>";
+		};
 		F130CF76239A57C000D647E4 /* Router */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,7 +263,7 @@
 			children = (
 				F1EFDAB023898C6B00C95690 /* MainTabBarController.swift */,
 				F1F2A993238EDB460006D948 /* Events */,
-				F1EFDAB423898DC800C95690 /* FavoriteEventsVC.swift */,
+				F118BCBA239C3BD900089843 /* FavoriteEvents */,
 				F1EFDAB623898DD500C95690 /* ProfileVC.swift */,
 				F1EFDAB823898E0E00C95690 /* SearchVC.swift */,
 			);
@@ -414,6 +425,7 @@
 				F1ECBDF12388901F00BB89A9 /* LoginVC.swift in Sources */,
 				F1ECBDF3238890C700BB89A9 /* UserDefaults.swift in Sources */,
 				F1324177239975560080D81B /* FirebaseAuth.swift in Sources */,
+				F118BCB9239C3BCE00089843 /* FavotiteEventsCell.swift in Sources */,
 				F1E1CF5A23880CBC00A18845 /* AppDelegate.swift in Sources */,
 				F13B63DC23958D88002B7EE8 /* ParameterEncoding.swift in Sources */,
 				F1EFDAB323898D4B00C95690 /* AllEventsVC.swift in Sources */,

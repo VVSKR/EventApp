@@ -15,11 +15,11 @@ class AllEventsCell: UITableViewCell {
     // MARK: - Constants
     
     struct Constants {
-         static fileprivate let cornerRadius: CGFloat = 20
+        static fileprivate let cornerRadius: CGFloat = 20
     }
-
-   
-     // MARK: - Properties
+    
+    
+    // MARK: - Properties
     
     private let backgroundImage = UIImageView()
     private let placeHolderImageView = LoadingAnimationView()
@@ -39,15 +39,15 @@ class AllEventsCell: UITableViewCell {
         setEventView()
         setImageView()
         setStackView()
-        setCategoryLabelConstaints()
-       
+        setLayoutConstraints()
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Set
+    // MARK: - Set value
     
     public func set(value: EventModel) {
         let url = URL(string: (value.images[0].thumbnails?.the640X384!)!)!
@@ -55,7 +55,7 @@ class AllEventsCell: UITableViewCell {
             self?.placeHolderImageView.stopAnimating()
             self?.placeHolderImageView.isHidden = true
         }
-       
+        
         headerLabel.text = value.title
         bodyLabel.text = value.bodyText
         dateLabel.text = value.dates[0].startDate
@@ -65,21 +65,21 @@ class AllEventsCell: UITableViewCell {
         placeHolderImageView.startAnimating()
     }
 }
-    
-    // MARK: - Configure View
-    
+
+// MARK: - Configure View
+
 private extension AllEventsCell {
-        
-    private func setEventView() {
+    
+    func setEventView() {
         self.addSubview(eventView)
         eventView.backgroundColor = .black
-        setEventViewConstraints()
         addShadow()
         
     }
     
     
-    private func addShadow() {
+    func addShadow() {
+        eventView.translatesAutoresizingMaskIntoConstraints = false
         eventView.layer.cornerRadius = Constants.cornerRadius
         eventView.layer.shadowColor = UIColor.black.cgColor
         eventView.layer.shadowOpacity = 0.4
@@ -87,23 +87,18 @@ private extension AllEventsCell {
         eventView.layer.shadowOffset = CGSize(width: 1, height: 2)
     }
     
-    private func setImageView() {
+    func setImageView() {
         eventView.addSubview(backgroundImage)
-        
+        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         backgroundImage.layer.cornerRadius = Constants.cornerRadius
         backgroundImage.clipsToBounds = true
         backgroundImage.contentMode = .scaleAspectFill
         
-       
-//        skeletonView.setMaskingViews([placeHolderImageView])
-        
-      
-        setImageViewConstraints()
         setPlaceHolderImage()
     }
     
     
-    private func setPlaceHolderImage() {
+    func setPlaceHolderImage() {
         backgroundImage.addSubview(placeHolderImageView)
         placeHolderImageView.frame = CGRect(x: 0, y: 0, width: 400, height: 250)
         placeHolderImageView.layer.cornerRadius = Constants.cornerRadius
@@ -112,24 +107,19 @@ private extension AllEventsCell {
     }
     
     
-    
-    
-    private func setStackView() {
+    func setStackView() {
         stackView = UIStackView(arrangedSubviews: [headerLabel, bodyLabel, dateLabel])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 5
-//        stackView.alignment = .leading
-//        stackView.distribution = .fill
         eventView.addSubview(stackView)
-        setStackViewConstraints()
     }
     
     
     // MARK: - Set Constraints
     
     
-    private func setEventViewConstraints() {
-        eventView.translatesAutoresizingMaskIntoConstraints = false
+    func setLayoutConstraints() {
         
         NSLayoutConstraint.activate([
             eventView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
@@ -137,22 +127,13 @@ private extension AllEventsCell {
             eventView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             eventView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
         ])
-    }
-    
-    
-    private func setImageViewConstraints() {
-        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            backgroundImage.topAnchor.constraint(equalTo: eventView.topAnchor, constant: 0),
-            backgroundImage.bottomAnchor.constraint(equalTo: eventView.bottomAnchor, constant: 0),
-            backgroundImage.leadingAnchor.constraint(equalTo: eventView.leadingAnchor, constant: 0),
-            backgroundImage.trailingAnchor.constraint(equalTo: eventView.trailingAnchor, constant: 0),
+            backgroundImage.topAnchor.constraint(equalTo: eventView.topAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: eventView.bottomAnchor),
+            backgroundImage.leadingAnchor.constraint(equalTo: eventView.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: eventView.trailingAnchor),
         ])
-    }
-    
-    private func setStackViewConstraints() {
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             stackView.bottomAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: -10),
@@ -160,16 +141,19 @@ private extension AllEventsCell {
             stackView.widthAnchor.constraint(equalTo: backgroundImage.widthAnchor, multiplier: 5/6)
         ])
     }
-    
-    private func setCategoryLabelConstaints() {
-        eventView.addSubview(categoryLabel)
-        categoryLabel.text = "Category"
-        categoryLabel.backgroundColor = .red
-        
-        NSLayoutConstraint.activate([
-            categoryLabel.topAnchor.constraint(equalTo: backgroundImage.topAnchor, constant: 15),
-            categoryLabel.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 15)
-        ])
-    }
 }
+
+
+
+//    private func setCategoryLabelConstaints() {
+//        eventView.addSubview(categoryLabel)
+//        categoryLabel.text = "Category"
+//        categoryLabel.backgroundColor = .red
+//
+//        NSLayoutConstraint.activate([
+//            categoryLabel.topAnchor.constraint(equalTo: backgroundImage.topAnchor, constant: 15),
+//            categoryLabel.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 15)
+//        ])
+//    }
+
 

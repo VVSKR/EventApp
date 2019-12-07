@@ -52,7 +52,7 @@ class DetailEventVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navBarCustomSetting()
+        
         isSavedEvent()
         setupView()
         
@@ -64,6 +64,7 @@ class DetailEventVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navBarCustomSetting()
         tabBarController?.tabBar.isHidden = true
     }
 
@@ -127,8 +128,9 @@ class DetailEventVC: UIViewController {
     private func saveEvent() {
         let date = Int(Date().string())!
         event.date = date
-        networkManager.firebasePutData(event: event,currentDate: date) { (_) in }
         UserSavedEvents.shared.savedEvents.append(event)
+        networkManager.firebasePutData(event: event,currentDate: date) { (_) in }
+        
     }
     
     private func deleteEvent(at index: Int) {
@@ -154,21 +156,21 @@ private extension DetailEventVC {
 
     // MARK: - Nav Bar Setting
        
-       func navBarDefaultSetting() {
-           navigationController?.navigationBar.barStyle = .default
-           navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-           navigationController?.navigationBar.shadowImage = nil
-           navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-       }
-       
-       func navBarCustomSetting() {
-           navigationController?.navigationBar.barStyle = .black
-           navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-           navigationController?.navigationBar.shadowImage = UIImage()
-           navigationController?.navigationBar.tintColor = .white
-           navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
-           
-       }
+    func navBarDefaultSetting() {
+        navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+    }
+    
+    func navBarCustomSetting() {
+        self.navigationController?.navigationBar.barStyle = .blackOpaque
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
+        
+    }
     
     func setupView() {
         
@@ -302,19 +304,21 @@ extension DetailEventVC: UIScrollViewDelegate {
         
         if offset > 0.9 { // исчкезает
             UIView.animate(withDuration: 0.4) {
+              
                 self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
                 self.navigationController?.navigationBar.shadowImage = nil
                 self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-                
+//
             }
             
             
         } else { // появляется
             UIView.animate(withDuration: 0.4) {
-                self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-                self.navigationController?.navigationBar.shadowImage = UIImage()
+               
+//                self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//                self.navigationController?.navigationBar.shadowImage = UIImage()
                 self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
-                
+//
             }
         }
     }

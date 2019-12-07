@@ -432,8 +432,8 @@
             filePath = "EventApp 1/TabBar/Events/DetailEventVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "DetailEventVC"
             landmarkType = "21">
          </BreakpointContent>
@@ -448,8 +448,8 @@
             filePath = "EventApp 1/TabBar/Events/DetailEventVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "set(value:)"
             landmarkType = "7">
             <Locations>
@@ -656,8 +656,8 @@
             filePath = "EventApp 1/TabBar/Events/DetailEventVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "isSavedEvent()"
             landmarkType = "7">
             <Locations>
@@ -800,8 +800,10 @@
             filePath = "EventApp 1/TabBar/Events/AllEventsVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176">
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "beginBatchFetch()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -814,8 +816,8 @@
             filePath = "EventApp 1/TabBar/Events/AllEventsVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "beginBatchFetch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -830,8 +832,8 @@
             filePath = "EventApp 1/TabBar/Events/AllEventsVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "beginBatchFetch()"
             landmarkType = "7">
          </BreakpointContent>
