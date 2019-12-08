@@ -35,15 +35,21 @@ class RootViewController: UIViewController {
         
     }
     
-    func switchToLoginScreen() {
+    public func switchToLoginScreen() {
         let newVC = UINavigationController(rootViewController: LoginVC())
 
         animateFadeTransition(to: newVC)
     }
     
+    public func switchToLoginScreenWithFlip() {
+        let newVC = UINavigationController(rootViewController: LoginVC())
+
+        animateDismissTransition(to: newVC)
+    }
+    
     public func showMainScreen() {
         let newVC = MainTabBarController()
-        animateFadeTransition(to: newVC)
+        animateDismissTransition(to: newVC)
     }
     
     private func animateFadeTransition(to newVC: UIViewController, completion: (() -> Void)? = nil) {
@@ -71,17 +77,4 @@ class RootViewController: UIViewController {
             completion?()
         }
     }
-
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

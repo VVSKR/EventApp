@@ -50,6 +50,7 @@ class AllEventsCell: UITableViewCell {
     // MARK: - Set value
     
     public func set(value: EventModel) {
+        
         headerLabel.text = value.title
         bodyLabel.text = value.bodyText
         dateLabel.text = value.dates[0].startDate
@@ -61,7 +62,12 @@ class AllEventsCell: UITableViewCell {
     }
     
     public func setPlaceHolder() {
+        placeHolderImageView.isHidden = false
         placeHolderImageView.startAnimating()
+        headerLabel.text = nil
+        bodyLabel.text = nil
+        dateLabel.text = nil
+        
     }
 }
 

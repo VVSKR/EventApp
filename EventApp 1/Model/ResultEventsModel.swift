@@ -29,8 +29,8 @@ public struct EventModel: Codable {
 
 // MARK: - DateElement
 public struct DateModel: Codable {
-    var startDate: String
-    var startTime: String
+    var startDate: String?
+    var startTime: String?
 }
 
 // MARK: - Image

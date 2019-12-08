@@ -1,5 +1,5 @@
 //
-//  FavoriteEventsVC.swift
+//  SearchVC.swift
 //  EventApp 1
 //
 //  Created by Vova SKR on 23/11/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavoriteEventsVC: UIViewController {
+class SearchVC: UIViewController {
     
     private var tableView = UITableView()
     
@@ -18,7 +18,7 @@ class FavoriteEventsVC: UIViewController {
     
     var event: [EventModel] = [] {
         didSet {
-//            hideTableView()
+            //            hideTableView()
         }
     }
     
@@ -52,10 +52,10 @@ class FavoriteEventsVC: UIViewController {
 }
 
 // MARK: - Setup UI
-private extension FavoriteEventsVC {
+private extension SearchVC {
     
     func setupBackgroundElement() {
-//        imageWhenEventIsEmpty.frame.size = CGSize(width: 200, height: 200)
+        //        imageWhenEventIsEmpty.frame.size = CGSize(width: 200, height: 200)
         imageWhenEventIsEmpty.contentMode = .scaleAspectFit
         imageWhenEventIsEmpty.clipsToBounds = true
         imageWhenEventIsEmpty.image = UIImage(named: "heartBig")
@@ -109,7 +109,7 @@ private extension FavoriteEventsVC {
 
 // MARK: - TableView Delegate, DataSourse
 
-extension FavoriteEventsVC: UITableViewDelegate, UITableViewDataSource {
+extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return event.count

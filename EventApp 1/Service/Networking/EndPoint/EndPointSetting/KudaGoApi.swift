@@ -18,4 +18,14 @@ public enum Categories: String {
     case festival = "festival"
     case theater = "theater"
     case standUp = "stand-up"
+    
+    var nameCategory: String {
+        switch  self {
+        case .all: return "Все мероприятия"
+        case .concert: return "Концерты"
+        case .festival: return "Фестивали"
+        case .standUp: return "Stand Up"
+        case .theater: return "Театры"
+        }
+    }
 }

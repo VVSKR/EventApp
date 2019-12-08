@@ -38,29 +38,29 @@ class LoginVC: UIViewController {
     }
     
     
-   
+    
     
     
     @objc
     func loginButtonPTap() {
-//         AppDelegate.shared.rootViewController.showMainScreen()
-        networkManager.postSingIn(email: loginTF.text!, password: passwordTF.text!) { result in
-            switch result {
-            case .success(let user):
-                DispatchQueue.main.async {
-                    guard let userId = user.localId else { return }
-                    UserDefaults.standard.setUserId(id: userId)
-                    print(userId)
-                    AppDelegate.shared.rootViewController.showMainScreen()
-                }
-
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.loginButton.shake()
-                    print(error.localizedDescription)
-                }
-            }
-        }
+        AppDelegate.shared.rootViewController.showMainScreen()
+//                networkManager.postSingIn(email: loginTF.text!, password: passwordTF.text!) { result in
+//                    switch result {
+//                    case .success(let user):
+//                        DispatchQueue.main.async {
+//                            guard let userId = user.localId else { return }
+//                            UserDefaults.standard.setUserId(id: userId)
+//                            print(userId)
+//                            AppDelegate.shared.rootViewController.showMainScreen()
+//                        }
+//
+//                    case .failure(let error):
+//                        DispatchQueue.main.async {
+//                            self.loginButton.shake()
+//                            print(error.localizedDescription)
+//                        }
+//                    }
+//                }
     }
     
     
@@ -81,41 +81,49 @@ class LoginVC: UIViewController {
     
     @objc
     func registrationButtonTap() {
-        navigationController?.pushViewController(RegistrationVC(), animated: true)
+        navigationController?.pushViewController(RegistrationVC(),
+                                                 animated: true)
     }
-    
-    
 }
 
 
 // MARK: - Setup UI
 private extension LoginVC {
     
-    func setupStackView() {
+    func setupTextFields() {
         loginTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordTF.isSecureTextEntry = true
+        loginTF.keyboardType = .emailAddress
+    
+        
+        loginTF.delegate = self
+        passwordTF.delegate = self
+    }
+    
+    func setupStackView() {
+        setupTextFields()
         mainStackView = UIStackView(arrangedSubviews: [loginTF, passwordTF])
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.axis = .vertical
-        mainStackView.spacing = 60
+        mainStackView.spacing = 50
         mainStackView.distribution = .fillEqually
         view.addSubview(mainStackView)
         
     }
     
     func setupImageVIew() {
-          view.addSubview(imageView)
-          imageView.translatesAutoresizingMaskIntoConstraints = false
-          imageView.contentMode = .scaleAspectFill
-          imageView.clipsToBounds = true
-          imageView.image = UIImage(named: "three")
-          imageView.backgroundColor = .green
-      }
+        view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = UIImage(named: "three")
+    }
     
     func setupButton() {
         view.addSubview(loginButton)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-//        buttonLogin.isEnabled = false
+//                loginButton.isEnabled = false // раскоментить
         loginButton.frame = .zero
         loginButton.layer.cornerRadius = 27
         loginButton.setTitle("Войти", for: .normal)
@@ -132,7 +140,7 @@ private extension LoginVC {
         registrationButton.titleLabel?.textAlignment = .center
         registrationButton.addTarget(self, action: #selector(registrationButtonTap), for: .touchUpInside)
         registrationButton.backgroundColor = .clear
-        registrationButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        registrationButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         registrationButton.tintColor = .lightBlue
         
         
@@ -143,12 +151,12 @@ private extension LoginVC {
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
-            mainStackView.heightAnchor.constraint(equalToConstant: 140)
+            mainStackView.heightAnchor.constraint(equalToConstant: 120)
         ])
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
-            imageView.bottomAnchor.constraint(equalTo: mainStackView.topAnchor, constant: -40),
+            imageView.bottomAnchor.constraint(equalTo: mainStackView.topAnchor, constant: -50),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
         ])
@@ -163,8 +171,8 @@ private extension LoginVC {
         NSLayoutConstraint.activate([
             registrationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             registrationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            registrationButton.bottomAnchor.constraint(equalTo: loginButton.topAnchor, constant: -10),
-            registrationButton.heightAnchor.constraint(equalToConstant: 60)
+            registrationButton.bottomAnchor.constraint(equalTo: loginButton.topAnchor, constant: -15),
+            registrationButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 }

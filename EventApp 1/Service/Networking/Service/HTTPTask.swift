@@ -22,5 +22,4 @@ public enum HTTPTask {
         urlParameters: Parameters?,
         additionHeaders: HTTPHeaders?)
     
-    // case download, upload...etc
 }

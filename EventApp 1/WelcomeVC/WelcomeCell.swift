@@ -41,7 +41,7 @@ class WelcomeCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(page: Page) {
+    func set(page: WelcomePageModel) {
         headerLabel.text = page.headerText
         bodyLabel.text = page.bodyText
     }

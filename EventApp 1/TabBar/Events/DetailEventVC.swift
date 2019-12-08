@@ -29,7 +29,6 @@ class DetailEventVC: UIViewController {
     private var saveHelper: SaveHelper = .noAction
     private var index: Int?
     
-    private var navTitle: String?
     private var scrollView: UIScrollView!
     private var detailView: UIView!
     private var headerContainerView: UIView!
@@ -65,13 +64,11 @@ class DetailEventVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navBarCustomSetting()
-        tabBarController?.tabBar.isHidden = true
+        
     }
-
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        tabBarController?.tabBar.isHidden = false
         navBarDefaultSetting()
         saveOrDeleteInFavoriteEvents()
     }
@@ -96,9 +93,10 @@ class DetailEventVC: UIViewController {
         }
         headerLabel.text = value.title
         bodyLabel.text = value.bodyText
-        dateLabel.text = "Событие состоится - \(String(describing: value.dates[0].startDate)) в \(String(describing: value.dates[0].startTime))"
+        dateLabel.text = "Событие состоится - \(String(describing: value.dates[0].startDate ?? "Нет данных")) в \(String(describing: value.dates[0].startTime ?? "Нет данных"))"
         priceLabel.text = "Цена - \(value.price)"
-        addressLabel.text = "Адрес - \(String(describing: value.place!.address))"
+        guard let place = value.place else { return }
+        addressLabel.text = "Адрес - \(String(describing: place.address))"
         
     }
     
@@ -138,12 +136,12 @@ class DetailEventVC: UIViewController {
         UserSavedEvents.shared.savedEvents.remove(at: self.index!)
     }
     
-   
+    
 }
 
 
 
-    // MARK: - Setup UI
+// MARK: - Setup UI
 
 private extension DetailEventVC {
     
@@ -153,18 +151,19 @@ private extension DetailEventVC {
         let rightButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(rightButtonPressed))
         navigationItem.rightBarButtonItem = rightButtonItem
     }
-
+    
     // MARK: - Nav Bar Setting
-       
+    
     func navBarDefaultSetting() {
         navigationController?.navigationBar.barStyle = .default
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
     }
     
     func navBarCustomSetting() {
-        self.navigationController?.navigationBar.barStyle = .blackOpaque
+        navigationController?.navigationBar.barStyle = .blackOpaque
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.tintColor = .white
@@ -279,7 +278,7 @@ private extension DetailEventVC {
         ])
         
         NSLayoutConstraint.activate([
-            detailView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 210),
+            detailView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: UIScreen.main.bounds.height / 5),
             detailView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 1.0),
             detailView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         ])
@@ -300,26 +299,17 @@ extension DetailEventVC: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        let offset = scrollView.contentOffset.y / 210
+        let offset = scrollView.contentOffset.y / (UIScreen.main.bounds.height / 5)
         
         if offset > 0.9 { // исчкезает
-            UIView.animate(withDuration: 0.4) {
-              
-                self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-                self.navigationController?.navigationBar.shadowImage = nil
-                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-//
-            }
-            
+            self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+            self.navigationController?.navigationBar.shadowImage = nil
+            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
             
         } else { // появляется
-            UIView.animate(withDuration: 0.4) {
-               
-//                self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//                self.navigationController?.navigationBar.shadowImage = UIImage()
-                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
-//
-            }
+            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+            self.navigationController?.navigationBar.shadowImage = UIImage()
+            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
         }
     }
 }

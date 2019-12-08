@@ -18,8 +18,23 @@ import Foundation
 //    case unableToDecode = "We could not decode the response."
 //}
 
+// MARK: - Protocol
+protocol NetworkManagerProtocol {
+    func getEvents(categories: Categories, page: Int, completion: @escaping (Result<ResultEventsModel, Error>) -> ())
+    
+    func postSingUp(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ())
+    
+    func postSingIn(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ())
+    
+    func firebaseGetData(completion: @escaping (Result<[EventModel], Error>) -> ())
+    
+    func firebasePutData(event: EventModel,currentDate: Int, completion: @escaping (Result<String, Error>) -> ())
+    
+    func firebaseDeleteData(at index: Int, completion: @escaping (Result<String, Error>) -> ())
+}
 
-struct NetworkManager {
+
+struct NetworkManager: NetworkManagerProtocol {
     
     private let router = Router<NetworkEnvironment>()
     
@@ -115,8 +130,7 @@ struct NetworkManager {
     }
     
     
-    public func firebaseDeleteData(at index: Int,
-                                   completion: @escaping (Result<String, Error>) -> ())  {
+    public func firebaseDeleteData(at index: Int, completion: @escaping (Result<String, Error>) -> ())  {
         router.request(.firebaseDataBase(.deleteData(index: index))) { (_, responce, _) in
             let httpResponce = responce as! HTTPURLResponse
             guard httpResponce.statusCode == 200 else {

@@ -1,14 +1,14 @@
 //
-//  FavotiteEventsCell.swift
+//  SearchCell.swift
 //  EventApp 1
 //
-//  Created by Vova SKR on 07/12/2019.
+//  Created by Vova SKR on 08/12/2019.
 //  Copyright © 2019 Vova SKR. All rights reserved.
 //
 
 import UIKit
 
-class FavoriteEventsCell: UITableViewCell {
+class SearchCell: UITableViewCell {
     
     static let reuseId = "favoriteEventsCell"
     
@@ -43,7 +43,7 @@ class FavoriteEventsCell: UITableViewCell {
     
 }
 
-private extension FavoriteEventsCell {
+private extension SearchCell {
     
     func setupStackView() {
         stackView = UIStackView(arrangedSubviews: [headerLabel, dataLabel])
@@ -80,7 +80,7 @@ private extension FavoriteEventsCell {
             mainImageView.widthAnchor.constraint(equalToConstant: 150),
             mainImageView.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -10)
         ])
-
+        
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: customView.topAnchor, constant: 10),
             stackView.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 10),

@@ -8,14 +8,17 @@
 
 import UIKit
 
-class AllEventsVC: UIViewController {
+class AllEventsVC: UIViewController, SelectCategoryVCDelegate {
     
     let tableView = UITableView()
+    let networkManager: NetworkManager
+    let transition = PopAnimator()
+    var events: ResultEventsModel = ResultEventsModel()
+    var selectCategoryVC = SelectCategoryVC()
+    
     var fetchingMore = false
     var pageNumber = 1
-    let networkManager: NetworkManager
-    
-    var events: ResultEventsModel = ResultEventsModel()
+    var currentCategory: Categories = .theater
     
     // MARK: Init
     
@@ -37,12 +40,22 @@ class AllEventsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        title = currentCategory.nameCategory
+        print(UserDefaults.standard.returnUserId())
+        print("==== UserDefaults ====")
         view.backgroundColor = .white
         configureTableView()
         setupTabBar()
+        getEventsRequest()
+        firebaseGetDataRequest()
         
-        networkManager.getEvents(categories: .theater, page: pageNumber) { (result) in
+        
+    }
+    
+    // MARK: - Network Request
+    
+    func getEventsRequest() {
+        networkManager.getEvents(categories: currentCategory, page: pageNumber) { (result) in
             switch result {
             case .success(let value):
                 DispatchQueue.main.async {
@@ -54,7 +67,9 @@ class AllEventsVC: UIViewController {
                 print(error.localizedDescription)
             }
         }
-        
+    }
+    
+    func firebaseGetDataRequest() {
         networkManager.firebaseGetData() { (result) in
             switch result {
             case .success(let value):
@@ -64,10 +79,30 @@ class AllEventsVC: UIViewController {
             }
         }
     }
+    
+    // MARK: - Right Button Pressed
+    
+    @objc
+    func rightButtonPressed() {
+        selectCategoryVC.delegate = self
+        selectCategoryVC.setup(currentCategories: currentCategory, title: title)
+        let selectCategory = UINavigationController(rootViewController: selectCategoryVC)
+        present(selectCategory, animated: true, completion: nil)
+    }
+    
+    // MARK: - Delegate Func
+    func setCategory(data: Categories) {
+        pageNumber = 1
+        currentCategory = data
+        title = currentCategory.nameCategory
+        getEventsRequest()
+        events.results = nil
+        tableView.reloadData()
+    }
 }
 
 // MARK: SetupTableView
-    
+
 private extension AllEventsVC {
     
     func setupTabBar() {
@@ -103,10 +138,7 @@ private extension AllEventsVC {
         tableView.dataSource = self
     }
     
-    @objc
-    func rightButtonPressed() {
-        
-    }
+    
 }
 
 
@@ -133,20 +165,23 @@ extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
         
         guard let event = events.results?[indexPath.row] else { return }
         let detailEvent = DetailEventVC()
+        
+        detailEvent.transitioningDelegate = self
+        detailEvent.hidesBottomBarWhenPushed = true
         detailEvent.event = event
         navigationController?.pushViewController(detailEvent, animated: true)
     }
 }
 
 
-// MARK: - ScrollView
+// MARK: -  Load new element
 extension AllEventsVC {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         if offsetY > contentHeight - scrollView.frame.height * 2 && contentHeight > 2000 {
             if !fetchingMore {
-//                beginBatchFetch()
+                beginBatchFetch()
             }
         }
     }
@@ -167,5 +202,20 @@ extension AllEventsVC {
                 print(error.localizedDescription)
             }
         }
+    }
+}
+
+extension AllEventsVC: UIViewControllerTransitioningDelegate {
+    
+    func animationController( forPresented presented: UIViewController,
+                              presenting: UIViewController,
+                              source: UIViewController)
+        -> UIViewControllerAnimatedTransitioning? {
+            return transition
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController)
+        -> UIViewControllerAnimatedTransitioning? {
+      return nil
     }
 }

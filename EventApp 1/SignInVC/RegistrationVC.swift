@@ -79,19 +79,37 @@ class RegistrationVC: UIViewController {
     
 }
 
-
+// MARK: - Setup UI
 
 private extension RegistrationVC {
     
-    func setupStackView() {
-        loginTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        passwordTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    
+    func setupTextFields() {
+        loginTF.addTarget(self, action:
+            #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordTF.addTarget(self, action:
+            #selector(textFieldDidChange(_:)), for: .editingChanged)
         repeatPasswordTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        passwordTF.isSecureTextEntry = true
+        repeatPasswordTF.isSecureTextEntry = true
+        loginTF.keyboardType = .emailAddress
+        
+        loginTF.delegate = self
+        passwordTF.delegate = self
+        repeatPasswordTF.delegate = self
+    }
+    
+    func setupStackView() {
+        setupTextFields()
+      
+        passwordTF.isSecureTextEntry = true
+        repeatPasswordTF.isSecureTextEntry = true
         
         mainStackView = UIStackView(arrangedSubviews: [loginTF, passwordTF, repeatPasswordTF])
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.axis = .vertical
-        mainStackView.spacing = 60
+        mainStackView.spacing = 40
         mainStackView.distribution = .fillEqually
         view.addSubview(mainStackView)
     }
@@ -124,8 +142,8 @@ private extension RegistrationVC {
         NSLayoutConstraint.activate([
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
-            mainStackView.heightAnchor.constraint(equalToConstant: 210)
+            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
+            mainStackView.heightAnchor.constraint(equalToConstant: 180)
         ])
         
         NSLayoutConstraint.activate([
@@ -137,7 +155,7 @@ private extension RegistrationVC {
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
-            imageView.bottomAnchor.constraint(equalTo: mainStackView.topAnchor, constant: -40),
+            imageView.bottomAnchor.constraint(equalTo: mainStackView.topAnchor, constant: -70),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
         ])
