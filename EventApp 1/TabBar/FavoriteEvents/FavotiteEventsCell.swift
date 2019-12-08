@@ -36,7 +36,7 @@ class FavoriteEventsCell: UITableViewCell {
     
     func set(event: EventModel) {
         headerLabel.text = event.title
-        dataLabel.text = "Пройдет - \(String(describing: event.dates[0].startDate))"
+        dataLabel.text = "Пройдет - \(String(describing: event.dates[0].startDate ?? " "))"
         guard let url = URL(string: (event.images[0].thumbnails?.the640X384)!) else { return }
         mainImageView.loadImage(url: url, alpha: 1) { }
     }

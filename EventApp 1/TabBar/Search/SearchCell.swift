@@ -10,13 +10,13 @@ import UIKit
 
 class SearchCell: UITableViewCell {
     
-    static let reuseId = "favoriteEventsCell"
+    static let reuseId = "searchCell"
     
     var customView = UIView()
-    var mainImageView = UIImageView()
     
-    private let headerLabel = UILabel.setupLabel(with: .boldSystemFont(ofSize: 16), tintColor: .black, line: 3)
-    private let dataLabel = UILabel.setupLabel(with: .systemFont(ofSize: 15), tintColor: .darkGray, line: 1)
+     let headerLabel = UILabel.setupLabel(with: .boldSystemFont(ofSize: 18), tintColor: .black, line: 2)
+     let bodyLabel = UILabel.setupLabel(with: .systemFont(ofSize: 16), tintColor: .gray, line: 3)
+    private let dataLabel = UILabel.setupLabel(with: .systemFont(ofSize: 16), tintColor: .darkGray, line: 1)
     private var stackView: UIStackView!
     
     
@@ -26,8 +26,11 @@ class SearchCell: UITableViewCell {
         
         setupCustomView()
         setupStackView()
-        setupImageView()
         setupLayoutConstraints()
+        
+        bodyLabel.text = "body label body label body label body label body label body label body label body labelbody label body label body label body label"
+        
+        headerLabel.text = "headerlabel headerlabel headerlabel headerlabel headerlabel headerlabel"
     }
     
     required init?(coder: NSCoder) {
@@ -37,8 +40,7 @@ class SearchCell: UITableViewCell {
     func set(event: EventModel) {
         headerLabel.text = event.title
         dataLabel.text = "Пройдет - \(String(describing: event.dates[0].startDate))"
-        guard let url = URL(string: (event.images[0].thumbnails?.the640X384)!) else { return }
-        mainImageView.loadImage(url: url, alpha: 1) { }
+      
     }
     
 }
@@ -46,10 +48,10 @@ class SearchCell: UITableViewCell {
 private extension SearchCell {
     
     func setupStackView() {
-        stackView = UIStackView(arrangedSubviews: [headerLabel, dataLabel])
+        stackView = UIStackView(arrangedSubviews: [headerLabel,bodyLabel, dataLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 5
+        stackView.spacing = 10
         customView.addSubview(stackView)
     }
     
@@ -58,13 +60,7 @@ private extension SearchCell {
         contentView.addSubview(customView)
     }
     
-    func setupImageView() {
-        mainImageView.translatesAutoresizingMaskIntoConstraints = false
-        mainImageView.contentMode = .scaleAspectFill
-        mainImageView.layer.cornerRadius = 10
-        mainImageView.clipsToBounds = true
-        customView.addSubview(mainImageView)
-    }
+   
     
     func setupLayoutConstraints() {
         
@@ -74,18 +70,12 @@ private extension SearchCell {
             customView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             customView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
-        NSLayoutConstraint.activate([
-            mainImageView.topAnchor.constraint(equalTo: customView.topAnchor, constant: 10),
-            mainImageView.leadingAnchor.constraint(equalTo: customView.leadingAnchor, constant: 10),
-            mainImageView.widthAnchor.constraint(equalToConstant: 150),
-            mainImageView.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -10)
-        ])
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: customView.topAnchor, constant: 10),
-            stackView.leadingAnchor.constraint(equalTo: mainImageView.trailingAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -15),
-            stackView.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -20)
+            stackView.leadingAnchor.constraint(equalTo: customView.leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -20),
+            stackView.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -15)
         ])
     }
 }

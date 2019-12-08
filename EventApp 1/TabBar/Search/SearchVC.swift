@@ -16,11 +16,8 @@ class SearchVC: UIViewController {
     private var imageWhenEventIsEmpty = UIImageView()
     private var stackView = UIStackView()
     
-    var event: [EventModel] = [] {
-        didSet {
-            //            hideTableView()
-        }
-    }
+    var event: [EventModel] = []
+    
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -83,8 +80,8 @@ private extension SearchVC {
         setupTableView()
         setTableViewDelegates()
         tableView.tableFooterView = UIView()
-        tableView.register(FavoriteEventsCell.self, forCellReuseIdentifier: FavoriteEventsCell.reuseId)
-        tableView.rowHeight = 110
+        tableView.register(SearchCell.self, forCellReuseIdentifier: SearchCell.reuseId)
+        tableView.rowHeight = 130
     }
     
     func setupTableView() {
@@ -112,13 +109,15 @@ private extension SearchVC {
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return event.count
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteEventsCell.reuseId, for: indexPath) as! FavoriteEventsCell
-        let event = self.event[indexPath.row]
-        cell.set(event: event)
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.reuseId, for: indexPath) as! SearchCell
+//        let event = self.event[indexPath.row]
+
+//        cell.set(event: event)
+        
         return cell
     }
     
