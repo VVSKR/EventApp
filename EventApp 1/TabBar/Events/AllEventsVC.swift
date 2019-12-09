@@ -12,7 +12,6 @@ class AllEventsVC: UIViewController, SelectCategoryVCDelegate {
     
     let tableView = UITableView()
     let networkManager: NetworkManager
-    let transition = PopAnimator()
     var events: ResultEventsModel = ResultEventsModel()
     var selectCategoryVC = SelectCategoryVC()
     
@@ -166,7 +165,6 @@ extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
         guard let event = events.results?[indexPath.row] else { return }
         let detailEvent = DetailEventVC()
         
-        detailEvent.transitioningDelegate = self
         detailEvent.hidesBottomBarWhenPushed = true
         detailEvent.event = event
         navigationController?.pushViewController(detailEvent, animated: true)
@@ -205,17 +203,4 @@ extension AllEventsVC {
     }
 }
 
-extension AllEventsVC: UIViewControllerTransitioningDelegate {
-    
-    func animationController( forPresented presented: UIViewController,
-                              presenting: UIViewController,
-                              source: UIViewController)
-        -> UIViewControllerAnimatedTransitioning? {
-            return transition
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController)
-        -> UIViewControllerAnimatedTransitioning? {
-      return nil
-    }
-}
+

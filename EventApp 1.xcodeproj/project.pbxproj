@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F10C9119239D1AD700D3059A /* SelectCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10C9118239D1AD700D3059A /* SelectCategoryVC.swift */; };
-		F10C9140239D8C4600D3059A /* PopAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10C913F239D8C4600D3059A /* PopAnimation.swift */; };
 		F10C9142239D971100D3059A /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10C9141239D971100D3059A /* SearchCell.swift */; };
 		F10C9145239D9A4700D3059A /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10C9144239D9A4700D3059A /* DateModel.swift */; };
 		F10C9147239D9A7F00D3059A /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10C9146239D9A7F00D3059A /* ImageModel.swift */; };
@@ -63,7 +62,6 @@
 
 /* Begin PBXFileReference section */
 		F10C9118239D1AD700D3059A /* SelectCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryVC.swift; sourceTree = "<group>"; };
-		F10C913F239D8C4600D3059A /* PopAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimation.swift; sourceTree = "<group>"; };
 		F10C9141239D971100D3059A /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		F10C9144239D9A4700D3059A /* DateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
 		F10C9146239D9A7F00D3059A /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
@@ -198,7 +196,6 @@
 			children = (
 				F1C3CFC52397066E00012D62 /* LoadingAnimationView.swift */,
 				F137B526239A62930027F774 /* SnakeAnimation.swift */,
-				F10C913F239D8C4600D3059A /* PopAnimation.swift */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -483,7 +480,6 @@
 				F1F2A98D238D23270006D948 /* LoadImage.swift in Sources */,
 				F1ECBDEA238823F800BB89A9 /* PageModel.swift in Sources */,
 				F1EFDAB523898DC800C95690 /* FavoriteEventsVC.swift in Sources */,
-				F10C9140239D8C4600D3059A /* PopAnimation.swift in Sources */,
 				F1C3CFC62397066E00012D62 /* LoadingAnimationView.swift in Sources */,
 				F10C9119239D1AD700D3059A /* SelectCategoryVC.swift in Sources */,
 				F13B63D62395891E002B7EE8 /* EndPointType.swift in Sources */,
