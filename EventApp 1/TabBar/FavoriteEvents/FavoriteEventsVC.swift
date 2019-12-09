@@ -16,11 +16,8 @@ class FavoriteEventsVC: UIViewController {
     private var imageWhenEventIsEmpty = UIImageView()
     private var stackView = UIStackView()
     
-    var event: [EventModel] = [] {
-        didSet {
-//            hideTableView()
-        }
-    }
+    var event: [EventModel] = []
+  
     
     // MARK: - Life cycle
     override func viewDidLoad() {

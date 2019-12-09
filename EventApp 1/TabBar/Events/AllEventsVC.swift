@@ -40,7 +40,7 @@ class AllEventsVC: UIViewController, SelectCategoryVCDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = currentCategory.nameCategory
+        navigationItem.title = currentCategory.nameCategory
         print(UserDefaults.standard.returnUserId())
         print("==== UserDefaults ====")
         view.backgroundColor = .white
@@ -85,7 +85,7 @@ class AllEventsVC: UIViewController, SelectCategoryVCDelegate {
     @objc
     func rightButtonPressed() {
         selectCategoryVC.delegate = self
-        selectCategoryVC.setup(currentCategories: currentCategory, title: title)
+        selectCategoryVC.setup(currentCategories: currentCategory, title: navigationItem.title)
         let selectCategory = UINavigationController(rootViewController: selectCategoryVC)
         present(selectCategory, animated: true, completion: nil)
     }
@@ -94,7 +94,7 @@ class AllEventsVC: UIViewController, SelectCategoryVCDelegate {
     func setCategory(data: Categories) {
         pageNumber = 1
         currentCategory = data
-        title = currentCategory.nameCategory
+        navigationItem.title = currentCategory.nameCategory
         getEventsRequest()
         events.results = nil
         tableView.reloadData()
@@ -106,7 +106,7 @@ class AllEventsVC: UIViewController, SelectCategoryVCDelegate {
 private extension AllEventsVC {
     
     func setupTabBar() {
-        let rightBarItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(rightButtonPressed))
+        let rightBarItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .done, target: self, action: #selector(rightButtonPressed))
         navigationItem.rightBarButtonItem = rightBarItem
     }
     
@@ -142,7 +142,7 @@ private extension AllEventsVC {
 }
 
 
-// MARK: - Delegate, DataSourse
+// MARK: - TabelVIew Delegate, DataSourse
 
 extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
     

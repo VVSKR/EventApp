@@ -48,13 +48,11 @@ extension NetworkEnvironment: EndPointType {
             switch events {
                 
             case .events(let categories, let page):
-                return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding,
-                                          urlParameters: ["categories": categories.rawValue,"page": page, "fields": "title,short_title,body_text,price,images,dates,place,categories,id",
-                                          "expand": "location,dates,participants,images,place",
-                                          "order_by": "-rank",
-                                          "text_format": "text",
-                                          "location": "msk",
-                                          "actual_since": "1575075200"])
+                return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: ["categories": categories.rawValue,"page": page, "fields": "title,short_title,body_text,price,images,dates,place,categories,id","expand": "location,dates,participants,images,place","order_by": "-rank","text_format": "text","location": "msk","actual_since": "1575075200"])
+                
+            case .search(let text):
+                print(text)
+                return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: ["q": "\(text)", "expand": "place,dates" ,"location":"msk", "ctype":"place"])
             }
         // FireBaseAuth
         case .fireBaseAuth(let auth):
@@ -90,7 +88,7 @@ extension NetworkEnvironment: EndPointType {
         switch self {
         case .kudaGoAPI: return "https://kudago.com/public-api/v1.4/"
         case .fireBaseAuth: return "https://identitytoolkit.googleapis.com/v1/"
-        case .firebaseDataBase: return "https://eventsbd-7d841.firebaseio.com/" //   \(UserDefaults.standard.returnUserId())/
+        case .firebaseDataBase: return "https://eventsbd-7d841.firebaseio.com/\(UserDefaults.standard.returnUserId())/"
         }
     }
     
@@ -107,7 +105,9 @@ extension NetworkEnvironment: EndPointType {
         case .kudaGoAPI(let events):
             switch events {
             case .events:
-                return "events"
+                return "events/"
+            case .search:
+                return "search/"
             }
         // FireBaseAuth
         case .fireBaseAuth(let auth):
@@ -121,22 +121,12 @@ extension NetworkEnvironment: EndPointType {
         case .firebaseDataBase(let request):
             switch request {
             case .getUserData:
-                return "\(UserDefaults.standard.returnUserId())/.json"
+                return ".json"
             case .putNewData(let value):
-                return "\(UserDefaults.standard.returnUserId())/\(value.currentDate)/.json"
+                return "\(value.currentDate)/.json"
             case .deleteData(let index):
-                return "\(UserDefaults.standard.returnUserId())/\(index)/.json"
+                return "\(index)/.json"
             }
         }
     }
-    
-    
-    //    private var defaultParamForKudaGoApi: [String: String] {
-//            return ["fields": "title,short_title,body_text,price,images,dates,place,categories",
-//                    "expand": "location,dates,participants,images,place",
-//                    "order_by": "-rank",
-//                    "text_format": "text",
-//                    "location": "msk",
-//                    "actual_since": "1575075200"]
-    //    }
 }

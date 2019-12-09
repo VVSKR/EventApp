@@ -21,20 +21,23 @@ final class MainTabBarController: UITabBarController {
         tabBar.barTintColor = .white
         
         let allEventsVC = AllEventsVC(networkManager: networkManager)
-        allEventsVC.title = "Мероприятия"
-        allEventsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .mostRecent, tag: 0)
+//        allEventsVC,tabBarItem = UITabBarItem(
+        allEventsVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "events"), tag: 0)
         
         let favoriteEventsVC = FavoriteEventsVC()
         favoriteEventsVC.title = "Избранное"
-        favoriteEventsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
+        favoriteEventsVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: ""), tag: 0)
+        favoriteEventsVC.tabBarItem.image = UIImage(named: "favorite")
         
-        let searchVC  = SearchVC()
-        searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        let searchVC  = SearchVC(networkManager: networkManager)
+        searchVC.title = "Поиск"
+        searchVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "search"), tag: 0)
         
         let profileVC = ProfileVC()
-        profileVC.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
+        profileVC.title = "Профиль"
+        profileVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "profile"), tag: 0)
       
-        let tabBarList = [allEventsVC, favoriteEventsVC, searchVC,profileVC ]
+        let tabBarList = [allEventsVC, favoriteEventsVC, searchVC, profileVC ]
         viewControllers = tabBarList.map { UINavigationController(rootViewController: $0) }
     }
 }

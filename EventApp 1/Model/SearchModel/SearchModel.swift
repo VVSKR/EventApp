@@ -9,7 +9,7 @@
 import Foundation
 
 struct SearchModel: Codable {
-    let count: Int
+    let count: Int?
     let results: [SearchResultModel]
 }
 

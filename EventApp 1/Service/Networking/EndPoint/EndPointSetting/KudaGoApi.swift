@@ -10,6 +10,7 @@ import Foundation
 
 public enum KudaGoApi {
     case events(categories: Categories, page: Int)
+    case search(text: String)
 }
 
 public enum Categories: String {

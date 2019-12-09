@@ -15,8 +15,8 @@ class SearchCell: UITableViewCell {
     var customView = UIView()
     
      let headerLabel = UILabel.setupLabel(with: .boldSystemFont(ofSize: 18), tintColor: .black, line: 2)
-     let bodyLabel = UILabel.setupLabel(with: .systemFont(ofSize: 16), tintColor: .gray, line: 3)
-    private let dataLabel = UILabel.setupLabel(with: .systemFont(ofSize: 16), tintColor: .darkGray, line: 1)
+     let bodyLabel = UILabel.setupLabel(with: .systemFont(ofSize: 14), tintColor: .gray, line: 3)
+    private let addressLabel = UILabel.setupLabel(with: .systemFont(ofSize: 16), tintColor: .darkGray, line: 1)
     private var stackView: UIStackView!
     
     
@@ -28,27 +28,28 @@ class SearchCell: UITableViewCell {
         setupStackView()
         setupLayoutConstraints()
         
-        bodyLabel.text = "body label body label body label body label body label body label body label body labelbody label body label body label body label"
         
-        headerLabel.text = "headerlabel headerlabel headerlabel headerlabel headerlabel headerlabel"
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(event: EventModel) {
-        headerLabel.text = event.title
-        dataLabel.text = "Пройдет - \(String(describing: event.dates[0].startDate))"
+    func set(event: SearchResultModel) {
+        headerLabel.text = event.title ?? "Название"
+        bodyLabel.text = event.description ?? "Описание"
+        addressLabel.text = "Адресс - \(String(describing: event.address ?? "Москва"))"
       
     }
     
 }
 
+// MARK: - Setup UI
+
 private extension SearchCell {
     
     func setupStackView() {
-        stackView = UIStackView(arrangedSubviews: [headerLabel,bodyLabel, dataLabel])
+        stackView = UIStackView(arrangedSubviews: [headerLabel,bodyLabel, addressLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10

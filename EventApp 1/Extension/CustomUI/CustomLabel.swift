@@ -11,7 +11,7 @@ import UIKit
 extension UILabel {
     
     public static func setupLabel(with font: UIFont, tintColor: UIColor, line number: Int) -> UILabel {
-        let label = UILabel()
+        let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.numberOfLines = number

@@ -58,6 +58,25 @@ struct NetworkManager: NetworkManagerProtocol {
         }
     }
     
+    public func getSearch(search text: String,completion: @escaping (Result<SearchModel, Error>) -> ()) {
+        router.request(.kudaGoAPI(.search(text: text))) { (data, responce, error) in
+            guard error == nil else { completion(.failure(error!)); return }
+            guard let responseData = data else {
+                completion(.failure(APIError.requestFailed ))
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let apiResponse = try decoder.decode(SearchModel.self, from: responseData)
+                completion(.success(apiResponse))
+            } catch {
+                print(error)
+                completion(.failure(APIError.jsonParsingFailure))
+            }
+        }
+    }
+    
     // MARK: - Firebase Auth
     public func postSingUp(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ()) {
         router.request(.fireBaseAuth(.signUp(email: email, password: password))) { (data, responce, error) in

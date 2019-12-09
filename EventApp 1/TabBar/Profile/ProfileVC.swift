@@ -35,11 +35,11 @@ private extension ProfileVC {
     
     func setupProfileImage() {
         view.addSubview(profileImage)
-        profileImage.frame.size = CGSize(width: 250, height: 250)
+        profileImage.frame.size = CGSize(width: 150, height: 150)
         profileImage.translatesAutoresizingMaskIntoConstraints = false
-        profileImage.contentMode = .scaleAspectFill
+        profileImage.contentMode = .scaleAspectFit
         profileImage.clipsToBounds = true
-        profileImage.image = UIImage(named: "three")
+        profileImage.image = UIImage(named: "profilePlaceHolder")
     }
     
     func setupStackView() {
@@ -76,8 +76,8 @@ private extension ProfileVC {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackView.heightAnchor.constraint(equalToConstant: 350),
-            stackView.widthAnchor.constraint(equalToConstant: 300)
+            stackView.heightAnchor.constraint(equalToConstant: 250),
+            stackView.widthAnchor.constraint(equalToConstant: 200)
         ])
         
     }

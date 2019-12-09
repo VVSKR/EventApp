@@ -23,9 +23,9 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
         let session = URLSession.shared
         do {
             let request = try self.buildRequest(from: route)
-
+            
             print("======")
-
+            print(request)
             task = session.dataTask(with: request, completionHandler: { data, response, error in
                 completion(data, response, error)
             })
@@ -62,8 +62,7 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
                 
                 self.addAdditionalHeaders(additionalHeaders, request: &request)
                 
-                try self.configureParameters(bodyParameters: bodyParameters, bodyEncoding: bodyEncoding,
-                                             urlParameters: urlParameters, request: &request)
+                try self.configureParameters(bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, urlParameters: urlParameters, request: &request)
                 
             }
             return request
@@ -71,11 +70,10 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
         } catch { throw error }
     }
     
-    fileprivate func configureParameters(bodyParameters: Parameters?, bodyEncoding: ParameterEncoding,
-                                         urlParameters: Parameters?, request: inout URLRequest) throws {
+    fileprivate func configureParameters(bodyParameters: Parameters?, bodyEncoding: ParameterEncoding, urlParameters: Parameters?, request: inout URLRequest) throws {
         do {
-            try bodyEncoding.encode(urlRequest: &request,
-                                    bodyParameters: bodyParameters, urlParameters: urlParameters)
+            
+            try bodyEncoding.encode(urlRequest: &request, bodyParameters: bodyParameters, urlParameters: urlParameters)
         } catch { throw error }
     }
     

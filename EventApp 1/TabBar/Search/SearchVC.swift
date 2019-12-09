@@ -10,40 +10,53 @@ import UIKit
 
 class SearchVC: UIViewController {
     
+    let networkManager: NetworkManager
+    
+    private var searchController: UISearchController!
     private var tableView = UITableView()
     
-    private var labelWhenEventIsEmpty = UILabel.setupLabel(with: .boldSystemFont(ofSize: 18), tintColor: .black, line: 2)
+    private var labelWhenEventIsEmpty = UILabel.setupLabel(with: .boldSystemFont(ofSize: 18), tintColor: .black, line: 3)
     private var imageWhenEventIsEmpty = UIImageView()
     private var stackView = UIStackView()
     
-    var event: [EventModel] = []
+    var searchedElement: [SearchResultModel] = []
     
+    init(networkManager: NetworkManager) {
+        self.networkManager = networkManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        setupBackgroundElement()
+//        tableView.isHidden = true
+//        stackView.isHidden = false
+
+        setupSearchBar ()
         configureTableView()
+        setupBackgroundElement()
+        
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        event = UserSavedEvents.shared.savedEvents
-        hideTableView()
-        
-    }
     
-    private func hideTableView() {
-        if event.isEmpty {
-            tableView.isHidden = true
-            stackView.isHidden = false
-        } else {
-            tableView.isHidden = false
-            stackView.isHidden = true
-            tableView.reloadData()
+    func search(text: String) {
+        networkManager.getSearch(search: text) { [weak self] (result) in
+            switch result {
+            case .success(let value):
+                DispatchQueue.main.async {
+                    self?.searchedElement = value.results
+                    value.results.isEmpty ? self?.emptyResult() : self?.noEmptyResult()
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
 }
@@ -51,27 +64,48 @@ class SearchVC: UIViewController {
 // MARK: - Setup UI
 private extension SearchVC {
     
+    func setupSearchBar () {
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.delegate = self
+        searchController.searchBar.returnKeyType = UIReturnKeyType.search
+        searchController.searchBar.placeholder = "Введите что-то"
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+    
+    }
+    
+    func emptyResult() {
+        stackView.isHidden = false
+        imageWhenEventIsEmpty.image = UIImage(named: "panda")
+        labelWhenEventIsEmpty.text = "Упсс.. по вашему запросу мы ничего не нашли.\nНо у нас  всегда есть панда)"
+    }
+    
+    func noEmptyResult() {
+        stackView.isHidden = true
+        imageWhenEventIsEmpty.image = UIImage(named: "loupe")
+        labelWhenEventIsEmpty.text = "Ищите интересные места\nв вашем городе"
+    }
+    
     func setupBackgroundElement() {
-        //        imageWhenEventIsEmpty.frame.size = CGSize(width: 200, height: 200)
         imageWhenEventIsEmpty.contentMode = .scaleAspectFit
         imageWhenEventIsEmpty.clipsToBounds = true
-        imageWhenEventIsEmpty.image = UIImage(named: "heartBig")
+        imageWhenEventIsEmpty.image = UIImage(named: "loupe")
         
         labelWhenEventIsEmpty.textAlignment = .center
-        labelWhenEventIsEmpty.text = "Сохраняйте события,\nкоторые вам нравятся"
+        labelWhenEventIsEmpty.text = "Ищите интересные места\nв вашем городе"
         
         stackView.addArrangedSubview(imageWhenEventIsEmpty)
         stackView.addArrangedSubview(labelWhenEventIsEmpty)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 20
-        //        stackView.distribution = .fillEqually
-        view.addSubview(stackView)
+        stackView.distribution = .fillEqually
+        tableView.addSubview(stackView)
         
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            stackView.widthAnchor.constraint(equalToConstant: 200),
+            stackView.widthAnchor.constraint(equalToConstant: 300),
             stackView.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
@@ -81,7 +115,7 @@ private extension SearchVC {
         setTableViewDelegates()
         tableView.tableFooterView = UIView()
         tableView.register(SearchCell.self, forCellReuseIdentifier: SearchCell.reuseId)
-        tableView.rowHeight = 130
+        tableView.rowHeight = 150
     }
     
     func setupTableView() {
@@ -109,25 +143,35 @@ private extension SearchVC {
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return searchedElement.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.reuseId, for: indexPath) as! SearchCell
-//        let event = self.event[indexPath.row]
-
-//        cell.set(event: event)
-        
+        let element = searchedElement[indexPath.row]
+        cell.set(event: element)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let detailEvent = DetailEventVC()
-        detailEvent.hidesBottomBarWhenPushed = true
-        detailEvent.event = event[indexPath.row]
-        navigationController?.pushViewController(detailEvent, animated: true)
     }
+}
+
+
+
+// MARK: - SearchBar delegate
+extension SearchVC: UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchController.searchBar.text else { return }
+        search(text: text)
+        dismiss(animated: true, completion: nil)
+        print(text)
+    }
+    
+    
 }
