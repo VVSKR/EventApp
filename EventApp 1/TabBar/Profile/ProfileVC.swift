@@ -84,7 +84,7 @@ private extension ProfileVC {
     
     @objc
     func singOutButtonTap() {
-//        UserDefaults.standard.deleteUserId() // раскоментить на релизе
+        UserDefaults.standard.deleteUserId() // раскоментить на релизе
         AppDelegate.shared.rootViewController.switchToLoginScreenWithFlip()
     }
 }

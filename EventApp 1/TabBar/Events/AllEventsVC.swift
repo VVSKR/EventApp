@@ -106,6 +106,7 @@ private extension AllEventsVC {
     
     func setupTabBar() {
         let rightBarItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .done, target: self, action: #selector(rightButtonPressed))
+        navigationController?.navigationBar.tintColor = .black
         navigationItem.rightBarButtonItem = rightBarItem
     }
     

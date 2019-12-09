@@ -43,24 +43,24 @@ class LoginVC: UIViewController {
     
     @objc
     func loginButtonPTap() {
-        AppDelegate.shared.rootViewController.showMainScreen()
-//                networkManager.postSingIn(email: loginTF.text!, password: passwordTF.text!) { result in
-//                    switch result {
-//                    case .success(let user):
-//                        DispatchQueue.main.async {
-//                            guard let userId = user.localId else { return }
-//                            UserDefaults.standard.setUserId(id: userId)
-//                            print(userId)
-//                            AppDelegate.shared.rootViewController.showMainScreen()
-//                        }
-//
-//                    case .failure(let error):
-//                        DispatchQueue.main.async {
-//                            self.loginButton.shake()
-//                            print(error.localizedDescription)
-//                        }
-//                    }
-//                }
+        //        AppDelegate.shared.rootViewController.showMainScreen()
+        networkManager.postSingIn(email: loginTF.text!, password: passwordTF.text!) { result in
+            switch result {
+            case .success(let user):
+                DispatchQueue.main.async {
+                    guard let userId = user.localId else { return }
+                    UserDefaults.standard.setUserId(id: userId)
+                    print(userId)
+                    AppDelegate.shared.rootViewController.showMainScreen()
+                }
+                
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.loginButton.shake()
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
     
     
@@ -95,7 +95,7 @@ private extension LoginVC {
         passwordTF.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordTF.isSecureTextEntry = true
         loginTF.keyboardType = .emailAddress
-    
+        
         
         loginTF.delegate = self
         passwordTF.delegate = self
@@ -123,7 +123,7 @@ private extension LoginVC {
     func setupButton() {
         view.addSubview(loginButton)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-//                loginButton.isEnabled = false // раскоментить
+        //                loginButton.isEnabled = false // раскоментить
         loginButton.frame = .zero
         loginButton.layer.cornerRadius = 27
         loginButton.setTitle("Войти", for: .normal)
@@ -184,50 +184,3 @@ extension LoginVC : UITextFieldDelegate {
         return true
     }
 }
-
-
-
-
-
-
-
-
-//@objc
-//func login2() {
-//    networkManager.postSingUp(email: loginTF.text!, password: passwordTF.text!) { result in
-//        DispatchQueue.main.async {
-//            UIView.animate(withDuration: 0.4, animations: {
-//                self.buttonLogin.transform = CGAffineTransform(scaleX: 0.90, y: 0.90)
-//            }, completion: { _ in
-//
-//                switch result {
-//                case .success(let user):
-//                    guard let userId = user.localId else { return }
-//                    UserDefaults.standard.setUserId(id: userId)
-//                    print(UserDefaults.standard.returnUserId())
-//                    AppDelegate.shared.rootViewController.showMainScreen()
-//                case .failure(let error):
-//                    UIView.animate(withDuration: 0.4, animations: {
-//                        self.buttonLogin.transform = CGAffineTransform.identity
-//                    }, completion: { _ in
-//                        self.buttonLogin.shake()
-//                        print(error.localizedDescription)
-//                    })
-//                }
-//            })
-//        }
-//    }
-
-
-// @objc
-//    func login() {
-//        UIView.animate(withDuration: 0.5, animations: {
-//            self.buttonLogin.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-//        }, completion: { _ in
-//            UIView.animate(withDuration: 1, animations: {
-//                print(self.view.frame.width)
-//                self.buttonLogin.frame.size = CGSize(width: 1000, height: 1000)
-////                self.buttonLogin.center = self.view.center
-//            }, completion: { _ in })
-//        })
-//    }
