@@ -13,6 +13,7 @@
 		F10C9147239D9A7F00D3059A /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10C9146239D9A7F00D3059A /* ImageModel.swift */; };
 		F10C9149239D9AA500D3059A /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10C9148239D9AA500D3059A /* PlaceModel.swift */; };
 		F118BCB9239C3BCE00089843 /* FavotiteEventsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F118BCB8239C3BCE00089843 /* FavotiteEventsCell.swift */; };
+		F11CE79F239EBFA300B35962 /* EventAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11CE79E239EBFA300B35962 /* EventAppTests.swift */; };
 		F130CF75239A575500D647E4 /* DataEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F130CF74239A575500D647E4 /* DataEncoding.swift */; };
 		F1324175239975490080D81B /* KudaGoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1324174239975490080D81B /* KudaGoApi.swift */; };
 		F1324177239975560080D81B /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1324176239975560080D81B /* FirebaseAuth.swift */; };
@@ -60,6 +61,16 @@
 		F1F2A997238EEF050006D948 /* ImageAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2A996238EEF050006D948 /* ImageAlpha.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F11CE7A1239EBFA300B35962 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1E1CF4E23880CBC00A18845 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1E1CF5523880CBC00A18845;
+			remoteInfo = "EventApp 1";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		F10C9118239D1AD700D3059A /* SelectCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryVC.swift; sourceTree = "<group>"; };
 		F10C9141239D971100D3059A /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
@@ -67,6 +78,9 @@
 		F10C9146239D9A7F00D3059A /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		F10C9148239D9AA500D3059A /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
 		F118BCB8239C3BCE00089843 /* FavotiteEventsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavotiteEventsCell.swift; sourceTree = "<group>"; };
+		F11CE79C239EBFA300B35962 /* EventAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EventAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F11CE79E239EBFA300B35962 /* EventAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAppTests.swift; sourceTree = "<group>"; };
+		F11CE7A0239EBFA300B35962 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F130CF74239A575500D647E4 /* DataEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEncoding.swift; sourceTree = "<group>"; };
 		F1324174239975490080D81B /* KudaGoApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KudaGoApi.swift; sourceTree = "<group>"; };
 		F1324176239975560080D81B /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
@@ -117,6 +131,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F11CE799239EBFA300B35962 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1E1CF5323880CBC00A18845 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -181,6 +202,15 @@
 				F118BCB8239C3BCE00089843 /* FavotiteEventsCell.swift */,
 			);
 			path = FavoriteEvents;
+			sourceTree = "<group>";
+		};
+		F11CE79D239EBFA300B35962 /* EventAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				F11CE79E239EBFA300B35962 /* EventAppTests.swift */,
+				F11CE7A0239EBFA300B35962 /* Info.plist */,
+			);
+			path = EventAppTests;
 			sourceTree = "<group>";
 		};
 		F130CF76239A57C000D647E4 /* Router */ = {
@@ -283,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				F1E1CF5823880CBC00A18845 /* EventApp 1 */,
+				F11CE79D239EBFA300B35962 /* EventAppTests */,
 				F1E1CF5723880CBC00A18845 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -291,6 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				F1E1CF5623880CBC00A18845 /* EventApp 1.app */,
+				F11CE79C239EBFA300B35962 /* EventAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -389,6 +421,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F11CE79B239EBFA300B35962 /* EventAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F11CE7A5239EBFA300B35962 /* Build configuration list for PBXNativeTarget "EventAppTests" */;
+			buildPhases = (
+				F11CE798239EBFA300B35962 /* Sources */,
+				F11CE799239EBFA300B35962 /* Frameworks */,
+				F11CE79A239EBFA300B35962 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F11CE7A2239EBFA300B35962 /* PBXTargetDependency */,
+			);
+			name = EventAppTests;
+			productName = EventAppTests;
+			productReference = F11CE79C239EBFA300B35962 /* EventAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F1E1CF5523880CBC00A18845 /* EventApp 1 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1E1CF6B23880CBD00A18845 /* Build configuration list for PBXNativeTarget "EventApp 1" */;
@@ -412,10 +462,14 @@
 		F1E1CF4E23880CBC00A18845 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1030;
+				LastSwiftUpdateCheck = 1110;
 				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = "Vova SKR";
 				TargetAttributes = {
+					F11CE79B239EBFA300B35962 = {
+						CreatedOnToolsVersion = 11.1;
+						TestTargetID = F1E1CF5523880CBC00A18845;
+					};
 					F1E1CF5523880CBC00A18845 = {
 						CreatedOnToolsVersion = 10.3;
 					};
@@ -435,11 +489,19 @@
 			projectRoot = "";
 			targets = (
 				F1E1CF5523880CBC00A18845 /* EventApp 1 */,
+				F11CE79B239EBFA300B35962 /* EventAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F11CE79A239EBFA300B35962 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1E1CF5423880CBC00A18845 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -452,6 +514,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F11CE798239EBFA300B35962 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F11CE79F239EBFA300B35962 /* EventAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1E1CF5223880CBC00A18845 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -510,6 +580,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		F11CE7A2239EBFA300B35962 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1E1CF5523880CBC00A18845 /* EventApp 1 */;
+			targetProxy = F11CE7A1239EBFA300B35962 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		F1E1CF6523880CBD00A18845 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -522,6 +600,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F11CE7A3239EBFA300B35962 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5685WBW9QW;
+				INFOPLIST_FILE = EventAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = VVSKR.EventAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EventApp 1.app/EventApp 1";
+			};
+			name = Debug;
+		};
+		F11CE7A4239EBFA300B35962 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5685WBW9QW;
+				INFOPLIST_FILE = EventAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = VVSKR.EventAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EventApp 1.app/EventApp 1";
+			};
+			name = Release;
+		};
 		F1E1CF6923880CBD00A18845 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -677,6 +797,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F11CE7A5239EBFA300B35962 /* Build configuration list for PBXNativeTarget "EventAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F11CE7A3239EBFA300B35962 /* Debug */,
+				F11CE7A4239EBFA300B35962 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F1E1CF5123880CBC00A18845 /* Build configuration list for PBXProject "EventApp 1" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

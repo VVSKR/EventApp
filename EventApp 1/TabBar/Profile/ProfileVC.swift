@@ -15,6 +15,8 @@ class ProfileVC: UIViewController {
     private lazy var signOutButton = UIButton(type: .system)
     private var stackView: UIStackView!
     
+    var defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,7 +33,7 @@ class ProfileVC: UIViewController {
 }
 
 
-private extension ProfileVC {
+extension ProfileVC {
     
     func setupProfileImage() {
         view.addSubview(profileImage)
@@ -84,7 +86,7 @@ private extension ProfileVC {
     
     @objc
     func singOutButtonTap() {
-        UserDefaults.standard.deleteUserId() // раскоментить на релизе
+        defaults.deleteUserId() // раскоментить на релизе
         AppDelegate.shared.rootViewController.switchToLoginScreenWithFlip()
     }
 }
