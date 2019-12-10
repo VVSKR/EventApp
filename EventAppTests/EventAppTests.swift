@@ -48,6 +48,7 @@ class EventAppTests: XCTestCase {
         XCTAssertEqual(mockUserDefaults.testResult, true, "testResult user default wasn't changed")
 
     }
+    
 
     func testExample() {
         // This is an example of a functional test case.

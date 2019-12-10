@@ -40,8 +40,6 @@ class AllEventsVC: UIViewController, SelectCategoryVCDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = currentCategory.nameCategory
-        print(UserDefaults.standard.returnUserId())
-        print("==== UserDefaults ====")
         view.backgroundColor = .white
         configureTableView()
         setupTabBar()

@@ -42,6 +42,7 @@
 		F1E1CF6723880CBD00A18845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1E1CF6523880CBD00A18845 /* LaunchScreen.storyboard */; };
 		F1E1CF6F23880CEE00A18845 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E1CF6E23880CEE00A18845 /* WelcomeVC.swift */; };
 		F1E1CF7123880CF800A18845 /* WelcomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E1CF7023880CF800A18845 /* WelcomeCell.swift */; };
+		F1E37245239F10C900B007E2 /* EventAppEncodingUrlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E37244239F10C900B007E2 /* EventAppEncodingUrlTests.swift */; };
 		F1ECBDEA238823F800BB89A9 /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ECBDE9238823F800BB89A9 /* PageModel.swift */; };
 		F1ECBDEC2388837C00BB89A9 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ECBDEB2388837C00BB89A9 /* UIColor.swift */; };
 		F1ECBDEE2388857D00BB89A9 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ECBDED2388857D00BB89A9 /* RootViewController.swift */; };
@@ -111,6 +112,7 @@
 		F1E1CF6823880CBD00A18845 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1E1CF6E23880CEE00A18845 /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
 		F1E1CF7023880CF800A18845 /* WelcomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeCell.swift; sourceTree = "<group>"; };
+		F1E37244239F10C900B007E2 /* EventAppEncodingUrlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAppEncodingUrlTests.swift; sourceTree = "<group>"; };
 		F1ECBDE9238823F800BB89A9 /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		F1ECBDEB2388837C00BB89A9 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		F1ECBDED2388857D00BB89A9 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				F11CE79E239EBFA300B35962 /* EventAppTests.swift */,
+				F1E37244239F10C900B007E2 /* EventAppEncodingUrlTests.swift */,
 				F11CE7A0239EBFA300B35962 /* Info.plist */,
 			);
 			path = EventAppTests;
@@ -519,6 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11CE79F239EBFA300B35962 /* EventAppTests.swift in Sources */,
+				F1E37245239F10C900B007E2 /* EventAppEncodingUrlTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

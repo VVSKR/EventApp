@@ -170,7 +170,6 @@ extension SearchVC: UISearchBarDelegate {
         guard let text = searchController.searchBar.text else { return }
         search(text: text)
         dismiss(animated: true, completion: nil)
-        print(text)
     }
     
     

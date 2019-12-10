@@ -26,8 +26,8 @@ final class MainTabBarController: UITabBarController {
         
         let favoriteEventsVC = FavoriteEventsVC()
         favoriteEventsVC.title = "Избранное"
-        favoriteEventsVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: ""), tag: 0)
-        favoriteEventsVC.tabBarItem.image = UIImage(named: "favorite")
+        favoriteEventsVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "favorite"), tag: 0)
+        
         
         let searchVC  = SearchVC(networkManager: networkManager)
         searchVC.title = "Поиск"
