@@ -15,7 +15,6 @@ class LoginVC: UIViewController {
     private lazy var imageView = UIImageView()
     private lazy var loginTF = UITextField.logIn(with: "Почта")
     private lazy var passwordTF = UITextField.logIn(with: "Пароль")
-    //    private let tap: UITapGestureRecognizer!
     
     private lazy var loginButton = UIButton(type: .system)
     private lazy var registrationButton = UIButton(type: .system)
@@ -36,15 +35,6 @@ class LoginVC: UIViewController {
         setupStackView()
         setupButton()
         setupConstraint()
-    }
-    
-    func setupTap() {
-        //     tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
-    }
-    
-    @objc
-    func tapAction(_ textField: UITextField) {
-        textField.resignFirstResponder()
     }
     
     
@@ -164,7 +154,7 @@ private extension LoginVC {
         ])
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
             imageView.heightAnchor.constraint(equalToConstant: 100),
             imageView.widthAnchor.constraint(equalToConstant: 100),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),

@@ -141,7 +141,7 @@ private extension RegistrationVC {
         NSLayoutConstraint.activate([
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
+            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -10),
             mainStackView.heightAnchor.constraint(equalToConstant: 180)
         ])
         
@@ -153,7 +153,7 @@ private extension RegistrationVC {
         ])
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 100),
             imageView.widthAnchor.constraint(equalToConstant: 100),

@@ -54,13 +54,15 @@ class WelcomeCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             headerLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -90),
             headerLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
-            headerLabel.widthAnchor.constraint(equalToConstant: 300)
+            headerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            headerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
         ])
         
         NSLayoutConstraint.activate([
             bodyLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 15),
             bodyLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
-            bodyLabel.widthAnchor.constraint(equalToConstant: 350)
+            bodyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            bodyLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
         ])
     }
 }

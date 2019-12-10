@@ -13,7 +13,7 @@ class PresentVC: UIViewController {
     let defaults = UserDefaults.standard
     
     let imageView = UIImageView()
-    let label = UILabel.setupLabel(with: .boldSystemFont(ofSize: 30), tintColor: .black, line: 1)
+    let label = UILabel.setupLabel(with: .boldSystemFont(ofSize: 28), tintColor: .black, line: 1)
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -24,16 +24,21 @@ class PresentVC: UIViewController {
     
     
     func animation() {
-        UIView.animate(withDuration: 2, delay: 1, options: [], animations: {
+        UIView.animate(withDuration: 1, delay: 0, options: [], animations: {
             self.imageView.alpha = 1
             self.label.alpha = 1
         }) { (_) in
-            if !self.defaults.returnNoFirstTime() {
-                AppDelegate.shared.rootViewController.showWelcomeVC()
-            } else if self.defaults.returnUserId() == "" {
-                AppDelegate.shared.rootViewController.switchToLoginScreen()
-            } else {
-                AppDelegate.shared.rootViewController.showMainScreenFadeTransition()
+            UIView.animate(withDuration: 1,delay: 0.5, animations: {
+                self.imageView.alpha = 0
+                self.label.alpha = 0
+            }) { (_) in
+                if !self.defaults.returnNoFirstTime() {
+                    AppDelegate.shared.rootViewController.showWelcomeVC()
+                } else if self.defaults.returnUserId() == "" {
+                    AppDelegate.shared.rootViewController.switchToLoginScreen()
+                } else {
+                    AppDelegate.shared.rootViewController.showMainScreenFadeTransition()
+                }
             }
         }
     }
@@ -66,7 +71,7 @@ class PresentVC: UIViewController {
         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-            label.widthAnchor.constraint(equalTo: imageView.widthAnchor),
+            label.widthAnchor.constraint(equalTo: view.widthAnchor),
             label.centerXAnchor.constraint(equalTo: imageView.centerXAnchor)
         ])
         
