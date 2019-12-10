@@ -43,7 +43,6 @@ class LoginVC: UIViewController {
     
     @objc
     func loginButtonPTap() {
-        //        AppDelegate.shared.rootViewController.showMainScreen()
         networkManager.postSingIn(email: loginTF.text!, password: passwordTF.text!) { result in
             switch result {
             case .success(let user):

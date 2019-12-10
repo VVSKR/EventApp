@@ -14,7 +14,7 @@ class EventAppEncodingUrlTests: XCTestCase {
     var route: Router<NetworkEnvironment>!
     
     override func setUp() {
-        route = Router<NetworkEnvironment>()
+        route = Router<NetworkEnvironment>(session: URLSession.shared)
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     

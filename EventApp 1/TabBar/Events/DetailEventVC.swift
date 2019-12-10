@@ -15,14 +15,25 @@ enum SaveHelper {
 }
 
 class DetailEventVC: UIViewController {
-    // MARK: - Constants
     
+    // MARK: - Constants
     struct Constants {
         static fileprivate let headerHeight: CGFloat = 210
     }
     
+    private var networkManager: NetworkManager
+    // MARK: - Init
+    init(networkManager: NetworkManager) {
+        self.networkManager = networkManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     // MARK: - Properties
-    private var networkManager = NetworkManager()
     
     var event: EventModel!
     private var isSaved: Bool!

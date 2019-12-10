@@ -9,8 +9,6 @@
 import UIKit
 
 final class MainTabBarController: UITabBarController {
-    
-    let session = URLSession()
 
     let networkManager = NetworkManager()
 
@@ -24,7 +22,7 @@ final class MainTabBarController: UITabBarController {
 //        allEventsVC,tabBarItem = UITabBarItem(
         allEventsVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "events"), tag: 0)
         
-        let favoriteEventsVC = FavoriteEventsVC()
+        let favoriteEventsVC = FavoriteEventsVC(networkManager: networkManager)
         favoriteEventsVC.title = "Избранное"
         favoriteEventsVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "favorite"), tag: 0)
         

@@ -18,10 +18,16 @@ protocol NetworkRouter: class {
 
 class Router<EndPoint: EndPointType>: NetworkRouter {
     
+    let session: URLSession
+    
+    init(session: URLSession) {
+        self.session = session
+    }
+    
     private var task: URLSessionTask?
     
     func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion) {
-        let session = URLSession.shared
+        
         do {
             let request = try self.buildRequest(from: route)
             

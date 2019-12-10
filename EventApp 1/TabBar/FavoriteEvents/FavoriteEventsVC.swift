@@ -17,7 +17,18 @@ class FavoriteEventsVC: UIViewController {
     private var stackView = UIStackView()
     
     var event: [EventModel] = []
-  
+    
+    var networkManager: NetworkManager
+    // MARK: - Init
+    init(networkManager: NetworkManager) {
+        self.networkManager = networkManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -123,7 +134,7 @@ extension FavoriteEventsVC: UITableViewDelegate, UITableViewDataSource {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let detailEvent = DetailEventVC()
+        let detailEvent = DetailEventVC(networkManager: networkManager)
         detailEvent.hidesBottomBarWhenPushed = true
         detailEvent.event = event[indexPath.row]
         navigationController?.pushViewController(detailEvent, animated: true)

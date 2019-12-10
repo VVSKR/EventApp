@@ -76,8 +76,8 @@ extension ProfileVC {
         ])
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
             stackView.heightAnchor.constraint(equalToConstant: 250),
             stackView.widthAnchor.constraint(equalToConstant: 200)
         ])

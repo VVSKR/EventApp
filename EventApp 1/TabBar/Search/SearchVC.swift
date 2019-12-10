@@ -34,9 +34,7 @@ class SearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-//        tableView.isHidden = true
-//        stackView.isHidden = false
-
+        
         setupSearchBar ()
         configureTableView()
         setupBackgroundElement()
@@ -71,7 +69,7 @@ private extension SearchVC {
         searchController.searchBar.placeholder = "Введите что-то"
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-    
+        
     }
     
     func emptyResult() {
@@ -149,12 +147,9 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.reuseId, for: indexPath) as! SearchCell
         let element = searchedElement[indexPath.row]
+        cell.isUserInteractionEnabled = false
         cell.set(event: element)
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

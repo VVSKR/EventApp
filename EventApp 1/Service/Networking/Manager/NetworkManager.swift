@@ -28,7 +28,7 @@ protocol NetworkManagerProtocol {
 
 struct NetworkManager: NetworkManagerProtocol {
     
-    private let router = Router<NetworkEnvironment>()
+    private let router = Router<NetworkEnvironment>(session: URLSession.shared)
     
     // MARK: - KudaGO API
     public func getEvents(categories: Categories, page: Int, completion: @escaping (Result<ResultEventsModel, Error>) -> ()) {
