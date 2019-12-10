@@ -8,16 +8,6 @@
 
 import Foundation
 
-//enum NetworkResponse:String {
-//    case success
-//    case authenticationError = "You need to be authenticated first."
-//    case badRequest = "Bad request"
-//    case outdated = "The url you requested is outdated."
-//    case failed = "Network request failed."
-//    case noData = "Response returned with no data to decode."
-//    case unableToDecode = "We could not decode the response."
-//}
-
 // MARK: - Protocol
 protocol NetworkManagerProtocol {
     func getEvents(categories: Categories, page: Int, completion: @escaping (Result<ResultEventsModel, Error>) -> ())
@@ -25,6 +15,8 @@ protocol NetworkManagerProtocol {
     func postSingUp(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ())
     
     func postSingIn(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ())
+    
+    func getSearch(search text: String,completion: @escaping (Result<SearchModel, Error>) -> ())
     
     func firebaseGetData(completion: @escaping (Result<[EventModel], Error>) -> ())
     

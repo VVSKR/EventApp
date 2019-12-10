@@ -60,4 +60,10 @@ class EventAppEncodingUrlTests: XCTestCase {
         let request = try! route.buildRequest(from: .fireBaseAuth(.signIn(email: "", password: "")))
         XCTAssertEqual(request.httpMethod!, method)
     }
+    
+    func testHttpMethodInRequestToFirebaseDB () {
+        let method = "GET"
+        let request = try! route.buildRequest(from: .firebaseDataBase(.getUserData))
+        XCTAssertEqual(request.httpMethod!, method)
+    }
 }

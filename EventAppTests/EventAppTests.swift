@@ -13,10 +13,14 @@ class MockUserDefaults: UserDefaults {
     var testResult = false
     
     override func set(_ value: Any?, forKey defaultName: String) {
-        if defaultName != "" {
+        if defaultName == "UserId" {
             testResult = true
         }
+        
+    
     }
+    
+   
     
     
 }
