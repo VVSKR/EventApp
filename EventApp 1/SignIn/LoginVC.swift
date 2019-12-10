@@ -114,7 +114,7 @@ private extension LoginVC {
     func setupImageVIew() {
         view.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.image = UIImage(named: "login")
     }
@@ -122,7 +122,7 @@ private extension LoginVC {
     func setupButton() {
         view.addSubview(loginButton)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        //                loginButton.isEnabled = false // раскоментить
+        loginButton.isEnabled = false
         loginButton.frame = .zero
         loginButton.layer.cornerRadius = 27
         loginButton.setTitle("Войти", for: .normal)
@@ -154,8 +154,8 @@ private extension LoginVC {
         ])
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
-            imageView.heightAnchor.constraint(equalToConstant: 100),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),
+            imageView.bottomAnchor.constraint(equalTo: mainStackView.topAnchor, constant: -50),
             imageView.widthAnchor.constraint(equalToConstant: 100),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
