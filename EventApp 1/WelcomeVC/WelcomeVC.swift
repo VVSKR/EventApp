@@ -11,7 +11,7 @@ import UIKit
 class WelcomeVC: UIViewController {
     
     private var collectionView: UICollectionView!
-    
+    private var tap: UITapGestureRecognizer!
     private var nextButton = UIButton(type: .system)
     private var skipButton = UIButton(type: .system)
     private var pageControl = UIPageControl()
@@ -21,7 +21,7 @@ class WelcomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+
         setupCollectionView()
         setupButton()
         setUpPageControll()
@@ -29,9 +29,11 @@ class WelcomeVC: UIViewController {
         setupLayoutConstraint()
     }
     
+    
+    //MARK: - Button Action
     @objc
     private func skipButtonTap() {
-        //        UserDefaults.standard.setNoFirstTime()  // раскоментить на релизе
+        UserDefaults.standard.setNoFirstTime()
         AppDelegate.shared.rootViewController.switchToLoginScreen()
     }
     
@@ -69,6 +71,8 @@ private extension WelcomeVC {
         collectionView.dataSource = self
         view.addSubview(collectionView)
     }
+    
+   
     
     // MARK: Setup Button
     

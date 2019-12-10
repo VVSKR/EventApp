@@ -43,6 +43,7 @@
 		F1E1CF6F23880CEE00A18845 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E1CF6E23880CEE00A18845 /* WelcomeVC.swift */; };
 		F1E1CF7123880CF800A18845 /* WelcomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E1CF7023880CF800A18845 /* WelcomeCell.swift */; };
 		F1E37245239F10C900B007E2 /* EventAppEncodingUrlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E37244239F10C900B007E2 /* EventAppEncodingUrlTests.swift */; };
+		F1E37247239FF69B00B007E2 /* PresentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E37246239FF69B00B007E2 /* PresentVC.swift */; };
 		F1ECBDEA238823F800BB89A9 /* PageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ECBDE9238823F800BB89A9 /* PageModel.swift */; };
 		F1ECBDEC2388837C00BB89A9 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ECBDEB2388837C00BB89A9 /* UIColor.swift */; };
 		F1ECBDEE2388857D00BB89A9 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ECBDED2388857D00BB89A9 /* RootViewController.swift */; };
@@ -113,6 +114,7 @@
 		F1E1CF6E23880CEE00A18845 /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
 		F1E1CF7023880CF800A18845 /* WelcomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeCell.swift; sourceTree = "<group>"; };
 		F1E37244239F10C900B007E2 /* EventAppEncodingUrlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAppEncodingUrlTests.swift; sourceTree = "<group>"; };
+		F1E37246239FF69B00B007E2 /* PresentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentVC.swift; sourceTree = "<group>"; };
 		F1ECBDE9238823F800BB89A9 /* PageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModel.swift; sourceTree = "<group>"; };
 		F1ECBDEB2388837C00BB89A9 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		F1ECBDED2388857D00BB89A9 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -334,8 +336,6 @@
 			isa = PBXGroup;
 			children = (
 				F1EFDABB2389F2B000C95690 /* RootVC */,
-				F1E1CF5923880CBC00A18845 /* AppDelegate.swift */,
-				F1ECBDF2238890C700BB89A9 /* UserDefaults.swift */,
 				F1ECBDEF2388858800BB89A9 /* WelcomeVC */,
 				F10C9117239D0D2500D3059A /* SignIn */,
 				F1EFDABA2389F2A000C95690 /* TabBar */,
@@ -354,6 +354,7 @@
 		F1ECBDEF2388858800BB89A9 /* WelcomeVC */ = {
 			isa = PBXGroup;
 			children = (
+				F1E37246239FF69B00B007E2 /* PresentVC.swift */,
 				F1E1CF6E23880CEE00A18845 /* WelcomeVC.swift */,
 				F1E1CF7023880CF800A18845 /* WelcomeCell.swift */,
 				F1ECBDE9238823F800BB89A9 /* PageModel.swift */,
@@ -376,6 +377,7 @@
 		F1EFDABB2389F2B000C95690 /* RootVC */ = {
 			isa = PBXGroup;
 			children = (
+				F1E1CF5923880CBC00A18845 /* AppDelegate.swift */,
 				F1ECBDED2388857D00BB89A9 /* RootViewController.swift */,
 			);
 			path = RootVC;
@@ -406,6 +408,7 @@
 			children = (
 				F13B63CF23958381002B7EE8 /* Networking */,
 				F10C911A239D278000D3059A /* ImageService */,
+				F1ECBDF2238890C700BB89A9 /* UserDefaults.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -576,6 +579,7 @@
 				F13B63DC23958D88002B7EE8 /* ParameterEncoding.swift in Sources */,
 				F1EFDAB323898D4B00C95690 /* AllEventsVC.swift in Sources */,
 				F137B527239A62930027F774 /* SnakeAnimation.swift in Sources */,
+				F1E37247239FF69B00B007E2 /* PresentVC.swift in Sources */,
 				F1ECBDEE2388857D00BB89A9 /* RootViewController.swift in Sources */,
 				F1E1CF6F23880CEE00A18845 /* WelcomeVC.swift in Sources */,
 				F13B63E22395915E002B7EE8 /* NetworkRouter.swift in Sources */,
@@ -776,7 +780,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "VVSKR.EventApp-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -794,7 +798,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "VVSKR.EventApp-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

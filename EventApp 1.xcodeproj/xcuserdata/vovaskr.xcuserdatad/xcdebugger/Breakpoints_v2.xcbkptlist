@@ -612,38 +612,6 @@
             endingLineNumber = "101"
             landmarkName = "postSingIn(email:password:completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6370BAE2-D0D0-4D07-9094-3652868AD34D - a2df4cf1f40e4bb3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "EventApp_1.NetworkManager.postSingIn(email: Swift.String, password: Swift.String, completion: (Swift.Result&lt;EventApp_1.UserModel, Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "EventApp 1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vovaskr/Desktop/EventApp/EventApp%201/Service/Networking/Manager/NetworkManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "89">
-               </Location>
-               <Location
-                  uuid = "6370BAE2-D0D0-4D07-9094-3652868AD34D - b93e5d4a6a663ef1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in EventApp_1.NetworkManager.postSingIn(email: Swift.String, password: Swift.String, completion: (Swift.Result&lt;EventApp_1.UserModel, Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "EventApp 1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vovaskr/Desktop/EventApp/EventApp%201/Service/Networking/Manager/NetworkManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "298">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -836,6 +804,22 @@
             endingLineNumber = "54"
             landmarkName = "task"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E3516841-0BC7-450B-A91B-83294385616A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EventApp 1/RootVC/RootViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "showPresentVC()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

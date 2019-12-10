@@ -151,6 +151,5 @@ struct NetworkManager: NetworkManagerProtocol {
         }
         
     }
-    // new func
 }
 

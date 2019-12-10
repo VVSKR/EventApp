@@ -15,6 +15,7 @@ class LoginVC: UIViewController {
     private lazy var imageView = UIImageView()
     private lazy var loginTF = UITextField.logIn(with: "Почта")
     private lazy var passwordTF = UITextField.logIn(with: "Пароль")
+    //    private let tap: UITapGestureRecognizer!
     
     private lazy var loginButton = UIButton(type: .system)
     private lazy var registrationButton = UIButton(type: .system)
@@ -37,6 +38,15 @@ class LoginVC: UIViewController {
         setupConstraint()
     }
     
+    func setupTap() {
+        //     tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+    }
+    
+    @objc
+    func tapAction(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+    
     
     
     
@@ -47,8 +57,8 @@ class LoginVC: UIViewController {
             switch result {
             case .success(let user):
                 DispatchQueue.main.async {
-                    guard let userId = user.localId else { return }
-                    UserDefaults.standard.setUserId(id: userId)
+                    guard let userId = user.localId, let userName = user.email else { return }
+                    UserDefaults.standard.setUserId(id: userId, userName: userName)
                     print(userId)
                     AppDelegate.shared.rootViewController.showMainScreen()
                 }
@@ -116,7 +126,7 @@ private extension LoginVC {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "three")
+        imageView.image = UIImage(named: "login")
     }
     
     func setupButton() {
@@ -134,7 +144,7 @@ private extension LoginVC {
         view.addSubview(registrationButton)
         registrationButton.translatesAutoresizingMaskIntoConstraints = false
         registrationButton.frame = .zero
-        registrationButton.setTitle("Еще не заренистрированы? Нажмите сюда", for: .normal)
+        registrationButton.setTitle("Еще не зарегистрированы? Нажмите сюда", for: .normal)
         registrationButton.titleLabel?.numberOfLines = 0
         registrationButton.titleLabel?.textAlignment = .center
         registrationButton.addTarget(self, action: #selector(registrationButtonTap), for: .touchUpInside)
@@ -149,15 +159,15 @@ private extension LoginVC {
         NSLayoutConstraint.activate([
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
+            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0),
             mainStackView.heightAnchor.constraint(equalToConstant: 120)
         ])
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
-            imageView.bottomAnchor.constraint(equalTo: mainStackView.topAnchor, constant: -50),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
+            imageView.heightAnchor.constraint(equalToConstant: 100),
+            imageView.widthAnchor.constraint(equalToConstant: 100),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
         ])
         
         NSLayoutConstraint.activate([

@@ -21,14 +21,12 @@ class ProfileVC: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
+        profileName.text = UserDefaults.standard.returmUserEmail()
         setupProfileImage()
         setupStackView()
         setupButton()
         
         setupLayuotConstraint()
-        
-        profileName.text = "profileName"
     }
 }
 
@@ -50,7 +48,6 @@ extension ProfileVC {
         stackView.axis = .vertical
         stackView.spacing = 30
         stackView.alignment = .center
-//        mainStackView.distribution = .fillEqually
         view.addSubview(stackView)
     }
     
@@ -86,7 +83,8 @@ extension ProfileVC {
     
     @objc
     func singOutButtonTap() {
-        defaults.deleteUserId() // раскоментить на релизе
+        UserSavedEvents.shared.savedEvents = []
+        defaults.deleteUserId() 
         AppDelegate.shared.rootViewController.switchToLoginScreenWithFlip()
     }
 }

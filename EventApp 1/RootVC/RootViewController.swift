@@ -13,11 +13,7 @@ class RootViewController: UIViewController {
     var current: UIViewController
     
     init(){
-        if UserDefaults.standard.returnNoFirstTime() {
-            current = LoginVC()
-        } else {
-            current = WelcomeVC()
-        }
+        current = PresentVC()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -37,19 +33,32 @@ class RootViewController: UIViewController {
     
     public func switchToLoginScreen() {
         let newVC = UINavigationController(rootViewController: LoginVC())
-
         animateFadeTransition(to: newVC)
     }
     
     public func switchToLoginScreenWithFlip() {
         let newVC = UINavigationController(rootViewController: LoginVC())
-
         animateDismissTransition(to: newVC)
+    }
+    
+    public func showMainScreenFadeTransition() {
+        let newVC = MainTabBarController()
+        animateFadeTransition(to: newVC)
     }
     
     public func showMainScreen() {
         let newVC = MainTabBarController()
         animateDismissTransition(to: newVC)
+    }
+    
+    public func showPresentVC() {
+        let newVC = PresentVC()
+        animateFadeTransition(to: newVC)
+    }
+    
+    public func showWelcomeVC () {
+        let newVC = WelcomeVC()
+        animateFadeTransition(to: newVC)
     }
     
     private func animateFadeTransition(to newVC: UIViewController, completion: (() -> Void)? = nil) {

@@ -18,14 +18,15 @@ class WelcomeCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
         
+        backgroundColor = .white
         
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.backgroundColor = .clear
         headerLabel.textColor = .black
         headerLabel.textAlignment = .center
         headerLabel.font = .boldSystemFont(ofSize: 22)
+        headerLabel.numberOfLines = 0
         addSubview(headerLabel)
         
         bodyLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -33,6 +34,7 @@ class WelcomeCell: UICollectionViewCell {
         bodyLabel.textColor = .darkGray
         bodyLabel.textAlignment = .center
         bodyLabel.font = .systemFont(ofSize: 18)
+        bodyLabel.numberOfLines = 0
         addSubview(bodyLabel)
         setupLayout()
     }
@@ -50,17 +52,15 @@ class WelcomeCell: UICollectionViewCell {
     private func setupLayout() {
         
         NSLayoutConstraint.activate([
-            headerLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -80),
+            headerLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -90),
             headerLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
-            headerLabel.heightAnchor.constraint(equalToConstant: 40),
-            headerLabel.widthAnchor.constraint(equalToConstant: 250)
+            headerLabel.widthAnchor.constraint(equalToConstant: 300)
         ])
         
         NSLayoutConstraint.activate([
-            bodyLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: -20),
+            bodyLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 15),
             bodyLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
-            bodyLabel.heightAnchor.constraint(equalToConstant: 100),
-            bodyLabel.widthAnchor.constraint(equalToConstant: 300)
+            bodyLabel.widthAnchor.constraint(equalToConstant: 350)
         ])
     }
 }

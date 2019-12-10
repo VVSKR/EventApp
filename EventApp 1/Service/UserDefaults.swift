@@ -12,6 +12,7 @@ extension UserDefaults {
     
     func setNoFirstTime(value: Bool = true) {
         set(value, forKey: "isFirstTime")
+        synchronize()
     }
     
     func returnNoFirstTime() -> Bool {
@@ -21,8 +22,9 @@ extension UserDefaults {
     
     // MARK: - UserID
     
-    func setUserId(id: String) {
+    func setUserId(id: String, userName: String) {
         set(id, forKey: "UserId")
+        set(userName, forKey: "UserName")
         synchronize()
     }
     
@@ -30,7 +32,11 @@ extension UserDefaults {
         return string(forKey: "UserId") ?? ""
     }
     
+    func returmUserEmail() -> String {
+        return string(forKey: "UserName") ?? "userName"
+    }
+    
     func deleteUserId() {
-        setUserId(id: "")
+        setUserId(id: "", userName: "")
     }
 }

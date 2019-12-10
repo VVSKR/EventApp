@@ -43,8 +43,8 @@ class RegistrationVC: UIViewController {
             switch result {
             case .success(let user):
                 DispatchQueue.main.async {
-                    guard let userId = user.localId else { return }
-                    UserDefaults.standard.setUserId(id: userId)
+                    guard let userId = user.localId, let userName = user.email else { return }
+                    UserDefaults.standard.setUserId(id: userId, userName: userName)
                     print(userId)
                     AppDelegate.shared.rootViewController.showMainScreen()
                 }
@@ -102,7 +102,7 @@ private extension RegistrationVC {
     
     func setupStackView() {
         setupTextFields()
-      
+        
         passwordTF.isSecureTextEntry = true
         repeatPasswordTF.isSecureTextEntry = true
         
@@ -119,8 +119,7 @@ private extension RegistrationVC {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "three")
-        imageView.backgroundColor = .green
+        imageView.image = UIImage(named: "adduser")
     }
     
     func setupButton() {
@@ -142,7 +141,7 @@ private extension RegistrationVC {
         NSLayoutConstraint.activate([
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
+            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
             mainStackView.heightAnchor.constraint(equalToConstant: 180)
         ])
         
@@ -154,10 +153,10 @@ private extension RegistrationVC {
         ])
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
-            imageView.bottomAnchor.constraint(equalTo: mainStackView.topAnchor, constant: -70),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
+            imageView.heightAnchor.constraint(equalToConstant: 100),
+            imageView.widthAnchor.constraint(equalToConstant: 100),
         ])
         
         
