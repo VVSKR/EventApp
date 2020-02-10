@@ -4,4 +4,4 @@
 admin@mail.ru
 123456
 
-! [] (Screen/V1.gif)
+! [] (V1.gif)
