@@ -105,7 +105,7 @@
 		F1C3CFC52397066E00012D62 /* LoadingAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationView.swift; sourceTree = "<group>"; };
 		F1C3CFC92397C89100012D62 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		F1C3CFCB239814C000012D62 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		F1E1CF5623880CBC00A18845 /* EventApp 1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EventApp 1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1E1CF5623880CBC00A18845 /* EventApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E1CF5923880CBC00A18845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1E1CF6123880CBC00A18845 /* EventApp_1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EventApp_1.xcdatamodel; sourceTree = "<group>"; };
 		F1E1CF6323880CBD00A18845 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -317,7 +317,7 @@
 		F1E1CF4D23880CBC00A18845 = {
 			isa = PBXGroup;
 			children = (
-				F1E1CF5823880CBC00A18845 /* EventApp 1 */,
+				F1E1CF5823880CBC00A18845 /* EventApp */,
 				F11CE79D239EBFA300B35962 /* EventAppTests */,
 				F1E1CF5723880CBC00A18845 /* Products */,
 			);
@@ -326,13 +326,13 @@
 		F1E1CF5723880CBC00A18845 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F1E1CF5623880CBC00A18845 /* EventApp 1.app */,
+				F1E1CF5623880CBC00A18845 /* EventApp.app */,
 				F11CE79C239EBFA300B35962 /* EventAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F1E1CF5823880CBC00A18845 /* EventApp 1 */ = {
+		F1E1CF5823880CBC00A18845 /* EventApp */ = {
 			isa = PBXGroup;
 			children = (
 				F1EFDABB2389F2B000C95690 /* RootVC */,
@@ -348,7 +348,7 @@
 				F1E1CF6823880CBD00A18845 /* Info.plist */,
 				F1E1CF6023880CBC00A18845 /* EventApp_1.xcdatamodeld */,
 			);
-			path = "EventApp 1";
+			path = EventApp;
 			sourceTree = "<group>";
 		};
 		F1ECBDEF2388858800BB89A9 /* WelcomeVC */ = {
@@ -445,9 +445,9 @@
 			productReference = F11CE79C239EBFA300B35962 /* EventAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		F1E1CF5523880CBC00A18845 /* EventApp 1 */ = {
+		F1E1CF5523880CBC00A18845 /* EventApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F1E1CF6B23880CBD00A18845 /* Build configuration list for PBXNativeTarget "EventApp 1" */;
+			buildConfigurationList = F1E1CF6B23880CBD00A18845 /* Build configuration list for PBXNativeTarget "EventApp" */;
 			buildPhases = (
 				F1E1CF5223880CBC00A18845 /* Sources */,
 				F1E1CF5323880CBC00A18845 /* Frameworks */,
@@ -457,9 +457,9 @@
 			);
 			dependencies = (
 			);
-			name = "EventApp 1";
+			name = EventApp;
 			productName = "EventApp 1";
-			productReference = F1E1CF5623880CBC00A18845 /* EventApp 1.app */;
+			productReference = F1E1CF5623880CBC00A18845 /* EventApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -481,7 +481,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F1E1CF5123880CBC00A18845 /* Build configuration list for PBXProject "EventApp 1" */;
+			buildConfigurationList = F1E1CF5123880CBC00A18845 /* Build configuration list for PBXProject "EventApp" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -494,7 +494,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F1E1CF5523880CBC00A18845 /* EventApp 1 */,
+				F1E1CF5523880CBC00A18845 /* EventApp */,
 				F11CE79B239EBFA300B35962 /* EventAppTests */,
 			);
 		};
@@ -591,7 +591,7 @@
 /* Begin PBXTargetDependency section */
 		F11CE7A2239EBFA300B35962 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F1E1CF5523880CBC00A18845 /* EventApp 1 */;
+			target = F1E1CF5523880CBC00A18845 /* EventApp */;
 			targetProxy = F11CE7A1239EBFA300B35962 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -625,7 +625,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EventApp 1.app/EventApp 1";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EventApp.app/EventApp";
 			};
 			name = Debug;
 		};
@@ -646,7 +646,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EventApp 1.app/EventApp 1";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EventApp.app/EventApp";
 			};
 			name = Release;
 		};
@@ -771,14 +771,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5685WBW9QW;
+				DEVELOPMENT_TEAM = KFXCJFP22T;
 				INFOPLIST_FILE = "EventApp 1/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "VVSKR.EventApp-1";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = VVSKR.EventApp;
+				PRODUCT_NAME = EventApp;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -789,14 +789,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5685WBW9QW;
+				DEVELOPMENT_TEAM = KFXCJFP22T;
 				INFOPLIST_FILE = "EventApp 1/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "VVSKR.EventApp-1";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = VVSKR.EventApp;
+				PRODUCT_NAME = EventApp;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -814,7 +814,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F1E1CF5123880CBC00A18845 /* Build configuration list for PBXProject "EventApp 1" */ = {
+		F1E1CF5123880CBC00A18845 /* Build configuration list for PBXProject "EventApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F1E1CF6923880CBD00A18845 /* Debug */,
@@ -823,7 +823,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F1E1CF6B23880CBD00A18845 /* Build configuration list for PBXNativeTarget "EventApp 1" */ = {
+		F1E1CF6B23880CBD00A18845 /* Build configuration list for PBXNativeTarget "EventApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F1E1CF6C23880CBD00A18845 /* Debug */,
