@@ -10,7 +10,7 @@ import UIKit
 
 class SearchVC: UIViewController {
     
-    let networkManager: NetworkManager
+    let networkManager: NetworkManagerProtocol
     
     private var searchController: UISearchController!
     private var tableView = UITableView()
@@ -21,7 +21,7 @@ class SearchVC: UIViewController {
     
     var searchedElement: [SearchResultModel] = []
     
-    init(networkManager: NetworkManager) {
+    init(networkManager: NetworkManagerProtocol) {
         self.networkManager = networkManager
         super.init(nibName: nil, bundle: nil)
     }

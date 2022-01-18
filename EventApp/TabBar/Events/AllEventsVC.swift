@@ -10,8 +10,11 @@ import UIKit
 
 class AllEventsVC: UIViewController, SelectCategoryVCDelegate {
     
+    let networkManager: NetworkManagerProtocol
+    let storageService: StorageServiceProtocol
+    
     let tableView = UITableView()
-    let networkManager: NetworkManager
+    
     var events: ResultEventsModel = ResultEventsModel()
     var selectCategoryVC = SelectCategoryVC()
     
@@ -21,8 +24,11 @@ class AllEventsVC: UIViewController, SelectCategoryVCDelegate {
     
     // MARK: Init
     
-    init(networkManager: NetworkManager) {
+    init(networkManager: NetworkManagerProtocol,
+         storageService: StorageServiceProtocol) {
+        
         self.networkManager = networkManager
+        self.storageService = storageService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -57,7 +63,7 @@ class AllEventsVC: UIViewController, SelectCategoryVCDelegate {
             case .success(let value):
                 DispatchQueue.main.async {
                     self.events = value
-                    print(self.events.results?.count as Any)
+                    
                     self.tableView.reloadData()
                 }
             case .failure(let error):
@@ -67,10 +73,11 @@ class AllEventsVC: UIViewController, SelectCategoryVCDelegate {
     }
     
     func firebaseGetDataRequest() {
-        networkManager.firebaseGetData() { (result) in
+        
+        networkManager.firebaseGetData() { [weak self] (result) in
             switch result {
-            case .success(let value):
-                UserSavedEvents.shared.savedEvents = value
+            case .success(let eventsListt):
+                self?.storageService.updateSavedEvents(newList: eventsListt)
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -162,7 +169,7 @@ extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         guard let event = events.results?[indexPath.row] else { return }
-        let detailEvent = DetailEventVC(networkManager: networkManager)
+        let detailEvent = DetailEventVC(networkManager: networkManager, storageService: storageService)
         
         detailEvent.hidesBottomBarWhenPushed = true
         detailEvent.event = event

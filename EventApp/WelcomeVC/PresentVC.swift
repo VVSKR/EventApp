@@ -14,37 +14,72 @@ class PresentVC: UIViewController {
     
     let imageView = UIImageView()
     let label = UILabel.setupLabel(with: .boldSystemFont(ofSize: 28), tintColor: .black, line: 1)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        setupImageView()
-        setupLabel()
+        
+        setupView()
+        
         animation()
     }
     
-    
-    func animation() {
-        UIView.animate(withDuration: 1, delay: 0, options: [], animations: {
-            self.imageView.alpha = 1
-            self.label.alpha = 1
-        }) { (_) in
-            UIView.animate(withDuration: 1,delay: 0.5, animations: {
-                self.imageView.alpha = 0
-                self.label.alpha = 0
-            }) { (_) in
-                if !self.defaults.returnNoFirstTime() {
-                    AppDelegate.shared.rootViewController.showWelcomeVC()
-                } else if self.defaults.returnUserId() == "" {
-                    AppDelegate.shared.rootViewController.switchToLoginScreen()
-                } else {
-                    AppDelegate.shared.rootViewController.showMainScreenFadeTransition()
-                }
-            }
-        }
+    private func setupView() {
+        
+        view.backgroundColor = .white
+        setupImageView()
+        setupLabel()
     }
     
     
-    func setupImageView() {
+    private func animation() {
+        
+        let fadeInAnimations: () -> Void = { [weak self] in
+            
+            self?.setAlphaView(alpha: 1)
+        }
+        
+        let fadeOutAnimations: () -> Void = { [weak self] in
+            
+            self?.setAlphaView(alpha: 0)
+        }
+        
+        UIView.animate(withDuration: 1, animations: fadeInAnimations) { _ in
+            
+            UIView.animate(withDuration: 1, delay: 0.5, animations: fadeOutAnimations) { [weak self] _ in
+                
+                self?.showNextViewController()
+            }
+        }
+        
+    }
+    
+    private func showNextViewController() {
+        
+        guard !defaults.isFirstTime() else {
+            
+            AppDelegate.shared?.rootViewController?.showWelcomeVC()
+            return
+        }
+        
+        if defaults.userId().isEmpty {
+            
+            AppDelegate.shared?.rootViewController?.switchToLoginScreen()
+            
+        } else {
+            
+             AppDelegate.shared?.rootViewController?.showMainScreenFadeTransition()
+        }
+
+    }
+    
+    private func setAlphaView(alpha: CGFloat) {
+        
+        imageView.alpha = alpha
+        label.alpha = alpha
+    }
+    
+    
+    private func setupImageView() {
         view.addSubview(imageView)
         imageView.alpha = 0
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +97,7 @@ class PresentVC: UIViewController {
         
     }
     
-    func setupLabel() {
+    private func setupLabel() {
         view.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.alpha = 0

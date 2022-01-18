@@ -9,6 +9,7 @@
 import Foundation
 
 struct UserModel: Codable {
+    
     var email: String?
     var refreshToken: String?
     var expiresIn: String?

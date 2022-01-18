@@ -46,7 +46,7 @@ class RegistrationVC: UIViewController {
                     guard let userId = user.localId, let userName = user.email else { return }
                     UserDefaults.standard.setUserId(id: userId, userName: userName)
                     print(userId)
-                    AppDelegate.shared.rootViewController.showMainScreen()
+                    AppDelegate.shared?.rootViewController?.showMainScreen()
                 }
             case .failure(let error):
                 DispatchQueue.main.async {

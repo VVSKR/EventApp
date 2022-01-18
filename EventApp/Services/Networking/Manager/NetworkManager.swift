@@ -8,8 +8,11 @@
 
 import Foundation
 
+typealias Void = ()
+
 // MARK: - Protocol
 protocol NetworkManagerProtocol {
+    
     func getEvents(categories: Categories, page: Int, completion: @escaping (Result<ResultEventsModel, Error>) -> ())
     
     func postSingUp(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ())
@@ -20,19 +23,20 @@ protocol NetworkManagerProtocol {
     
     func firebaseGetData(completion: @escaping (Result<[EventModel], Error>) -> ())
     
-    func firebasePutData(event: EventModel,currentDate: Int, completion: @escaping (Result<String, Error>) -> ())
+    func firebasePutData(event: EventModel, currentDate: Int, completion: @escaping (Result<Void, Error>) -> ())
     
-    func firebaseDeleteData(at index: Int, completion: @escaping (Result<String, Error>) -> ())
+    func firebaseDeleteData(at index: Int, completion: @escaping (Result<Void, Error>) -> ())
 }
 
 
 struct NetworkManager: NetworkManagerProtocol {
     
-    private let router = Router<NetworkEnvironment>(session: URLSession.shared)
+    private let apiClient = APIClient<NetworkEnvironment>(session: URLSession.shared)
     
     // MARK: - KudaGO API
     public func getEvents(categories: Categories, page: Int, completion: @escaping (Result<ResultEventsModel, Error>) -> ()) {
-        router.request(.kudaGoAPI(.events(categories: categories, page: page))) { data, response, error in
+        
+        apiClient.request(.kudaGoAPI(.events(categories: categories, page: page))) { data, response, error in
             guard error == nil else { completion(.failure(error!)); return }
             guard let responseData = data else {
                 completion(.failure(APIError.requestFailed ))
@@ -51,7 +55,7 @@ struct NetworkManager: NetworkManagerProtocol {
     }
     
     public func getSearch(search text: String,completion: @escaping (Result<SearchModel, Error>) -> ()) {
-        router.request(.kudaGoAPI(.search(text: text))) { (data, responce, error) in
+        apiClient.request(.kudaGoAPI(.search(text: text))) { (data, responce, error) in
             guard error == nil else { completion(.failure(error!)); return }
             guard let responseData = data else {
                 completion(.failure(APIError.requestFailed ))
@@ -71,7 +75,7 @@ struct NetworkManager: NetworkManagerProtocol {
     
     // MARK: - Firebase Auth
     public func postSingUp(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ()) {
-        router.request(.fireBaseAuth(.signUp(email: email, password: password))) { (data, responce, error) in
+        apiClient.request(.fireBaseAuth(.signUp(email: email, password: password))) { (data, responce, error) in
             
             guard error == nil, let responseData = data else { completion(.failure(APIError.noData)); return }
             guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else {
@@ -90,7 +94,7 @@ struct NetworkManager: NetworkManagerProtocol {
     }
     
     public func postSingIn(email: String, password: String, completion: @escaping (Result<UserModel, Error>) -> ()) {
-        router.request(.fireBaseAuth(.signIn(email: email, password: password))) { (data, responce, error) in
+        apiClient.request(.fireBaseAuth(.signIn(email: email, password: password))) { (data, responce, error) in
             
             guard error == nil, let responseData = data else { completion(.failure(APIError.noData)); return }
             guard let responce = responce as? HTTPURLResponse, responce.statusCode == 200 else {
@@ -111,7 +115,7 @@ struct NetworkManager: NetworkManagerProtocol {
     
     // MARK: - Firebase DB
     public func firebaseGetData(completion: @escaping (Result<[EventModel], Error>) -> ()) {
-        router.request(.firebaseDataBase(.getUserData)) { (data, responce, error) in
+        apiClient.request(.firebaseDataBase(.getUserData)) { (data, responce, error) in
             guard error == nil else { completion(.failure(APIError.noData)); return }
             guard let responseData = data else {
                 completion(.failure(APIError.requestFailed ))
@@ -131,25 +135,38 @@ struct NetworkManager: NetworkManagerProtocol {
     }
     
     
-    public func firebasePutData(event: EventModel,currentDate: Int, completion: @escaping (Result<String, Error>) -> ()) {
-        router.request(.firebaseDataBase(.putNewData(data: event, currentDate: currentDate))) { (data, responce, error) in
-            guard let data = data else { print("No data from FIREBASE"); return }
-            print(data)
-            completion(.success("Yess"))
+    public func firebasePutData(event: EventModel,currentDate: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+        apiClient.request(.firebaseDataBase(.putNewData(data: event, currentDate: currentDate))) { (data, responce, error) in
+            
+            let httpResponce = responce as? HTTPURLResponse
+            
+            if httpResponce?.statusCode == 200 {
+                
+                completion(.failure(APIError.requestFailed))
+                
+            } else {
+                
+                completion(.success(()))
+            }
             
         }
     }
     
     
-    public func firebaseDeleteData(at index: Int, completion: @escaping (Result<String, Error>) -> ())  {
-        router.request(.firebaseDataBase(.deleteData(index: index))) { (_, responce, _) in
-            let httpResponce = responce as! HTTPURLResponse
-            guard httpResponce.statusCode == 200 else {
-                completion(.failure(APIError.requestFailed)); return
+    public func firebaseDeleteData(at index: Int, completion: @escaping (Result<Void, Error>) -> ())  {
+        apiClient.request(.firebaseDataBase(.deleteData(index: index))) { (_, responce, _) in
+            
+            let httpResponce = responce as? HTTPURLResponse
+            
+            if httpResponce?.statusCode == 200 {
+                
+                completion(.failure(APIError.requestFailed))
+                
+            } else {
+                
+                completion(.success(()))
             }
-            completion(.success("Event removed"))
         }
         
     }
 }
-

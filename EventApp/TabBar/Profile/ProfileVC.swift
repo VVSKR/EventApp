@@ -10,6 +10,8 @@ import UIKit
 
 class ProfileVC: UIViewController {
     
+    private let storageService: StorageServiceProtocol
+    
     private lazy var profileImage = UIImageView()
     private lazy var profileName = UILabel.setupLabel(with: .systemFont(ofSize: 24), tintColor: .black, line: 2)
     private lazy var signOutButton = UIButton(type: .system)
@@ -17,11 +19,21 @@ class ProfileVC: UIViewController {
     
     var defaults = UserDefaults.standard
     
+    init(storageService: StorageServiceProtocol) {
+        
+        self.storageService = storageService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        profileName.text = UserDefaults.standard.returmUserEmail()
+        profileName.text = UserDefaults.standard.userEmail()
         setupProfileImage()
         setupStackView()
         setupButton()
@@ -83,8 +95,10 @@ extension ProfileVC {
     
     @objc
     func singOutButtonTap() {
-        UserSavedEvents.shared.savedEvents = []
-        defaults.deleteUserId() 
-        AppDelegate.shared.rootViewController.switchToLoginScreenWithFlip()
+        
+        storageService.updateSavedEvents(newList: [])
+        defaults.deleteUserId()
+        
+        AppDelegate.shared?.rootViewController?.switchToLoginScreenWithFlip()
     }
 }

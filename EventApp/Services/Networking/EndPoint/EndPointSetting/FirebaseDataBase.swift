@@ -8,7 +8,8 @@
 
 import Foundation
 
-public enum Request {
+enum Request {
+    
     case getUserData
     case putNewData(data: EventModel, currentDate: Int)
     case deleteData(index: Int)

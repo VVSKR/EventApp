@@ -25,13 +25,12 @@
 		F13B63DC23958D88002B7EE8 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63DB23958D88002B7EE8 /* ParameterEncoding.swift */; };
 		F13B63DE23958E43002B7EE8 /* URLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63DD23958E43002B7EE8 /* URLParameterEncoder.swift */; };
 		F13B63E02395905F002B7EE8 /* JSONParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63DF2395905F002B7EE8 /* JSONParameterEncoder.swift */; };
-		F13B63E22395915E002B7EE8 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63E12395915E002B7EE8 /* NetworkRouter.swift */; };
+		F13B63E22395915E002B7EE8 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63E12395915E002B7EE8 /* APIClient.swift */; };
 		F13B63E42395AE21002B7EE8 /* EventEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63E32395AE21002B7EE8 /* EventEndPoint.swift */; };
 		F13B63E62395AE85002B7EE8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63E52395AE85002B7EE8 /* NetworkManager.swift */; };
 		F13B63E82395B281002B7EE8 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13B63E72395B281002B7EE8 /* APIError.swift */; };
 		F158F583239DAC5800FFCDCB /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F158F582239DAC5800FFCDCB /* SearchModel.swift */; };
 		F19F59DC239A6A2D00A72AE8 /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F59DB239A6A2D00A72AE8 /* RegistrationVC.swift */; };
-		F19F59DE239B04AC00A72AE8 /* UserSavedEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F59DD239B04AC00A72AE8 /* UserSavedEvents.swift */; };
 		F19F59E0239B945000A72AE8 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F59DF239B945000A72AE8 /* Date.swift */; };
 		F1C3CFC62397066E00012D62 /* LoadingAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C3CFC52397066E00012D62 /* LoadingAnimationView.swift */; };
 		F1C3CFCA2397C89100012D62 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C3CFC92397C89100012D62 /* CustomTextField.swift */; };
@@ -61,6 +60,7 @@
 		F1F2A98F238EB1600006D948 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2A98E238EB1600006D948 /* ImageService.swift */; };
 		F1F2A995238EDB7F0006D948 /* DetailEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2A994238EDB7F0006D948 /* DetailEventVC.swift */; };
 		F1F2A997238EEF050006D948 /* ImageAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2A996238EEF050006D948 /* ImageAlpha.swift */; };
+		FFF48D6427958F150084EAF2 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF48D6327958F150084EAF2 /* StorageService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,13 +94,12 @@
 		F13B63DB23958D88002B7EE8 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
 		F13B63DD23958E43002B7EE8 /* URLParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameterEncoder.swift; sourceTree = "<group>"; };
 		F13B63DF2395905F002B7EE8 /* JSONParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParameterEncoder.swift; sourceTree = "<group>"; };
-		F13B63E12395915E002B7EE8 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
+		F13B63E12395915E002B7EE8 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		F13B63E32395AE21002B7EE8 /* EventEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEndPoint.swift; sourceTree = "<group>"; };
 		F13B63E52395AE85002B7EE8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F13B63E72395B281002B7EE8 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		F158F582239DAC5800FFCDCB /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		F19F59DB239A6A2D00A72AE8 /* RegistrationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationVC.swift; sourceTree = "<group>"; };
-		F19F59DD239B04AC00A72AE8 /* UserSavedEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSavedEvents.swift; sourceTree = "<group>"; };
 		F19F59DF239B945000A72AE8 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		F1C3CFC52397066E00012D62 /* LoadingAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationView.swift; sourceTree = "<group>"; };
 		F1C3CFC92397C89100012D62 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -132,6 +131,7 @@
 		F1F2A98E238EB1600006D948 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		F1F2A994238EDB7F0006D948 /* DetailEventVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEventVC.swift; sourceTree = "<group>"; };
 		F1F2A996238EEF050006D948 /* ImageAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAlpha.swift; sourceTree = "<group>"; };
+		FFF48D6327958F150084EAF2 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,12 +218,12 @@
 			path = EventAppTests;
 			sourceTree = "<group>";
 		};
-		F130CF76239A57C000D647E4 /* Router */ = {
+		F130CF76239A57C000D647E4 /* APIClient */ = {
 			isa = PBXGroup;
 			children = (
-				F13B63E12395915E002B7EE8 /* NetworkRouter.swift */,
+				F13B63E12395915E002B7EE8 /* APIClient.swift */,
 			);
-			path = Router;
+			path = APIClient;
 			sourceTree = "<group>";
 		};
 		F137B528239A62980027F774 /* Animation */ = {
@@ -266,7 +266,7 @@
 		F13B63D3239583B9002B7EE8 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				F130CF76239A57C000D647E4 /* Router */,
+				F130CF76239A57C000D647E4 /* APIClient */,
 				F13B63D52395891E002B7EE8 /* EndPointType.swift */,
 				F13B63D723958A82002B7EE8 /* HTTPMethod.swift */,
 				F13B63D923958B01002B7EE8 /* HTTPTask.swift */,
@@ -339,7 +339,7 @@
 				F1ECBDEF2388858800BB89A9 /* WelcomeVC */,
 				F10C9117239D0D2500D3059A /* SignIn */,
 				F1EFDABA2389F2A000C95690 /* TabBar */,
-				F1F2A990238ED7970006D948 /* Service */,
+				F1F2A990238ED7970006D948 /* Services */,
 				F1F2A98B238D181B0006D948 /* Model */,
 				F137B528239A62980027F774 /* Animation */,
 				F1EFDAC4238B25DB00C95690 /* Extension */,
@@ -398,19 +398,19 @@
 				F10C914A239D9ABF00D3059A /* EventsModel */,
 				F158F584239DAD5A00FFCDCB /* SearchModel */,
 				F1C3CFCB239814C000012D62 /* UserModel.swift */,
-				F19F59DD239B04AC00A72AE8 /* UserSavedEvents.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		F1F2A990238ED7970006D948 /* Service */ = {
+		F1F2A990238ED7970006D948 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				FFF48D6227958EFC0084EAF2 /* Storage */,
 				F13B63CF23958381002B7EE8 /* Networking */,
 				F10C911A239D278000D3059A /* ImageService */,
 				F1ECBDF2238890C700BB89A9 /* UserDefaults.swift */,
 			);
-			path = Service;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		F1F2A993238EDB460006D948 /* Events */ = {
@@ -422,6 +422,14 @@
 				F10C9118239D1AD700D3059A /* SelectCategoryVC.swift */,
 			);
 			path = Events;
+			sourceTree = "<group>";
+		};
+		FFF48D6227958EFC0084EAF2 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				FFF48D6327958F150084EAF2 /* StorageService.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -552,7 +560,6 @@
 				F1F2A98F238EB1600006D948 /* ImageService.swift in Sources */,
 				F10C9145239D9A4700D3059A /* DateModel.swift in Sources */,
 				F1C3CFCA2397C89100012D62 /* CustomTextField.swift in Sources */,
-				F19F59DE239B04AC00A72AE8 /* UserSavedEvents.swift in Sources */,
 				F19F59DC239A6A2D00A72AE8 /* RegistrationVC.swift in Sources */,
 				F1F2A98D238D23270006D948 /* LoadImage.swift in Sources */,
 				F1ECBDEA238823F800BB89A9 /* PageModel.swift in Sources */,
@@ -579,10 +586,11 @@
 				F13B63DC23958D88002B7EE8 /* ParameterEncoding.swift in Sources */,
 				F1EFDAB323898D4B00C95690 /* AllEventsVC.swift in Sources */,
 				F137B527239A62930027F774 /* SnakeAnimation.swift in Sources */,
+				FFF48D6427958F150084EAF2 /* StorageService.swift in Sources */,
 				F1E37247239FF69B00B007E2 /* PresentVC.swift in Sources */,
 				F1ECBDEE2388857D00BB89A9 /* RootViewController.swift in Sources */,
 				F1E1CF6F23880CEE00A18845 /* WelcomeVC.swift in Sources */,
-				F13B63E22395915E002B7EE8 /* NetworkRouter.swift in Sources */,
+				F13B63E22395915E002B7EE8 /* APIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,7 +780,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KFXCJFP22T;
-				INFOPLIST_FILE = "EventApp 1/Info.plist";
+				INFOPLIST_FILE = EventApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -790,7 +798,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KFXCJFP22T;
-				INFOPLIST_FILE = "EventApp 1/Info.plist";
+				INFOPLIST_FILE = EventApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

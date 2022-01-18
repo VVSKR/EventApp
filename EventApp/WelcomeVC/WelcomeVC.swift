@@ -33,8 +33,9 @@ class WelcomeVC: UIViewController {
     //MARK: - Button Action
     @objc
     private func skipButtonTap() {
-        UserDefaults.standard.setNoFirstTime()
-        AppDelegate.shared.rootViewController.switchToLoginScreen()
+        
+        UserDefaults.standard.setIsFirstTime(value: false)
+        AppDelegate.shared?.rootViewController?.switchToLoginScreen()
     }
     
     @objc

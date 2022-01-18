@@ -10,33 +10,39 @@ import Foundation
 
 extension UserDefaults {
     
-    func setNoFirstTime(value: Bool = true) {
+    func setIsFirstTime(value: Bool) {
+        
         set(value, forKey: "isFirstTime")
         synchronize()
     }
     
-    func returnNoFirstTime() -> Bool {
-        return bool(forKey: "isFirstTime")
+    func isFirstTime() -> Bool {
+        
+        bool(forKey: "isFirstTime")
     }
     
     
     // MARK: - UserID
     
     func setUserId(id: String, userName: String) {
+        
         set(id, forKey: "UserId")
         set(userName, forKey: "UserName")
         synchronize()
     }
     
-    func returnUserId() -> String {
-        return string(forKey: "UserId") ?? ""
+    func userId() -> String {
+        
+        string(forKey: "UserId") ?? ""
     }
     
-    func returmUserEmail() -> String {
-        return string(forKey: "UserName") ?? "userName"
+    func userEmail() -> String {
+        
+        string(forKey: "UserName") ?? "userName"
     }
     
     func deleteUserId() {
+        
         setUserId(id: "", userName: "")
     }
 }

@@ -10,18 +10,27 @@ import UIKit
 
 class FavoriteEventsVC: UIViewController {
     
+    var networkManager: NetworkManagerProtocol
+    var storageService: StorageServiceProtocol
+    
     private var tableView = UITableView()
     
     private var labelWhenEventIsEmpty = UILabel.setupLabel(with: .boldSystemFont(ofSize: 18), tintColor: .black, line: 2)
     private var imageWhenEventIsEmpty = UIImageView()
     private var stackView = UIStackView()
     
-    var event: [EventModel] = []
+    var eventsList: [EventModel] {
+        
+        storageService.getSavedEvents()
+    }
     
-    var networkManager: NetworkManager
+    
     // MARK: - Init
-    init(networkManager: NetworkManager) {
+    init(networkManager: NetworkManagerProtocol,
+         storageService: StorageServiceProtocol) {
+        
         self.networkManager = networkManager
+        self.storageService = storageService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -42,13 +51,13 @@ class FavoriteEventsVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        event = UserSavedEvents.shared.savedEvents
-        hideTableView()
         
+        hideTableViewIfNeeded()
     }
     
-    private func hideTableView() {
-        if event.isEmpty {
+    private func hideTableViewIfNeeded() {
+        
+        if eventsList.isEmpty {
             tableView.isHidden = true
             stackView.isHidden = false
         } else {
@@ -120,12 +129,17 @@ private extension FavoriteEventsVC {
 extension FavoriteEventsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return event.count
+        return eventsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteEventsCell.reuseId, for: indexPath) as! FavoriteEventsCell
-        let event = self.event[indexPath.row]
+        
+        let identifier = FavoriteEventsCell.reuseId
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? FavoriteEventsCell else {
+            return UITableViewCell()
+        }
+        
+        let event = eventsList[indexPath.row]
         cell.set(event: event)
         return cell
     }
@@ -134,9 +148,9 @@ extension FavoriteEventsVC: UITableViewDelegate, UITableViewDataSource {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let detailEvent = DetailEventVC(networkManager: networkManager)
+        let detailEvent = DetailEventVC(networkManager: networkManager, storageService: storageService)
         detailEvent.hidesBottomBarWhenPushed = true
-        detailEvent.event = event[indexPath.row]
+        detailEvent.event = eventsList[indexPath.row]
         navigationController?.pushViewController(detailEvent, animated: true)
     }
 }

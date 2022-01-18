@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import EventApp_1
+@testable import EventApp
 
 class MockUserDefaults: UserDefaults {
     var testResult = false

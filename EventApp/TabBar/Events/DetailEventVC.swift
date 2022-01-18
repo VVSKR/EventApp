@@ -21,22 +21,18 @@ class DetailEventVC: UIViewController {
         static fileprivate let headerHeight: CGFloat = 210
     }
     
-    private var networkManager: NetworkManager
-    // MARK: - Init
-    init(networkManager: NetworkManager) {
-        self.networkManager = networkManager
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    private var networkManager: NetworkManagerProtocol
+    private var storageService: StorageServiceProtocol
     
     // MARK: - Properties
     
-    var event: EventModel!
-    private var isSaved: Bool!
+    var event: EventModel?
+    
+    private var isEventSaved: Bool {
+        
+        storageService.isEventSaved(event: event)
+    }
+    
     private var saveHelper: SaveHelper = .noAction
     private var index: Int?
     
@@ -55,6 +51,17 @@ class DetailEventVC: UIViewController {
     
     private var mainStackView: UIStackView!
     
+    init(networkManager: NetworkManagerProtocol,
+         storageService: StorageServiceProtocol) {
+        
+        self.networkManager = networkManager
+        self.storageService = storageService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     // MARK: - Life cycle
@@ -63,7 +70,6 @@ class DetailEventVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        isSavedEvent()
         setupView()
         
         setupConstraints()
@@ -83,15 +89,6 @@ class DetailEventVC: UIViewController {
         navBarDefaultSetting()
         saveOrDeleteInFavoriteEvents()
     }
-    
-    func isSavedEvent() {
-        guard let event = event else { return }
-        guard let i = UserSavedEvents.shared.savedEvents.firstIndex(where: { $0.id == event.id }) else { isSaved = false; return }
-        index = i
-        self.event = UserSavedEvents.shared.savedEvents[i]
-        isSaved = true
-    }
-    
     
     // MARK: - Set Data
     func set(value: EventModel) {
@@ -114,53 +111,116 @@ class DetailEventVC: UIViewController {
     // MARK: - Right Button Pressed
     @objc
     func rightButtonPressed() {
-        let nameImage = isSaved ? "heart" : "heartRed"
-        saveHelper = isSaved ? .delete : .save
-        navigationItem.rightBarButtonItem?.image = UIImage(named: nameImage)?.withRenderingMode(.alwaysOriginal)
-        isSaved = !isSaved
+        
+        if isEventSaved {
+            
+            deleteEventFromStorage()
+            
+        } else {
+            
+            saveEvent()
+        }
     }
     
     
     // MARK: - Save, Detele event
     private func saveOrDeleteInFavoriteEvents() {
+        
         switch saveHelper {
-        case .noAction: break
+            
+        case .noAction:
+            break
+            
         case .save:
-            guard event.date == nil else { return }
+            
             saveEvent()
+            
         case .delete:
-            guard let date = event.date else { return }
-            deleteEvent(at: date)
+            
+            deleteEventFromStorage()
         }
     }
     
     private func saveEvent() {
-        let date = Int(Date().string())!
-        event.date = date
-        UserSavedEvents.shared.savedEvents.append(event)
-        networkManager.firebasePutData(event: event,currentDate: date) { (_) in }
         
+        guard var event = event,
+            let date = Int(Date().string()) else {
+            return
+        }
+        
+        event.date = date
+        
+        addActivityIndecatorInBarItem()
+        
+        networkManager.firebasePutData(event: event, currentDate: date) { [weak self] result in
+            
+            switch result {
+                
+            case .success:
+                
+                self?.storageService.append(event: event)
+                
+            case .failure:
+
+                break // Надо показыать какую-то ошибку
+            }
+            
+            DispatchQueue.main.async { [weak self] in
+                
+                self?.addImageInBarItem()
+            }
+        }
     }
     
-    private func deleteEvent(at index: Int) {
-        networkManager.firebaseDeleteData(at: index) { (_) in }
-        UserSavedEvents.shared.savedEvents.remove(at: self.index!)
+    private func deleteEventFromStorage() {
+        
+        guard let index = event?.date else {
+            return
+        }
+        
+        addActivityIndecatorInBarItem()
+        
+        networkManager.firebaseDeleteData(at: index) { [weak self] result in
+            
+            switch result {
+                
+            case .success:
+                
+                self?.storageService.remove(event: self?.event)
+                
+            case .failure:
+
+                break // Надо показыать какую-то ошибку
+            }
+            
+            DispatchQueue.main.async { [weak self] in
+                
+                self?.addImageInBarItem()
+            }
+            
+        }
     }
-    
     
 }
-
-
 
 // MARK: - Setup UI
 
 private extension DetailEventVC {
     
-    func addBarItem() {
-        let nameImage = isSaved ? "heartRed" : "heart"
+    private func addImageInBarItem() {
+        let nameImage = isEventSaved ? "heartRed" : "heart"
         let image = UIImage(named: nameImage)?.withRenderingMode(.alwaysOriginal)
         let rightButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: #selector(rightButtonPressed))
-        navigationItem.rightBarButtonItem = rightButtonItem
+        
+        navigationItem.setRightBarButton(rightButtonItem, animated: true)
+    }
+    
+    private func addActivityIndecatorInBarItem() {
+        
+        let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        let barButton = UIBarButtonItem(customView: activityIndicator)
+        navigationItem.setRightBarButton(barButton, animated: true)
+        activityIndicator.startAnimating()
     }
     
     // MARK: - Nav Bar Setting
@@ -190,7 +250,7 @@ private extension DetailEventVC {
         createHeaderImageView()
         createLabels()
         addStackView()
-        addBarItem()
+        addImageInBarItem()
         
         
         view.addSubview(scrollView)

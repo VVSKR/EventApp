@@ -9,14 +9,16 @@
 import Foundation
 
 // MARK: - Welcome
-public struct ResultEventsModel: Codable {
+struct ResultEventsModel: Codable {
     var count: Int?
     var next: String?
     var results: [EventModel]?
 }
 
 // MARK: - Result
-public struct EventModel: Codable {
+
+struct EventModel: Codable {
+    
     var id: Int?
     var title: String
     var date: Int?

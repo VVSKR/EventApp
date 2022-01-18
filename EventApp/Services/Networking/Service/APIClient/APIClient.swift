@@ -1,5 +1,5 @@
 //
-//  NetworkRouter.swift
+//  APIClient.swift
 //  EventApp 1
 //
 //  Created by Vova SKR on 02/12/2019.
@@ -8,15 +8,17 @@
 
 import Foundation
 
-public typealias NetworkRouterCompletion = (_ data: Data?,_ response: URLResponse?,_ error: Error?) -> ()
+typealias APIClientCompletion = (_ data: Data?,_ response: URLResponse?,_ error: Error?) -> ()
 
-protocol NetworkRouter: class {
+protocol APIClientProtocol: AnyObject {
+    
     associatedtype EndPoint: EndPointType
-    func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion)
+    
+    func request(_ route: EndPoint, completion: @escaping APIClientCompletion)
     func cancel()
 }
 
-class Router<EndPoint: EndPointType>: NetworkRouter {
+final class APIClient<EndPoint: EndPointType>: APIClientProtocol {
     
     let session: URLSession
     
@@ -26,7 +28,7 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
     
     private var task: URLSessionTask?
     
-    func request(_ route: EndPoint, completion: @escaping NetworkRouterCompletion) {
+    func request(_ route: EndPoint, completion: @escaping APIClientCompletion) {
         
         do {
             let request = try self.buildRequest(from: route)
@@ -44,7 +46,7 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
         self.task?.cancel()
     }
     
-     func buildRequest(from route: EndPoint) throws -> URLRequest {
+    func buildRequest(from route: EndPoint) throws -> URLRequest {
         
         var request = URLRequest(url: route.baseURL.appendingPathComponent(route.path),
                                  cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
@@ -75,7 +77,7 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
         } catch { throw error }
     }
     
-    fileprivate func configureParameters(bodyParameters: Parameters?, bodyEncoding: ParameterEncoding, urlParameters: Parameters?, request: inout URLRequest) throws {
+    private func configureParameters(bodyParameters: Parameters?, bodyEncoding: ParameterEncoding, urlParameters: Parameters?, request: inout URLRequest) throws {
         do {
             
             try bodyEncoding.encode(urlRequest: &request, bodyParameters: bodyParameters, urlParameters: urlParameters)
@@ -84,7 +86,7 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
         } catch { throw error }
     }
     
-    fileprivate func addAdditionalHeaders(_ additionalHeaders: HTTPHeaders?, request: inout URLRequest) {
+    private func addAdditionalHeaders(_ additionalHeaders: HTTPHeaders?, request: inout URLRequest) {
         guard let headers = additionalHeaders else { return }
         
         for (key, value) in headers {

@@ -14,6 +14,9 @@ struct WelcomePageModel {
     let bodyText: String
     
     static func all() -> [WelcomePageModel] {
-        return [WelcomePageModel(headerText:"Добро пожаловать!", bodyText: "Это приложение по поиску событий в Москве"), WelcomePageModel(headerText: "Все в одном месте", bodyText: "Все самые яркие, интересные и впечатляющие мероприятия, собранны в одном месте."), WelcomePageModel(headerText: "Сохраняйте в избранное", bodyText: "Сохраняйте понравившиеся событияn себе в закладки, чтобы не потерять их")]
+        
+        return [WelcomePageModel(headerText:"Добро пожаловать!", bodyText: "Это приложение по поиску событий в Москве"),
+                WelcomePageModel(headerText: "Все в одном месте", bodyText: "Все самые яркие, интересные и впечатляющие мероприятия, собранны в одном месте."),
+                WelcomePageModel(headerText: "Сохраняйте в избранное", bodyText: "Сохраняйте понравившиеся событияn себе в закладки, чтобы не потерять их")]
     }
 }

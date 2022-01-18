@@ -88,7 +88,7 @@ extension NetworkEnvironment: EndPointType {
         switch self {
         case .kudaGoAPI: return "https://kudago.com/public-api/v1.4/"
         case .fireBaseAuth: return "https://identitytoolkit.googleapis.com/v1/"
-        case .firebaseDataBase: return "https://eventsbd-7d841.firebaseio.com/\(UserDefaults.standard.returnUserId())/"
+        case .firebaseDataBase: return "https://eventsbd-7d841.firebaseio.com/\(UserDefaults.standard.userId())/"
         }
     }
     

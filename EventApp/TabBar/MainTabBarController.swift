@@ -10,7 +10,8 @@ import UIKit
 
 final class MainTabBarController: UITabBarController {
 
-    let networkManager = NetworkManager()
+    let networkManager: NetworkManagerProtocol = NetworkManager()
+    let storageService: StorageServiceProtocol = StorageService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,11 +19,10 @@ final class MainTabBarController: UITabBarController {
         tabBar.tintColor = .black
         tabBar.barTintColor = .white
         
-        let allEventsVC = AllEventsVC(networkManager: networkManager)
-//        allEventsVC,tabBarItem = UITabBarItem(
+        let allEventsVC = AllEventsVC(networkManager: networkManager, storageService: storageService)
         allEventsVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "events"), tag: 0)
         
-        let favoriteEventsVC = FavoriteEventsVC(networkManager: networkManager)
+        let favoriteEventsVC = FavoriteEventsVC(networkManager: networkManager, storageService: storageService)
         favoriteEventsVC.title = "Избранное"
         favoriteEventsVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "favorite"), tag: 0)
         
@@ -31,7 +31,7 @@ final class MainTabBarController: UITabBarController {
         searchVC.title = "Поиск"
         searchVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "search"), tag: 0)
         
-        let profileVC = ProfileVC()
+        let profileVC = ProfileVC(storageService: storageService)
         profileVC.title = "Профиль"
         profileVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "profile"), tag: 0)
       
