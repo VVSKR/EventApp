@@ -26,7 +26,7 @@ class DetailEventVC: UIViewController {
     
     // MARK: - Properties
     
-    var event: EventModel?
+    private var event: EventModel
     
     private var isEventSaved: Bool {
         
@@ -51,9 +51,11 @@ class DetailEventVC: UIViewController {
     
     private var mainStackView: UIStackView!
     
-    init(networkManager: NetworkManagerProtocol,
+    init(event: EventModel,
+         networkManager: NetworkManagerProtocol,
          storageService: StorageServiceProtocol) {
         
+        self.event = event
         self.networkManager = networkManager
         self.storageService = storageService
         super.init(nibName: nil, bundle: nil)
@@ -73,7 +75,6 @@ class DetailEventVC: UIViewController {
         setupView()
         
         setupConstraints()
-        guard let event = event else { return }
         
         set(value: event)
     }
@@ -92,13 +93,15 @@ class DetailEventVC: UIViewController {
     
     // MARK: - Set Data
     func set(value: EventModel) {
-        placeHolderImageView.startAnimating()
-        guard let url = URL(string: value.images[0].image) else { return }
-        title = value.title
-        headerImageView.loadImage(url: url, alpha: 1) { [weak self] in
-            self?.placeHolderImageView.stopAnimating()
-            self?.placeHolderImageView.isHidden = true
+        
+        guard let url = URL(string: value.images[0].image) else {
+            return
         }
+        
+        laodImage(url: url)
+        
+        title = value.title
+        
         headerLabel.text = value.title
         bodyLabel.text = value.bodyText
         dateLabel.text = "Событие состоится - \(String(describing: value.dates[0].startDate ?? "Нет данных")) в \(String(describing: value.dates[0].startTime ?? "Нет данных"))"
@@ -106,6 +109,17 @@ class DetailEventVC: UIViewController {
         guard let place = value.place else { return }
         addressLabel.text = "Адрес - \(String(describing: place.address))"
         
+    }
+    
+    private func laodImage(url: URL) {
+        
+        placeHolderImageView.startAnimating()
+        
+        headerImageView.loadImage(url: url, alpha: 1) { [weak self] in
+            
+            self?.placeHolderImageView.stopAnimating()
+            self?.placeHolderImageView.isHidden = true
+        }
     }
     
     // MARK: - Right Button Pressed
@@ -143,8 +157,7 @@ class DetailEventVC: UIViewController {
     
     private func saveEvent() {
         
-        guard var event = event,
-            let date = Int(Date().string()) else {
+        guard let date = Int(Date().string()) else {
             return
         }
         
@@ -158,7 +171,7 @@ class DetailEventVC: UIViewController {
                 
             case .success:
                 
-                self?.storageService.append(event: event)
+                self?.storageService.append(event: self?.event)
                 
             case .failure:
 
@@ -174,7 +187,7 @@ class DetailEventVC: UIViewController {
     
     private func deleteEventFromStorage() {
         
-        guard let index = event?.date else {
+        guard let index = event.date else {
             return
         }
         
@@ -218,6 +231,7 @@ private extension DetailEventVC {
     private func addActivityIndecatorInBarItem() {
         
         let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        activityIndicator.style = .white
         let barButton = UIBarButtonItem(customView: activityIndicator)
         navigationItem.setRightBarButton(barButton, animated: true)
         activityIndicator.startAnimating()
@@ -274,7 +288,7 @@ private extension DetailEventVC {
     func createHeaderContainerView() {
         headerContainerView = UIView()
         headerContainerView.clipsToBounds = true
-        headerContainerView.backgroundColor = .green
+        headerContainerView.backgroundColor = .gray
         headerContainerView.translatesAutoresizingMaskIntoConstraints = false
     }
     

@@ -169,10 +169,10 @@ extension AllEventsVC: UITableViewDelegate , UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         guard let event = events.results?[indexPath.row] else { return }
-        let detailEvent = DetailEventVC(networkManager: networkManager, storageService: storageService)
+        
+        let detailEvent = DetailEventVC(event: event, networkManager: networkManager, storageService: storageService)
         
         detailEvent.hidesBottomBarWhenPushed = true
-        detailEvent.event = event
         navigationController?.pushViewController(detailEvent, animated: true)
     }
 }

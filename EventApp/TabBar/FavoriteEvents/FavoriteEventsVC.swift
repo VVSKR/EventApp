@@ -148,9 +148,12 @@ extension FavoriteEventsVC: UITableViewDelegate, UITableViewDataSource {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let detailEvent = DetailEventVC(networkManager: networkManager, storageService: storageService)
+        let detailEvent = DetailEventVC(event: eventsList[indexPath.row],
+                                        networkManager: networkManager,
+                                        storageService: storageService)
+        
         detailEvent.hidesBottomBarWhenPushed = true
-        detailEvent.event = eventsList[indexPath.row]
+        
         navigationController?.pushViewController(detailEvent, animated: true)
     }
 }

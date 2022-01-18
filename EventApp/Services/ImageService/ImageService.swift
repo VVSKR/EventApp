@@ -15,7 +15,11 @@ class ImageService {
     static func downloadImage(withURL url: URL, comlection: @escaping(Result<UIImage, Error>) -> ()) {
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             
-            guard let data = data, let downloadedImage = UIImage(data: data) else { return }
+            guard let data = data, let downloadedImage = UIImage(data: data) else {
+                
+                comlection(.failure(APIError.noData))
+                return
+            }
             
             cashe.setObject(downloadedImage, forKey: url.absoluteString as NSString)
             
